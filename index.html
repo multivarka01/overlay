@@ -4,11 +4,9 @@
 <meta charset="utf-8">
 <title>Студия оверлея</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Bangers&family=Pacifico&family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&family=Bangers&family=Pacifico&family=Press+Start+2P&display=swap">
 <style>
-:root{--bg:#eceaf4;--panel:#fff;--hi:#f4f2fa;--line:#d9d6e8;--text:#1d1b2b;--mute:#6f6b86;--acc:#0b8f6b;--accT:#fff;--dot:#c9c5de;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f0e16;--panel:#191825;--hi:#232136;--line:#2d2a42;--text:#ece9f7;--mute:#9894b2;--acc:#7cf0c4;--accT:#0b0b12;--dot:#25223a}}
-:root[data-theme="dark"]{--bg:#0f0e16;--panel:#191825;--hi:#232136;--line:#2d2a42;--text:#ece9f7;--mute:#9894b2;--acc:#7cf0c4;--accT:#0b0b12;--dot:#25223a}
+:root{color-scheme:dark;--bg:#0a0a0b;--panel:rgba(15,15,18,.62);--hi:rgba(255,255,255,.06);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);--text:#f5f5f7;--mute:#a1a1aa;--acc:#7c6cff;--accT:#0a0a0b;--accL:#c9c2ff;--dot:rgba(255,255,255,.07);--ease:cubic-bezier(.22,1,.36,1);--ease-out:cubic-bezier(.16,1,.3,1);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font:500 14px Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
 #vp{position:absolute;inset:0;touch-action:none;cursor:grab;background-image:radial-gradient(var(--dot) 1.5px,transparent 1.5px)}
@@ -28,7 +26,7 @@ html,body{height:100%;margin:0;font:500 14px Manrope,system-ui,-apple-system,"Se
 .ed .it.hid{visibility:visible;opacity:.25}
 .ed .it.sel{outline:2px solid var(--acc);outline-offset:8px}
 .it img{display:block;max-width:640px;pointer-events:none}
-.wd{font-size:64px;font-weight:800;padding:18px 30px;border-radius:18px;background:rgba(20,18,30,.88);color:#fff;font-variant-numeric:tabular-nums;border:2px solid #7cf0c4}
+.wd{font-size:64px;font-weight:800;padding:18px 30px;border-radius:18px;background:rgba(20,18,30,.88);color:#fff;font-variant-numeric:tabular-nums;border:2px solid #7c6cff;box-shadow:0 0 30px rgba(124,108,255,.35)}
 .pulse{animation:pulse 1.6s ease-in-out infinite}.float{animation:float 3s ease-in-out infinite}.shake{animation:shake .6s linear infinite}.spin{animation:spin 6s linear infinite}
 @keyframes pulse{50%{transform:scale(1.08)}}@keyframes float{50%{transform:translateY(-14px)}}
 @keyframes shake{25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}@keyframes spin{to{transform:rotate(360deg)}}
@@ -69,18 +67,61 @@ dialog p{color:var(--mute);font-size:13px;margin:6px 0}
 #res button{padding:4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px}
 #res img{width:52px;height:52px;object-fit:contain}
 #dlg7{max-width:560px}
-.it iframe{display:block;border:0;width:100%;height:100%;pointer-events:none;background:#000}
+.it iframe{display:block;border:0;width:100%;height:100%;pointer-events:none;background:transparent;color-scheme:normal}
 html.ov,body.ov{background:transparent!important}
 body.ov #vp,body.ov .box,body.ov #hint,body.ov #toast,body.ov dialog{display:none!important}
 #ovz{display:none;position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0}
 body.ov #ovz{display:block}
+
+/* ---- skin: glass / violet, как на kapitanych ---- */
+html,body{font-family:Inter,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+.bg-blob.a{width:640px;height:640px;top:-220px;left:-160px;background:radial-gradient(circle at 30% 30%,rgba(124,108,255,.5),transparent 70%);animation:fb 22s ease-in-out infinite}
+.bg-blob.b{width:560px;height:560px;top:-80px;right:-220px;background:radial-gradient(circle at 60% 40%,rgba(66,58,145,.4),transparent 70%);animation:fb 26s ease-in-out infinite reverse}
+.bg-blob.c{width:520px;height:520px;bottom:-260px;left:30%;background:radial-gradient(circle,rgba(124,108,255,.22),transparent 70%);animation:fb 30s ease-in-out infinite}
+@keyframes fb{50%{transform:translate(30px,40px) scale(1.06)}}
+#vp{z-index:1}
+.box{background:var(--panel);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:0 12px 40px -12px rgba(0,0,0,.5);border-radius:20px}
+#bar{border-radius:100px;padding:8px 10px 8px 18px;animation:drop .9s var(--ease-out) both}
+#layers,#panel{animation:rise .9s var(--ease-out) .15s both}
+@keyframes drop{from{opacity:0;transform:translateY(-18px)}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:-.01em;margin-right:6px}
+.brand .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 12px 2px rgba(124,108,255,.5)}
+button{border-radius:100px;font-weight:600;font-size:13px;transition:transform .26s var(--ease),background .26s var(--ease),border-color .26s var(--ease),box-shadow .26s var(--ease)}
+button:hover{background:rgba(255,255,255,.1);border-color:var(--line2)}
+button:active{transform:scale(.97)}
+button.pri{background:var(--text);color:var(--accT);border-color:transparent}
+button.pri:hover{background:#fff;box-shadow:0 14px 32px -12px rgba(255,255,255,.3)}
+input:not([type=range]):not([type=color]),select,textarea{border-radius:12px;background:rgba(255,255,255,.05);transition:border-color .22s var(--ease)}
+input:not([type=range]):not([type=color]):focus,select:focus,textarea:focus{border-color:var(--acc)}
+select option{background:#131316;color:var(--text)}
+:focus-visible{outline-color:var(--accL)}
+#zone{outline:2px solid rgba(124,108,255,.85);border-radius:3px;background:rgba(255,255,255,.025);box-shadow:0 0 120px rgba(124,108,255,.2)}
+#zone span{color:var(--accL);font-weight:600}
+.ed .it.sel{outline:2px solid var(--accL);outline-offset:8px;border-radius:6px}
+.ly{border-radius:12px;transition:background .22s var(--ease)}
+.ly.on{background:rgba(124,108,255,.16);outline:1px solid rgba(124,108,255,.5)}
+#st.live i{box-shadow:0 0 10px 2px rgba(124,108,255,.65)}
+#hint{color:#6b6b72}
+#toast{background:var(--text);color:var(--accT);border-radius:100px}
+dialog{background:#131316;border:1px solid var(--line2);border-radius:28px;padding:22px 24px;box-shadow:0 40px 100px -30px rgba(0,0,0,.7)}
+dialog::backdrop{background:rgba(6,6,8,.65);backdrop-filter:blur(10px)}
+#res button{border-radius:14px}
+#panel,#layers,#res{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
+body.ov .bg{display:none}
+html.ov{color-scheme:normal}
+@media (prefers-reduced-motion:reduce){.bg-blob,#bar,#layers,#panel{animation:none}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 </head>
 <body>
+<div class="bg"><div class="bg-blob a"></div><div class="bg-blob b"></div><div class="bg-blob c"></div></div>
 <div id="vp"><div id="world"><div id="zone"><span>Зона стрима 1920×1080</span></div></div></div>
 <div id="ovz"></div>
 <div id="bar" class="box">
+  <a class="brand" href="index.html" style="color:inherit;text-decoration:none"><span class="dot"></span>Studio</a>
   <button id="aText">Текст</button><button id="aImg">Картинка</button><button id="aUrl">По ссылке</button><button id="a7">7TV</button><button id="aWeb">Браузер</button><button id="aTw">Стрим</button><button id="aWd">Таймер</button>
   <span class="sp"></span>
   <span id="st"><i></i><span>локально</span></span>
@@ -157,7 +198,7 @@ function fill(el,it){
   }else if(it.type==='web'||it.type==='twitch'){
     const src=it.type==='web'?it.url:'https://player.twitch.tv/?channel='+encodeURIComponent(it.channel)+'&parent='+location.hostname+'&muted='+it.mute+'&autoplay=true';
     Object.assign(n.style,{width:it.w+'px',height:it.h+'px',borderRadius:it.radius+'px',overflow:'hidden'});
-    if(n._src!==src){n._src=src;n.innerHTML='';const fr=document.createElement('iframe');fr.src=src;fr.allow='autoplay; fullscreen';n.appendChild(fr)}
+    if(n._src!==src){n._src=src;n.innerHTML='';const fr=document.createElement('iframe');fr.src=src;fr.allow='autoplay; fullscreen';fr.scrolling='no';fr.setAttribute('allowtransparency','true');n.appendChild(fr)}
   }
   if(!el._boot)el.classList.toggle('hid',!it.visible);
   el.classList.toggle('sel',!ov&&it.id===sel);el.classList.toggle('lock',!!it.locked);
@@ -257,7 +298,7 @@ if(ov){
   vp.addEventListener('pointermove',e=>{
     if(!drag)return;const dx=e.clientX-drag.sx,dy=e.clientY-drag.sy;
     if(drag.m==='item'){drag.it.x=drag.ox+dx/view.k;drag.it.y=drag.oy+dy/view.k;
-      if(!drag.q){drag.q=1;requestAnimationFrame(()=>{drag.q=0;send('pos',{id:drag.it.id,x:drag.it.x,y:drag.it.y})})}}
+      if(!drag.q){drag.q=1;setTimeout(()=>{drag.q=0;send('pos',{id:drag.it.id,x:drag.it.x,y:drag.it.y})},50)}}
     else{view.x=drag.ox+dx;view.y=drag.oy+dy;apply()}
   });
   const end=()=>{if(drag&&drag.m==='item'){drag.it.x=Math.round(drag.it.x);drag.it.y=Math.round(drag.it.y);commit()}drag=null;vp.classList.remove('pan')};
