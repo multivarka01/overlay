@@ -70,8 +70,8 @@ dialog p{color:var(--mute);font-size:13px;margin:6px 0}
 #res img{width:52px;height:52px;object-fit:contain}
 #dlg7{max-width:560px}
 .it iframe{display:block;border:0;width:100%;height:100%;pointer-events:none;background:#000}
-body.ov{background:transparent}
-body.ov #vp,body.ov .box,body.ov #hint{display:none}
+html.ov,body.ov{background:transparent!important}
+body.ov #vp,body.ov .box,body.ov #hint,body.ov #toast,body.ov dialog{display:none!important}
 #ovz{display:none;position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0}
 body.ov #ovz{display:block}
 </style>
@@ -113,12 +113,13 @@ body.ov #ovz{display:block}
 <script>
 const $=s=>document.querySelector(s);
 const H=location.hash;
-const ov=H.startsWith('#overlay')||H.startsWith('#o=');
-document.body.classList.add(ov?'ov':'ed');
+const Q=new URLSearchParams(location.search);
+const ov=H.startsWith('#overlay')||H.startsWith('#o=')||Q.has('o')||Q.has('overlay');
+document.body.classList.add(ov?'ov':'ed');if(ov)document.documentElement.classList.add('ov');
 const uid=()=>Math.random().toString(36).slice(2,9);
 let items=[],sel=null,view={x:80,y:110,k:.4},cfg=null,bc=null,ch=null;
 try{bc=new BroadcastChannel('hs-scene')}catch(e){}
-if(H.startsWith('#o=')){try{cfg=JSON.parse(decodeURIComponent(H.slice(3)))}catch(e){}}
+if(Q.get('o')||H.startsWith('#o=')){try{cfg=JSON.parse(Q.get('o')||decodeURIComponent(H.slice(3)))}catch(e){}}
 else if(!ov){try{cfg=JSON.parse(localStorage.getItem('hs-cfg'))}catch(e){}}
 const base={w:800,h:450,mute:'true',url:'',channel:'',rot:0,op:1,font:'Manrope',weight:800,stroke:0,strokeC:'#000000',glow:0,radius:0,anim:'',fx:'fade',dur:450,s:1,visible:true,locked:false};
 const mkItem=o=>Object.assign({id:uid()},base,o);
@@ -200,7 +201,7 @@ if(ov){
   const FONTS=[['Manrope','Manrope'],['Bangers','Bangers'],['Pacifico','Pacifico'],['Press Start 2P','Pixel'],['Impact','Impact'],['Georgia','Georgia'],['Consolas','Mono']];
   const F=[
     {k:'text',l:'Текст',t:'ta',only:'text'},
-    {k:'url',l:'Адрес страницы',t:'i',only:'web',w:2},{k:'channel',l:'Канал Twitch',t:'i',only:'twitch',w:2},
+    {k:'url',l:'Адрес (многие сайты запрещают встраивание)',t:'i',only:'web',w:2},{k:'channel',l:'Канал Twitch',t:'i',only:'twitch',w:2},
     {k:'w',l:'Ширина',t:'n',only:'web twitch'},{k:'h',l:'Высота',t:'n',only:'web twitch'},
     {k:'mute',l:'Звук',t:'s',o:[['true','Выключен'],['false','Включён']],only:'twitch',w:2},
     {k:'x',l:'X',t:'n'},{k:'y',l:'Y',t:'n'},
@@ -310,7 +311,7 @@ if(ov){
     r.readAsDataURL(f);e.target.value=''};
   $('#fit').onclick=fitView;
   $('#link').onclick=()=>{
-    const u=location.href.split('#')[0]+(cfg.u&&cfg.k?'#o='+encodeURIComponent(JSON.stringify(cfg)):'#overlay');
+    const u=location.origin+location.pathname+(cfg.u&&cfg.k?'?o='+encodeURIComponent(JSON.stringify(cfg)):'?overlay');
     (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('Ссылка скопирована'),()=>prompt('Ссылка для OBS',u));
   };
   $('#cfgB').onclick=()=>{$('#cU').value=cfg.u||'';$('#cK').value=cfg.k||'';$('#dlg').showModal()};
