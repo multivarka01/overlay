@@ -112,20 +112,34 @@ dialog::backdrop{background:rgba(6,6,8,.65);backdrop-filter:blur(10px)}
 #panel,#layers,#res{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
 body.ov .bg{display:none}
 html.ov{color-scheme:normal}
+#chSel{width:auto;max-width:140px;border-radius:100px;padding:6px 10px;font-weight:600;font-size:13px;cursor:pointer}
+#bar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:4px}
+#bar::-webkit-scrollbar{display:none}
+#bar>*{flex:none}#bar .sp{flex:1 0 8px}
+#bar button{padding:6px 11px}
+.hd{position:absolute;inset:0;pointer-events:none}
+.hd i{position:absolute;width:calc(13px*var(--hs,1));height:calc(13px*var(--hs,1));margin:calc(-6.5px*var(--hs,1)) 0 0 calc(-6.5px*var(--hs,1));background:#fff;border:calc(2px*var(--hs,1)) solid var(--acc);border-radius:calc(4px*var(--hs,1));pointer-events:auto;touch-action:none;box-sizing:border-box}
+.hd i[data-d=nw]{left:0;top:0;cursor:nwse-resize}.hd i[data-d=n]{left:50%;top:0;cursor:ns-resize}
+.hd i[data-d=ne]{left:100%;top:0;cursor:nesw-resize}.hd i[data-d=e]{left:100%;top:50%;cursor:ew-resize}
+.hd i[data-d=se]{left:100%;top:100%;cursor:nwse-resize}.hd i[data-d=s]{left:50%;top:100%;cursor:ns-resize}
+.hd i[data-d=sw]{left:0;top:100%;cursor:nesw-resize}.hd i[data-d=w]{left:0;top:50%;cursor:ew-resize}
+#empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:600;color:var(--mute);opacity:.6;pointer-events:none}
+#bgs{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none;opacity:.9;background:#000;color-scheme:normal}
+#aBg.on{background:rgba(124,108,255,.2);border-color:var(--acc)}
 @media (prefers-reduced-motion:reduce){.bg-blob,#bar,#layers,#panel{animation:none}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 <div class="bg"><div class="bg-blob a"></div><div class="bg-blob b"></div><div class="bg-blob c"></div></div>
-<div id="vp"><div id="world"><div id="zone"><span>Зона стрима 1920×1080</span></div></div></div>
+<div id="vp"><div id="world"><div id="zone"><span>Зона стрима 1920×1080</span><div id="empty">Пусто. Добавьте элемент сверху</div></div></div></div>
 <div id="ovz"></div>
 <div id="bar" class="box">
   <a class="brand" href="index.html" style="color:inherit;text-decoration:none"><span class="dot"></span>Studio</a>
-  <button id="aText">Текст</button><button id="aImg">Картинка</button><button id="aUrl">По ссылке</button><button id="a7">7TV</button><button id="aWeb">Браузер</button><button id="aTw">Стрим</button><button id="aWd">Таймер</button>
+  <button id="aText">Текст</button><button id="aImg" title="Загрузить картинку">Фото</button><button id="aUrl" title="Картинка или GIF по ссылке">Ссылка</button><button id="a7">7TV</button><button id="aWeb">Браузер</button><button id="aTw">Стрим</button><button id="aWd">Таймер</button>
   <span class="sp"></span>
   <span id="st"><i></i><span>локально</span></span>
-  <button id="fit">Вся зона</button><button id="cfgB">Realtime</button><button id="link" class="pri">Ссылка для OBS</button>
+  <button id="aBg" title="Показать стрим на фоне зоны">Фон-стрим</button><select id="chSel" title="Канал для фона"></select><button id="aClr">Очистить</button><button id="fit" title="Показать всю зону">Вид</button><button id="cfgB">Realtime</button><button id="link" class="pri">Ссылка для OBS</button>
 </div>
 <div id="layers" class="box"></div>
 <div id="panel" class="box">
@@ -134,7 +148,7 @@ html.ov{color-scheme:normal}
   <div class="row"><button id="fCen">В центр</button><button id="fDup">Копия</button></div>
   <div class="row"><button id="fUp">Выше</button><button id="fDn">Ниже</button><button id="fDel">Удалить</button></div>
 </div>
-<div id="hint">Фон: двигать полотно. Колесо: масштаб. H: скрыть или показать выбранное. Del: удалить.</div>
+<div id="hint">Фон: двигать полотно. Колесо: масштаб. Маркеры вокруг элемента: менять размер. H: скрыть или показать выбранное. Del: удалить.</div>
 <div id="toast"></div>
 <dialog id="dlg">
   <b>Realtime через Supabase</b>
@@ -165,20 +179,24 @@ else if(!ov){try{cfg=JSON.parse(localStorage.getItem('hs-cfg'))}catch(e){}}
 const base={w:800,h:450,mute:'true',url:'',channel:'',rot:0,op:1,font:'Manrope',weight:800,stroke:0,strokeC:'#000000',glow:0,radius:0,anim:'',fx:'fade',dur:450,s:1,visible:true,locked:false};
 const mkItem=o=>Object.assign({id:uid()},base,o);
 const demo=()=>[mkItem({type:'text',text:'Привет, стрим!',x:640,y:420,s:1.6,color:'#ffffff',anim:'float',glow:24}),mkItem({type:'widget',x:70,y:60,t0:Date.now()})];
-try{const r=localStorage.getItem('hs');items=r?JSON.parse(r):demo()}catch(e){items=demo()}
+const DEMO=Q.has('demo');
+try{const r=DEMO?null:localStorage.getItem('hs');items=r?JSON.parse(r):(DEMO?demo():[])}catch(e){items=DEMO?demo():[]}
 
 function setStatus(live){const s=$('#st');if(!s)return;s.classList.toggle('live',live);s.lastChild.textContent=live?'онлайн':'локально'}
-function send(e,p){try{bc&&bc.postMessage({e,p})}catch(_){}try{ch&&ch.send({type:'broadcast',event:e,payload:p})}catch(_){}}
+function send(e,p){if(DEMO)return;try{bc&&bc.postMessage({e,p})}catch(_){}try{ch&&ch.send({type:'broadcast',event:e,payload:p})}catch(_){}}
 function onMsg(e,p){
   if(e==='scene'&&ov){items=p;sync($('#ovz'))}
   else if(e==='pos'&&ov){const it=items.find(i=>i.id===p.id);if(it){it.x=p.x;it.y=p.y}}
+  else if(e==='geo'&&ov){const it=items.find(i=>i.id===p.id);if(it){Object.assign(it,p);const el=$('#ovz').querySelector('[data-id="'+it.id+'"]');if(el)fill(el,it)}}
   else if(e==='hello'&&!ov)send('scene',items);
 }
 if(bc)bc.onmessage=m=>onMsg(m.data.e,m.data.p);
+let SB=null;
+function getSB(){if(!SB&&window.supabase&&cfg&&cfg.u&&cfg.k){try{SB=window.supabase.createClient(cfg.u,cfg.k)}catch(e){}}return SB}
 function connect(){
   if(!cfg||!cfg.u||!cfg.k||!window.supabase){setStatus(false);return}
   try{
-    const sb=window.supabase.createClient(cfg.u,cfg.k);
+    const sb=getSB();
     ch=sb.channel('hs-'+cfg.t);
     ['scene','pos','hello'].forEach(ev=>ch.on('broadcast',{event:ev},m=>onMsg(ev,m.payload)));
     ch.subscribe(s=>{if(s==='SUBSCRIBED'){setStatus(true);if(ov)ch.send({type:'broadcast',event:'hello',payload:{}})}else if(s==='CHANNEL_ERROR'||s==='TIMED_OUT'||s==='CLOSED')setStatus(false)});
@@ -201,7 +219,16 @@ function fill(el,it){
     if(n._src!==src){n._src=src;n.innerHTML='';const fr=document.createElement('iframe');fr.src=src;fr.allow='autoplay; fullscreen';fr.scrolling='no';fr.setAttribute('allowtransparency','true');n.appendChild(fr)}
   }
   if(!el._boot)el.classList.toggle('hid',!it.visible);
-  el.classList.toggle('sel',!ov&&it.id===sel);el.classList.toggle('lock',!!it.locked);
+  el.classList.toggle('sel',!ov&&it.id===sel);el.classList.toggle('lock',!!it.locked);handles(el,it);
+}
+const HS=['nw','n','ne','e','se','s','sw','w'];
+function handles(el,it){
+  let h=el.querySelector('.hd');
+  if(!(!ov&&it.id===sel&&!it.locked)){if(h)h.remove();return}
+  if(h)return;
+  h=document.createElement('div');h.className='hd';
+  HS.forEach(d=>{const x=document.createElement('i');x.dataset.d=d;h.append(x)});
+  el.append(h);
 }
 function sync(c){
   const have={};[...c.children].forEach(e=>{if(e.classList.contains('it'))have[e.dataset.id]=e});
@@ -221,6 +248,7 @@ function loop(){
     el._cx+=(t.x-el._cx)*f;el._cy+=(t.y-el._cy)*f;
     if(Math.abs(t.x-el._cx)<.05)el._cx=t.x;if(Math.abs(t.y-el._cy)<.05)el._cy=t.y;
     el.style.transform='translate('+el._cx+'px,'+el._cy+'px) rotate('+t.rot+'deg) scale('+t.s+')';
+    if(!ov&&t.id===sel)el.style.setProperty('--hs',(1/(view.k*t.s)).toFixed(4));
     if(t.type==='widget'){const v=fmt(t.t0);if(el.firstChild.textContent!==v)el.firstChild.textContent=v}
   });
   requestAnimationFrame(loop);
@@ -234,6 +262,7 @@ if(ov){
 }else{
   if(!cfg)cfg={};cfg.u=cfg.u||'https://ycqczfrphjhsnelivact.supabase.co';cfg.k=cfg.k||'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljcWN6ZnJwaGpoc25lbGl2YWN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Njc5ODAsImV4cCI6MjEwODM0Mzk4MH0.9GCUHuAi_g0MZWtH4DaH2Rp5iLkdelowwl3TkaTTnB4';if(!cfg.t)cfg.t=uid()+uid();
   const vp=$('#vp'),world=$('#world');
+  let bgOn=false,myLogin='';
   const saveCfg=()=>{try{localStorage.setItem('hs-cfg',JSON.stringify(cfg))}catch(e){}};saveCfg();
   const apply=()=>{world.style.transform='translate('+view.x+'px,'+view.y+'px) scale('+view.k+')';
     vp.style.backgroundSize=(40*view.k)+'px '+(40*view.k)+'px';vp.style.backgroundPosition=view.x+'px '+view.y+'px'};
@@ -271,6 +300,7 @@ if(ov){
     $('#fEye').textContent=it.visible?'Скрыть':'Показать';$('#fLock').textContent=it.locked?'Открепить':'Закрепить';
   }
   function layers(){
+    const em=$('#empty');if(em)em.style.display=(items.length||bgOn)?'none':'';
     const L=$('#layers');L.innerHTML='';
     [...items].reverse().forEach(it=>{
       const r=document.createElement('div');r.className='ly'+(it.id===sel?' on':'')+(it.visible?'':' off');
@@ -282,14 +312,38 @@ if(ov){
   }
   function commit(keepPanel){
     sync(world);layers();
-    try{localStorage.setItem('hs',JSON.stringify(items))}catch(e){}
+    if(!DEMO)try{localStorage.setItem('hs',JSON.stringify(items))}catch(e){}
     send('scene',items);if(!keepPanel)panelUpdate();
   }
   const select=id=>{sel=id;sync(world);layers();panelUpdate()};
   const add=o=>{const it=mkItem(Object.assign({x:Math.round((innerWidth/2-view.x)/view.k-200),y:Math.round((innerHeight/2-view.y)/view.k-80)},o));items.push(it);sel=it.id;commit()};
+  function doResize(dr,dx,dy){
+    const it=dr.it,d=dr.d,th=(it.rot||0)*Math.PI/180,c=Math.cos(th),sn=Math.sin(th),os=dr.os;
+    const wx=dx/view.k,wy=dy/view.k,lx=wx*c+wy*sn,ly=-wx*sn+wy*c;
+    if(it.type==='web'||it.type==='twitch'){
+      let w=dr.ow,h=dr.oh;
+      if(d.includes('e'))w=dr.ow+lx/os;if(d.includes('w'))w=dr.ow-lx/os;
+      if(d.includes('s'))h=dr.oh+ly/os;if(d.includes('n'))h=dr.oh-ly/os;
+      w=Math.max(60,w);h=Math.max(40,h);
+      const ax=d.includes('w')?(dr.ow-w)*os:0,ay=d.includes('n')?(dr.oh-h)*os:0;
+      it.w=w;it.h=h;it.x=dr.ox+ax*c-ay*sn;it.y=dr.oy+ax*sn+ay*c;
+    }else{
+      const sx=d.includes('e')?1:d.includes('w')?-1:0,sy=d.includes('s')?1:d.includes('n')?-1:0,fs=[];
+      if(sx)fs.push((dr.bw*os+sx*lx)/(dr.bw*os));if(sy)fs.push((dr.bh*os+sy*ly)/(dr.bh*os));
+      const f=fs.reduce((a,b)=>a+b,0)/fs.length,ns=Math.min(12,Math.max(.1,os*f));
+      const px=sx>0?0:sx<0?dr.bw:dr.bw/2,py=sy>0?0:sy<0?dr.bh:dr.bh/2,vx=(os-ns)*px,vy=(os-ns)*py;
+      it.s=ns;it.x=dr.ox+vx*c-vy*sn;it.y=dr.oy+vx*sn+vy*c;
+    }
+    const el=world.querySelector('[data-id="'+it.id+'"]');
+    if(el){el._cx=it.x;el._cy=it.y;fill(el,it)}
+    if(!dr.q){dr.q=1;setTimeout(()=>{dr.q=0;send('geo',{id:it.id,x:it.x,y:it.y,s:it.s,w:it.w,h:it.h})},60)}
+  }
   let drag=null;
   vp.addEventListener('pointerdown',e=>{
     vp.setPointerCapture(e.pointerId);
+    const hd=e.target.closest('.hd i');
+    if(hd){const e2=hd.closest('.it'),it=items.find(i=>i.id===e2.dataset.id),n=e2.firstChild;
+      drag={m:'rs',d:hd.dataset.d,it,sx:e.clientX,sy:e.clientY,ox:it.x,oy:it.y,os:it.s,ow:it.w,oh:it.h,bw:n.offsetWidth,bh:n.offsetHeight};return}
     const el=e.target.closest('.it');
     if(el){const it=items.find(i=>i.id===el.dataset.id);select(it.id);
       if(!it.locked){drag={m:'item',it,sx:e.clientX,sy:e.clientY,ox:it.x,oy:it.y}}}
@@ -297,15 +351,18 @@ if(ov){
   });
   vp.addEventListener('pointermove',e=>{
     if(!drag)return;const dx=e.clientX-drag.sx,dy=e.clientY-drag.sy;
+    if(drag.m==='rs'){doResize(drag,dx,dy);return}
     if(drag.m==='item'){drag.it.x=drag.ox+dx/view.k;drag.it.y=drag.oy+dy/view.k;
       if(!drag.q){drag.q=1;setTimeout(()=>{drag.q=0;send('pos',{id:drag.it.id,x:drag.it.x,y:drag.it.y})},50)}}
     else{view.x=drag.ox+dx;view.y=drag.oy+dy;apply()}
   });
-  const end=()=>{if(drag&&drag.m==='item'){drag.it.x=Math.round(drag.it.x);drag.it.y=Math.round(drag.it.y);commit()}drag=null;vp.classList.remove('pan')};
+  const end=()=>{if(drag&&drag.m==='rs'){const it=drag.it;it.x=Math.round(it.x);it.y=Math.round(it.y);it.s=Math.round(it.s*100)/100;
+      if(it.type==='web'||it.type==='twitch'){it.w=Math.round(it.w);it.h=Math.round(it.h)}commit()}
+    if(drag&&drag.m==='item'){drag.it.x=Math.round(drag.it.x);drag.it.y=Math.round(drag.it.y);commit()}drag=null;vp.classList.remove('pan')};
   vp.addEventListener('pointerup',end);vp.addEventListener('pointercancel',end);
   vp.addEventListener('wheel',e=>{e.preventDefault();const k=Math.min(3,Math.max(.1,view.k*(e.deltaY<0?1.1:1/1.1)));
     const r=k/view.k;view.x=e.clientX-(e.clientX-view.x)*r;view.y=e.clientY-(e.clientY-view.y)*r;view.k=k;apply()},{passive:false});
-  $('#aText').onclick=()=>add({type:'text',text:'Новый текст',color:'#ffffff'});
+  $('#aText').onclick=()=>{add({type:'text',text:'Текст',color:'#ffffff'});setTimeout(()=>{const t=F[0].el;t.focus();t.select()},60)};
   $('#aWd').onclick=()=>add({type:'widget',t0:Date.now()});
   $('#aUrl').onclick=()=>{const u=prompt('Ссылка на картинку или GIF');if(u)add({type:'img',src:u})};
   $('#aWeb').onclick=()=>{const u=prompt('Адрес страницы (https://...)');if(u)add({type:'web',url:u,w:800,h:450})};
@@ -351,6 +408,56 @@ if(ov){
         c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);add({type:'img',src:c.toDataURL('image/webp',.85)})};im.src=r.result};
     r.readAsDataURL(f);e.target.value=''};
   $('#fit').onclick=fitView;
+  $('#aClr').onclick=()=>{if(items.length&&confirm('Удалить все элементы со сцены?')){items=[];sel=null;commit()}};
+  const bgKey='hs-bg';
+  let chs=[],curCh='';
+  try{chs=JSON.parse(localStorage.getItem('hs-chs')||'[]');curCh=localStorage.getItem(bgKey+'-ch')||''}catch(e){}
+  const saveCh=()=>{try{localStorage.setItem('hs-chs',JSON.stringify(chs));localStorage.setItem(bgKey+'-ch',curCh)}catch(e){}};
+  const setOn=v=>{try{localStorage.setItem(bgKey,v?'1':'')}catch(e){}};
+  function chOpts(){
+    const S=$('#chSel');S.innerHTML='';
+    const list=[...new Set([myLogin,...chs].filter(Boolean))];
+    S.add(new Option('Выбрать канал',''));
+    list.forEach(c=>S.add(new Option(c===myLogin?c+' (я)':c,c)));
+    S.add(new Option('＋ Добавить канал','__add'));
+    if(curCh&&chs.includes(curCh))S.add(new Option('− Убрать «'+curCh+'»','__del'));
+    S.value=list.includes(curCh)?curCh:'';
+  }
+  function bgRender(ch){
+    const z=$('#zone');let f=$('#bgs');
+    if(!ch){if(f)f.remove();bgOn=false;$('#aBg').classList.remove('on');layers();return}
+    if(!f){f=document.createElement('iframe');f.id='bgs';f.allow='autoplay';f.scrolling='no';z.append(f)}
+    f.src='https://player.twitch.tv/?channel='+encodeURIComponent(ch)+'&parent='+location.hostname+'&muted=true&autoplay=true';
+    bgOn=true;$('#aBg').classList.add('on');layers();
+  }
+  const pick=ch=>{curCh=ch;saveCh();setOn(true);bgRender(ch);chOpts()};
+  $('#chSel').onchange=e=>{
+    const v=e.target.value;
+    if(v==='__add'){
+      const n=(prompt('Ник Twitch-канала')||'').trim().toLowerCase().replace(/^@/,'');
+      if(n){if(n!==myLogin&&!chs.includes(n))chs.push(n);pick(n)}else chOpts();return}
+    if(v==='__del'){chs=chs.filter(c=>c!==curCh);curCh='';saveCh();setOn(false);bgRender(null);chOpts();return}
+    if(v)pick(v);
+  };
+  $('#aBg').onclick=()=>{
+    if(bgOn){setOn(false);bgRender(null);return}
+    if(!curCh){$('#chSel').focus();toast('Выберите канал в списке');return}
+    setOn(true);bgRender(curCh);
+  };
+  async function myChannel(){
+    if(myLogin)return myLogin;
+    const sb=getSB();
+    if(sb){try{const r=await sb.auth.getSession(),u=r.data.session&&r.data.session.user;
+      if(u){const m=u.user_metadata||{};myLogin=String(m.preferred_username||m.user_name||m.nickname||'').toLowerCase()}}catch(e){}}
+    return myLogin;
+  }
+  function initBg(){myChannel().then(()=>{
+    if(!curCh&&myLogin){curCh=myLogin;saveCh()}
+    chOpts();let on='';try{on=localStorage.getItem(bgKey)}catch(e){}
+    if(on&&curCh)bgRender(curCh);
+  })}
+  function demoUI(){$('#link').style.display='none';$('#cfgB').style.display='none';$('#st').lastChild.textContent='демо';
+    $('#hint').innerHTML='Демо-режим: изменения не сохраняются и не идут в эфир. <a href="studio.html" style="color:var(--accL)">Открыть свою студию</a>'}
   $('#link').onclick=()=>{
     const u=location.origin+location.pathname+(cfg.u&&cfg.k?'?o='+encodeURIComponent(JSON.stringify(cfg)):'?overlay');
     (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('Ссылка скопирована'),()=>prompt('Ссылка для OBS',u));
@@ -370,7 +477,7 @@ if(ov){
   $('#fDel').onclick=del;
   addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
     if(e.key==='h'||e.key==='H')toggle();if(e.key==='Delete'||e.key==='Backspace')del()});
-  fitView();sync(world);layers();loop();connect();
+  fitView();sync(world);layers();loop();if(!DEMO)connect();initBg();if(DEMO)demoUI();
 }
 </script>
 </body>
