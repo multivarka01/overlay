@@ -65,6 +65,11 @@ input[type=range]{accent-color:var(--acc);width:100%}
 dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:14px;max-width:420px;width:92%}
 dialog label{display:flex;flex-direction:column;gap:4px;margin:10px 0;color:var(--mute);font-size:12px}
 dialog p{color:var(--mute);font-size:13px;margin:6px 0}
+#res{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:6px;max-height:280px;overflow:auto;margin-top:10px;color:var(--mute)}
+#res button{padding:4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px}
+#res img{width:52px;height:52px;object-fit:contain}
+#dlg7{max-width:560px}
+.it iframe{display:block;border:0;width:100%;height:100%;pointer-events:none;background:#000}
 body.ov{background:transparent}
 body.ov #vp,body.ov .box,body.ov #hint{display:none}
 #ovz{display:none;position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0}
@@ -76,7 +81,7 @@ body.ov #ovz{display:block}
 <div id="vp"><div id="world"><div id="zone"><span>Зона стрима 1920×1080</span></div></div></div>
 <div id="ovz"></div>
 <div id="bar" class="box">
-  <button id="aText">Текст</button><button id="aImg">Картинка</button><button id="aUrl">По ссылке</button><button id="a7">7TV</button><button id="aWd">Таймер</button>
+  <button id="aText">Текст</button><button id="aImg">Картинка</button><button id="aUrl">По ссылке</button><button id="a7">7TV</button><button id="aWeb">Браузер</button><button id="aTw">Стрим</button><button id="aWd">Таймер</button>
   <span class="sp"></span>
   <span id="st"><i></i><span>локально</span></span>
   <button id="fit">Вся зона</button><button id="cfgB">Realtime</button><button id="link" class="pri">Ссылка для OBS</button>
@@ -97,6 +102,13 @@ body.ov #ovz{display:block}
   <label>Anon key<input id="cK" type="text"></label>
   <div class="row"><button id="cSave" class="pri">Сохранить</button><button id="cClose">Закрыть</button></div>
 </dialog>
+<dialog id="dlg7">
+  <b>Эмодзи 7TV</b>
+  <label>Канал (ник на Twitch, необязательно)<input id="s7c" type="text" placeholder="например, hepega"></label>
+  <label>Название эмодзи<input id="s7q" type="text" placeholder="например, Pog"></label>
+  <div class="row"><button id="s7go" class="pri">Найти</button><button id="s7x">Закрыть</button></div>
+  <div id="res"></div>
+</dialog>
 <input id="file" type="file" accept="image/*" hidden>
 <script>
 const $=s=>document.querySelector(s);
@@ -108,7 +120,7 @@ let items=[],sel=null,view={x:80,y:110,k:.4},cfg=null,bc=null,ch=null;
 try{bc=new BroadcastChannel('hs-scene')}catch(e){}
 if(H.startsWith('#o=')){try{cfg=JSON.parse(decodeURIComponent(H.slice(3)))}catch(e){}}
 else if(!ov){try{cfg=JSON.parse(localStorage.getItem('hs-cfg'))}catch(e){}}
-const base={rot:0,op:1,font:'Manrope',weight:800,stroke:0,strokeC:'#000000',glow:0,radius:0,anim:'',fx:'fade',dur:450,s:1,visible:true,locked:false};
+const base={w:800,h:450,mute:'true',url:'',channel:'',rot:0,op:1,font:'Manrope',weight:800,stroke:0,strokeC:'#000000',glow:0,radius:0,anim:'',fx:'fade',dur:450,s:1,visible:true,locked:false};
 const mkItem=o=>Object.assign({id:uid()},base,o);
 const demo=()=>[mkItem({type:'text',text:'Привет, стрим!',x:640,y:420,s:1.6,color:'#ffffff',anim:'float',glow:24}),mkItem({type:'widget',x:70,y:60,t0:Date.now()})];
 try{const r=localStorage.getItem('hs');items=r?JSON.parse(r):demo()}catch(e){items=demo()}
@@ -141,6 +153,10 @@ function fill(el,it){
   }else if(it.type==='img'){
     if(n._src!==it.src){n._src=it.src;n.innerHTML='';const i=new Image();i.src=it.src;n.appendChild(i)}
     n.firstChild.style.borderRadius=it.radius+'px';
+  }else if(it.type==='web'||it.type==='twitch'){
+    const src=it.type==='web'?it.url:'https://player.twitch.tv/?channel='+encodeURIComponent(it.channel)+'&parent='+location.hostname+'&muted='+it.mute+'&autoplay=true';
+    Object.assign(n.style,{width:it.w+'px',height:it.h+'px',borderRadius:it.radius+'px',overflow:'hidden'});
+    if(n._src!==src){n._src=src;n.innerHTML='';const fr=document.createElement('iframe');fr.src=src;fr.allow='autoplay; fullscreen';n.appendChild(fr)}
   }
   if(!el._boot)el.classList.toggle('hid',!it.visible);
   el.classList.toggle('sel',!ov&&it.id===sel);el.classList.toggle('lock',!!it.locked);
@@ -184,12 +200,15 @@ if(ov){
   const FONTS=[['Manrope','Manrope'],['Bangers','Bangers'],['Pacifico','Pacifico'],['Press Start 2P','Pixel'],['Impact','Impact'],['Georgia','Georgia'],['Consolas','Mono']];
   const F=[
     {k:'text',l:'Текст',t:'ta',only:'text'},
+    {k:'url',l:'Адрес страницы',t:'i',only:'web',w:2},{k:'channel',l:'Канал Twitch',t:'i',only:'twitch',w:2},
+    {k:'w',l:'Ширина',t:'n',only:'web twitch'},{k:'h',l:'Высота',t:'n',only:'web twitch'},
+    {k:'mute',l:'Звук',t:'s',o:[['true','Выключен'],['false','Включён']],only:'twitch',w:2},
     {k:'x',l:'X',t:'n'},{k:'y',l:'Y',t:'n'},
     {k:'s',l:'Размер',t:'r',min:.2,max:6,st:.05,w:2},{k:'rot',l:'Поворот',t:'r',min:-180,max:180,w:2},{k:'op',l:'Прозрачность',t:'r',min:0,max:1,st:.05,w:2},
     {k:'font',l:'Шрифт',t:'s',o:FONTS,only:'text'},{k:'weight',l:'Толщина',t:'s',o:[[500,'Обычный'],[700,'Жирный'],[800,'Очень жирный']],only:'text'},
     {k:'color',l:'Цвет',t:'c',only:'text'},{k:'strokeC',l:'Цвет обводки',t:'c',only:'text'},
     {k:'stroke',l:'Обводка',t:'r',min:0,max:12,st:.5,only:'text',w:2},{k:'glow',l:'Свечение',t:'r',min:0,max:60,only:'text',w:2},
-    {k:'radius',l:'Скругление',t:'r',min:0,max:300,only:'img',w:2},
+    {k:'radius',l:'Скругление',t:'r',min:0,max:300,only:'img web twitch',w:2},
     {k:'anim',l:'Постоянная анимация',t:'s',o:[['','Нет'],['pulse','Пульс'],['float','Парение'],['shake','Тряска'],['spin','Вращение']],w:2},
     {k:'fx',l:'Появление и скрытие',t:'s',o:[['fade','Плавное'],['slide','Снизу'],['pop','Всплеск'],['zoom','Приближение'],['blur','Размытие']],w:2},
     {k:'dur',l:'Длительность, мс',t:'r',min:100,max:1500,st:50,w:2}
@@ -199,20 +218,21 @@ if(ov){
     const l=document.createElement('label');l.dataset.only=f.only||'';if(f.w)l.dataset.w=f.w;l.append(f.l);let i;
     if(f.t==='ta'){i=document.createElement('textarea');i.rows=2}
     else if(f.t==='s'){i=document.createElement('select');f.o.forEach(([v,n])=>i.add(new Option(n,v)))}
+    else if(f.t==='i'){i=document.createElement('input');i.type='text'}
     else{i=document.createElement('input');i.type=f.t==='r'?'range':f.t==='c'?'color':'number';if(f.t==='r'){i.min=f.min;i.max=f.max}i.step=f.st||1}
     f.el=i;f.lab=l;l.append(i);P.append(l);
-    i.addEventListener(f.t==='s'?'change':'input',()=>{const it=cur();if(!it)return;it[f.k]=(f.t==='n'||f.t==='r')?(parseFloat(i.value)||0):(f.k==='weight'?+i.value:i.value);commit(true)});
+    i.addEventListener((f.t==='s'||f.t==='i')?'change':'input',()=>{const it=cur();if(!it)return;it[f.k]=(f.t==='n'||f.t==='r')?(parseFloat(i.value)||0):(f.k==='weight'?+i.value:i.value);commit(true)});
   });
   function panelUpdate(){
     const it=cur(),p=$('#panel');p.classList.toggle('on',!!it);if(!it)return;
-    F.forEach(f=>{f.el.value=it[f.k]??'';f.lab.style.display=(!f.only||f.only===it.type)?'':'none'});
+    F.forEach(f=>{f.el.value=it[f.k]??'';f.lab.style.display=(!f.only||f.only.split(' ').includes(it.type))?'':'none'});
     $('#fEye').textContent=it.visible?'Скрыть':'Показать';$('#fLock').textContent=it.locked?'Открепить':'Закрепить';
   }
   function layers(){
     const L=$('#layers');L.innerHTML='';
     [...items].reverse().forEach(it=>{
       const r=document.createElement('div');r.className='ly'+(it.id===sel?' on':'')+(it.visible?'':' off');
-      const b=document.createElement('b');b.textContent=it.type==='text'?it.text.split('\n')[0]||'Текст':it.type==='img'?'Картинка':'Таймер';
+      const b=document.createElement('b');b.textContent=it.type==='text'?it.text.split('\n')[0]||'Текст':it.type==='img'?'Картинка':it.type==='web'?'Браузер':it.type==='twitch'?'Стрим: '+it.channel:'Таймер';
       const e=document.createElement('button');e.textContent=it.visible?'Скрыть':'Показать';e.onclick=ev=>{ev.stopPropagation();it.visible=!it.visible;commit();panelUpdate()};
       r.append(b,e);r.onclick=()=>select(it.id);L.append(r);
     });
@@ -246,8 +266,42 @@ if(ov){
   $('#aText').onclick=()=>add({type:'text',text:'Новый текст',color:'#ffffff'});
   $('#aWd').onclick=()=>add({type:'widget',t0:Date.now()});
   $('#aUrl').onclick=()=>{const u=prompt('Ссылка на картинку или GIF');if(u)add({type:'img',src:u})};
-  $('#a7').onclick=()=>{const v=prompt('ID эмодзи 7TV (из адреса 7tv.app/emotes/ID) или ссылка');if(!v)return;
-    add({type:'img',src:v.startsWith('http')?v:'https://cdn.7tv.app/emote/'+v.trim()+'/4x.webp'})};
+  $('#aWeb').onclick=()=>{const u=prompt('Адрес страницы (https://...)');if(u)add({type:'web',url:u,w:800,h:450})};
+  $('#aTw').onclick=()=>{const c=prompt('Канал Twitch (ник)');if(c)add({type:'twitch',channel:c.trim().toLowerCase(),w:960,h:540})};
+  const seven={};
+  const gql=async q=>{const r=await fetch('https://7tv.io/v3/gql',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(q)});return (await r.json()).data};
+  async function chanEmotes(name){
+    if(seven[name])return seven[name];
+    const d=await gql({query:'query($q:String!){users(query:$q){id username}}',variables:{q:name}});
+    const u=((d&&d.users)||[]).find(x=>x.username.toLowerCase()===name.toLowerCase());
+    if(!u)throw new Error('канал не найден в 7TV');
+    const j=await (await fetch('https://7tv.io/v3/users/'+u.id)).json();
+    const cn=j.connections||[],c=cn.find(x=>x.platform==='TWITCH')||cn[0]||{};
+    const list=(c.emote_set&&c.emote_set.emotes)||(j.emote_set&&j.emote_set.emotes)||[];
+    if(!list.length)throw new Error('у канала нет эмодзи 7TV');
+    return seven[name]=list.map(e=>({id:e.id,name:e.name}));
+  }
+  async function find7(){
+    const ch=$('#s7c').value.trim(),q=$('#s7q').value.trim(),res=$('#res');
+    if(!ch&&!q){res.textContent='Введите канал или название';return}
+    res.textContent='Ищу…';
+    try{
+      let list;
+      if(ch){list=await chanEmotes(ch);if(q)list=list.filter(e=>e.name.toLowerCase().includes(q.toLowerCase()))}
+      else{const d=await gql({query:'query($q:String!){emotes(query:$q,page:1,limit:36){items{id name}}}',variables:{q}});list=d.emotes.items}
+      res.innerHTML='';
+      if(!list.length)res.textContent='Ничего не найдено';
+      list.slice(0,60).forEach(e=>{
+        const b=document.createElement('button'),im=new Image(),sp=document.createElement('span');
+        im.src='https://cdn.7tv.app/emote/'+e.id+'/2x.webp';im.loading='lazy';sp.textContent=e.name;b.append(im,sp);
+        b.onclick=()=>{add({type:'img',src:'https://cdn.7tv.app/emote/'+e.id+'/4x.webp'});toast('Добавлено: '+e.name)};
+        res.append(b);
+      });
+    }catch(err){res.textContent='Ошибка: '+err.message}
+  }
+  $('#a7').onclick=()=>$('#dlg7').showModal();
+  $('#s7go').onclick=find7;$('#s7x').onclick=()=>$('#dlg7').close();
+  ['#s7c','#s7q'].forEach(x=>$(x).addEventListener('keydown',e=>{if(e.key==='Enter')find7()}));
   $('#aImg').onclick=()=>$('#file').click();
   $('#file').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
     r.onload=()=>{if(f.size<120000)return add({type:'img',src:r.result});
