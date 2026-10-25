@@ -113,12 +113,26 @@ dialog::backdrop{background:rgba(6,6,8,.65);backdrop-filter:blur(10px)}
 #res button{border-radius:14px}
 #panel,#layers,#res{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
 body.ov .bg{display:none}
+#auth{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(6,6,8,.78);backdrop-filter:blur(14px);padding:16px}
+#auth[hidden]{display:none}
+.acard{width:min(380px,100%);padding:28px;border-radius:28px;background:#131316;border:1px solid var(--line2);box-shadow:0 40px 100px -30px rgba(0,0,0,.7);display:flex;flex-direction:column;gap:12px}
+.alogo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#7c6cff,#4b3fd1);display:grid;place-items:center;box-shadow:0 0 40px rgba(124,108,255,.45)}
+.alogo i{width:10px;height:10px;border-radius:50%;background:#fff}
+.acard h2{margin:6px 0 0;font-size:20px;letter-spacing:-.01em}
+.asub{margin:0;color:var(--mute);font-size:13px;line-height:1.5}
+.acard .tabs{display:flex;gap:4px;padding:4px;border-radius:100px;background:rgba(255,255,255,.05)}
+.acard .tabs button{flex:1;border:0;background:transparent;padding:8px}
+.acard .tabs button.on{background:var(--text);color:var(--accT)}
+.acard label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--mute)}
+#auErr{min-height:18px;font-size:12.5px;color:#ff8a9b}#auErr.ok{color:var(--accL)}
+.acard>button{padding:11px;font-size:14px}
+.acard .back{text-align:center;color:var(--mute);font-size:12.5px;text-decoration:none}.acard .back:hover{color:var(--text)}
 html.ov{color-scheme:normal}
 #chSel{width:auto;max-width:140px;border-radius:100px;padding:6px 10px;font-weight:600;font-size:13px;cursor:pointer}
 #bar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:4px}
 #bar::-webkit-scrollbar{display:none}
 #bar>*{flex:none}#bar .sp{flex:1 0 8px}
-#bar button{padding:6px 9px}
+#bar button{padding:6px 8px;font-size:12.5px}
 .hd{position:absolute;inset:0;pointer-events:none}
 .hd i{position:absolute;width:calc(13px*var(--hs,1));height:calc(13px*var(--hs,1));margin:calc(-6.5px*var(--hs,1)) 0 0 calc(-6.5px*var(--hs,1));background:#fff;border:calc(2px*var(--hs,1)) solid var(--acc);border-radius:calc(4px*var(--hs,1));pointer-events:auto;touch-action:none;box-sizing:border-box}
 .hd i[data-d=nw]{left:0;top:0;cursor:nwse-resize}.hd i[data-d=n]{left:50%;top:0;cursor:ns-resize}
@@ -141,7 +155,7 @@ html.ov{color-scheme:normal}
   <button id="aText">Текст</button><button id="aImg" title="Загрузить картинку">Фото</button><button id="aUrl" title="Картинка или GIF по ссылке">Ссылка</button><button id="a7">7TV</button><button id="aWeb">Браузер</button><button id="aTw">Стрим</button><button id="aWd">Таймер</button>
   <span class="sp"></span>
   <span id="st"><i></i><span>локально</span></span>
-  <button id="aBg" title="Показать стрим на фоне зоны">Фон-стрим</button><select id="chSel" title="Канал для фона"></select><button id="aClr">Очистить</button><button id="fit" title="Показать всю зону">Вид</button><button id="lgn" style="display:none">Войти через Twitch</button><button id="cfgB" title="Старая ссылка для OBS перестанет работать">Новая ссылка</button><button id="link" class="pri">Ссылка для OBS</button>
+  <button id="aBg" title="Показать стрим на фоне зоны">Фон-стрим</button><select id="chSel" title="Канал для фона"></select><button id="aClr">Очистить</button><button id="fit" title="Показать всю зону">Вид</button><button id="lgo" style="display:none" title="Выйти из аккаунта">Выйти</button><button id="cfgB" title="Старая ссылка для OBS перестанет работать">Новая ссылка</button><button id="link" class="pri">Ссылка для OBS</button>
 </div>
 <div id="layers" class="box"></div>
 <div id="panel" class="box">
@@ -159,6 +173,20 @@ html.ov{color-scheme:normal}
   <div class="row"><button id="s7go" class="pri">Найти</button><button id="s7x">Закрыть</button></div>
   <div id="res"></div>
 </dialog>
+<div id="auth" hidden>
+  <div class="acard">
+    <div class="alogo"><i></i></div>
+    <h2 id="auT">Вход в Overlay Studio</h2>
+    <p class="asub">Оверлеи и настройки хранятся в аккаунте и доступны на любом компьютере.</p>
+    <div class="tabs"><button id="tIn" class="on">Вход</button><button id="tUp">Регистрация</button></div>
+    <label>Почта<input id="auE" type="email" autocomplete="username" placeholder="you@example.com"></label>
+    <label>Пароль<input id="auP" type="password" autocomplete="current-password" placeholder="Минимум 6 символов"></label>
+    <div id="auErr" role="alert"></div>
+    <button id="auGo" class="pri">Войти</button>
+    <button id="auTw">Войти через Twitch</button>
+    <a class="back" href="index.html">← На главную</a>
+  </div>
+</div>
 <input id="file" type="file" accept="image/*" hidden>
 <script>
 const $=s=>document.querySelector(s);
@@ -294,7 +322,7 @@ if(ov){
   const cur=()=>items.find(i=>i.id===sel);
   const FONTS=[['Manrope','Manrope'],['Bangers','Bangers'],['Pacifico','Pacifico'],['Press Start 2P','Pixel'],['Impact','Impact'],['Georgia','Georgia'],['Consolas','Mono']];
   const F=[
-    {k:'text',l:'New text',t:'ta',only:'text'},
+    {k:'text',l:'Текст',t:'ta',only:'text'},
     {k:'url',l:'Адрес (многие сайты запрещают встраивание)',t:'i',only:'web',w:2},{k:'channel',l:'Канал Twitch',t:'i',only:'twitch',w:2},
     {k:'w',l:'Ширина',t:'n',only:'web twitch'},{k:'h',l:'Высота',t:'n',only:'web twitch'},
     {k:'mute',l:'Звук',t:'s',o:[['true','Выключен'],['false','Включён']],only:'twitch',w:2},
@@ -392,7 +420,7 @@ if(ov){
   vp.addEventListener('pointerup',end);vp.addEventListener('pointercancel',end);
   vp.addEventListener('wheel',e=>{e.preventDefault();const k=Math.min(3,Math.max(.1,view.k*(e.deltaY<0?1.1:1/1.1)));
     const r=k/view.k;view.x=e.clientX-(e.clientX-view.x)*r;view.y=e.clientY-(e.clientY-view.y)*r;view.k=k;apply()},{passive:false});
-  $('#aText').onclick=()=>{add({type:'text',text:'New text',color:'#ffffff'});setTimeout(()=>{const t=F[0].el;t.focus();t.select()},60)};
+  $('#aText').onclick=()=>{add({type:'text',text:'Текст',color:'#ffffff'});setTimeout(()=>{const t=F[0].el;t.focus();t.select()},60)};
   $('#aWd').onclick=()=>add({type:'widget',t0:Date.now()});
   $('#aUrl').onclick=()=>{const u=prompt('Ссылка на картинку или GIF');if(u)add({type:'img',src:u})};
   $('#aWeb').onclick=()=>{const u=prompt('Адрес страницы (https://...)');if(u)add({type:'web',url:u,w:800,h:450})};
@@ -507,28 +535,62 @@ if(ov){
     },700);
   }
   function openCh(){
-    const sb=getSB();chReady=false;
+    const sb=getSB();chReady=false;if(ch){try{sb.removeChannel(ch)}catch(e){}}
     ch=sb.channel('ov:'+myKey,{config:{private:true}});
     ch.subscribe(st=>{chReady=st==='SUBSCRIBED';setStatus(chReady)});
   }
   async function connectEditor(){
-    const sb=getSB();if(!sb){setStatus(false);return}
+    const sb=getSB();if(!sb){setStatus(false);showAuth('Не загрузился модуль входа. Проверьте интернет и перезапустите.');return}
     try{
-      const r=await sb.auth.getSession();sess=r.data.session;$('#lgn').style.display=sess?'none':'';
-      if(!sess){setStatus(false);return}
+      const r=await sb.auth.getSession();sess=r.data.session;$('#lgo').style.display=sess?'':'none';
+      if(!sess){setStatus(false);showAuth();return}
+      $('#auth').hidden=true;
       let row=(await sb.from('scenes').select('overlay_key,data').maybeSingle()).data;
       if(!row)row=(await sb.from('scenes').insert({user_id:sess.user.id,data:items}).select('overlay_key,data').single()).data;
       if(!row){toast('Не удалось открыть сцену');return}
-      myKey=row.overlay_key;const remote=clean(row.data);
-      if(remote.length||!items.length){items=remote;sel=null;sync(world);layers();panelUpdate()}else saveRemote();
+      myKey=row.overlay_key;const remote=clean(row.data),local=items;
+      const ids=a=>a.map(i=>i.id).join();
+      if(remote.length&&local.length&&ids(remote)!==ids(local)&&confirm('На этом компьютере есть несохранённая сцена ('+local.length+' эл.). Добавить её к оверлею из аккаунта?'))
+        items=[...remote,...local.filter(l=>!remote.some(r=>r.id===l.id))];
+      else if(remote.length||!local.length)items=remote;
+      sel=null;sync(world);layers();panelUpdate();
+      if(items.length&&JSON.stringify(items)!==JSON.stringify(remote))saveRemote();
       openCh();
     }catch(e){setStatus(false)}
   }
-  $('#lgn').onclick=async()=>{
-    const sb=getSB();if(!sb){toast('Не загрузился модуль входа');return}
+  const setAuErr=(m,ok)=>{const e=$('#auErr');e.textContent=m||'';e.classList.toggle('ok',!!ok)};
+  function showAuth(msg){$('#auth').hidden=false;if(msg)setAuErr(msg)}
+  let aMode='in';
+  function setTab(m){aMode=m;$('#tIn').classList.toggle('on',m==='in');$('#tUp').classList.toggle('on',m==='up');
+    $('#auGo').textContent=m==='in'?'Войти':'Создать аккаунт';$('#auT').textContent=m==='in'?'Вход в Overlay Studio':'Создание аккаунта';
+    $('#auP').autocomplete=m==='in'?'current-password':'new-password';setAuErr('')}
+  $('#tIn').onclick=()=>setTab('in');$('#tUp').onclick=()=>setTab('up');
+  async function submitAuth(){
+    const sb=getSB();if(!sb){setAuErr('Не загрузился модуль входа. Проверьте интернет.');return}
+    const email=$('#auE').value.trim(),password=$('#auP').value;
+    if(!/^\S+@\S+\.\S+$/.test(email)){setAuErr('Введите корректную почту');return}
+    if(password.length<6){setAuErr('Пароль минимум 6 символов');return}
+    $('#auGo').disabled=true;setAuErr('');
+    try{
+      if(aMode==='in'){
+        const r=await sb.auth.signInWithPassword({email,password});
+        if(r.error){const m=r.error.message||'';setAuErr(/Invalid login/i.test(m)?'Неверная почта или пароль':/not confirmed/i.test(m)?'Почта не подтверждена. Проверьте письмо.':m);return}
+        await connectEditor();
+      }else{
+        const r=await sb.auth.signUp({email,password});
+        if(r.error){const m=r.error.message||'';setAuErr(/registered/i.test(m)?'Эта почта уже зарегистрирована':m);return}
+        if(r.data.session)await connectEditor();else setAuErr('Аккаунт создан. Подтвердите почту по письму и войдите.',true);
+      }
+    }finally{$('#auGo').disabled=false}
+  }
+  $('#auGo').onclick=submitAuth;
+  ['#auE','#auP'].forEach(x=>$(x).addEventListener('keydown',e=>{if(e.key==='Enter')submitAuth()}));
+  $('#auTw').onclick=async()=>{
+    const sb=getSB();if(!sb){setAuErr('Не загрузился модуль входа.');return}
     const r=await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}});
-    if(r.error)toast('Ошибка входа: '+r.error.message);
+    if(r.error)setAuErr('Ошибка входа: '+r.error.message);
   };
+  $('#lgo').onclick=async()=>{try{await getSB().auth.signOut()}catch(e){}location.reload()};
   $('#link').onclick=()=>{
     if(!sess||!myKey){toast('Войдите через Twitch, чтобы получить ссылку для OBS');return}
     const u=location.origin+location.pathname+'?o='+myKey;
