@@ -139,10 +139,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);margin-top
 <div class="progress" id="progress"></div>
 <nav class="navbar" id="navbar">
   <a href="#top" class="nav-brand"><span class="dot"></span>Overlay Studio</a>
-  <div class="nav-links"><a href="#top">Главная</a><a href="#features">Возможности</a><a href="#how">Как это работает</a></div>
+  <div class="nav-links"><a href="#top">Главная</a><a href="#features">Возможности</a><a href="#how">Как это работает</a><a href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe">Скачать</a></div>
   <div class="nav-actions">
     <div class="user" id="user"><img id="uava" alt=""><span id="uname"></span><button id="logout">Выйти</button></div>
-    <button class="pill nav-cta" id="navLogin"><svg class="tw" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2 2 6v13h5v3h3l3-3h4l5-5V2H4zm15 10-3 3h-4l-3 3v-3H6V4h13v8z"/><path d="M15 7h2v5h-2zM10 7h2v5h-2z"/></svg>Войти через Twitch</button>
+    <button class="pill nav-cta" id="navLogin">Войти</button>
     <a class="pill nav-cta" id="navStudio" href="studio.html" style="display:none">Открыть студию</a>
   </div>
 </nav>
@@ -154,8 +154,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);margin-top
       <h1 id="h1" aria-label="Собери оверлей для стрима на бесконечном полотне">Собери оверлей для стрима на <em>бесконечном полотне</em></h1>
       <p class="tagline" data-load style="--d:.8s">Картинки, 7TV-эмодзи, текст, таймеры и даже чужие стримы. Расставь всё в зоне кадра, вставь одну ссылку в OBS — и каждое движение мыши сразу летит в эфир.</p>
       <div class="cta" data-load style="--d:.95s">
-        <button class="pill btn btn-primary" id="heroLogin"><svg class="tw" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2 2 6v13h5v3h3l3-3h4l5-5V2H4zm15 10-3 3h-4l-3 3v-3H6V4h13v8z"/><path d="M15 7h2v5h-2zM10 7h2v5h-2z"/></svg>Войти через Twitch</button>
+        <button class="pill btn btn-primary" id="heroLogin">Войти</button>
         <a class="pill btn btn-primary" id="heroStudio" href="studio.html" style="display:none">Открыть студию</a>
+        <a class="pill btn btn-ghost" href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe">Скачать для Windows</a>
         <a class="pill btn btn-ghost" href="studio.html?demo=1" id="demoBtn" style="display:none">Демо</a>
       </div>
       <p class="note" data-load style="--d:1.05s">Без карты и подписок. Вход занимает пару секунд.</p>
@@ -192,16 +193,17 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);margin-top
   <section id="how">
     <div class="head" data-reveal><h2>Как это работает</h2><span>три шага</span></div>
     <div class="steps">
-      <div class="step" data-reveal><h4>Войди через Twitch</h4><p>Один клик и никаких паролей. Студия узнает тебя по Twitch-профилю.</p></div>
+      <div class="step" data-reveal><h4>Создай аккаунт</h4><p>Почта и пароль или вход через Twitch. Все оверлеи хранятся в аккаунте.</p></div>
       <div class="step" data-reveal><h4>Собери сцену</h4><p>Добавь картинки, эмодзи, текст, таймер или чужой стрим и расставь их по зоне кадра.</p></div>
       <div class="step" data-reveal><h4>Вставь ссылку в OBS</h4><p>Нажми «Ссылка для OBS», добавь её в Browser Source 1920×1080 — готово.</p></div>
     </div>
     <div class="final" data-reveal>
       <h2>Готов собрать свой оверлей?</h2>
-      <p>Вход через Twitch займёт пару секунд. После входа открываются студия и демо-сцена, чтобы освоиться.</p>
+      <p>Создай аккаунт за минуту или скачай программу для Windows. Оверлеи сохраняются в аккаунте и доступны на любом компьютере.</p>
       <div class="cta">
-        <button class="pill btn btn-primary" id="finLogin"><svg class="tw" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2 2 6v13h5v3h3l3-3h4l5-5V2H4zm15 10-3 3h-4l-3 3v-3H6V4h13v8z"/><path d="M15 7h2v5h-2zM10 7h2v5h-2z"/></svg>Войти через Twitch</button>
+        <button class="pill btn btn-primary" id="finLogin">Войти</button>
         <a class="pill btn btn-primary" id="finStudio" href="studio.html" style="display:none">Открыть студию</a>
+        <a class="pill btn btn-ghost" href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe">Скачать для Windows</a>
       </div>
     </div>
   </section>
@@ -237,10 +239,10 @@ const rv=$$('[data-reveal]');
 rv.forEach(el=>{const sib=[...el.parentElement.children].filter(c=>c.hasAttribute('data-reveal'));el.style.setProperty('--d',(Math.min(sib.indexOf(el),6)*.08).toFixed(2)+'s')});
 const mark=el=>{el.classList.add('in-view');setTimeout(()=>el.style.setProperty('--d','0s'),1800)};
 if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){mark(e.target);io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -50px 0px'});rv.forEach(el=>io.observe(el))}else rv.forEach(mark);
-/* активный пункт меню */
+
 const links=$$('.nav-links a');
 if('IntersectionObserver' in window){const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});['top','features','how'].forEach(id=>{const s=document.getElementById(id);s&&so.observe(s)})}
-/* tilt */
+
 function tilt(el,m){
   el.addEventListener('mouseenter',()=>el.classList.add('tilting'));
   el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
@@ -251,17 +253,11 @@ function tilt(el,m){
 if(fine&&!reduce){tilt($('#visual'),10);$$('.card').forEach(c=>{const g=document.createElement('span');g.className='glare';c.append(g);tilt(c,7)});
   $$('.pill').forEach(el=>{el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px')})})}
 $('#yr').textContent=new Date().getFullYear();
-/* ---- вход через Twitch (Supabase Auth) ---- */
+  
 const SB_URL='https://ycqczfrphjhsnelivact.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljcWN6ZnJwaGpoc25lbGl2YWN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Njc5ODAsImV4cCI6MjEwODM0Mzk4MH0.9GCUHuAi_g0MZWtH4DaH2Rp5iLkdelowwl3TkaTTnB4';
 let sb=null;try{sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{flowType:'pkce'}})}catch(e){}
-async function login(){
-  if(!sb){toast('Не удалось загрузить вход. Откройте студию без входа.');return}
-  try{
-    const {error}=await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:new URL('studio.html',location.href).href}});
-    if(error)toast('Ошибка входа: '+error.message);
-  }catch(e){toast('Ошибка входа')}
-}
+function login(){location.href='studio.html'}
 ['#navLogin','#heroLogin','#finLogin'].forEach(s=>$(s).addEventListener('click',login));
 function render(session){
   const u=session&&session.user,on=!!u;
@@ -270,7 +266,7 @@ function render(session){
   $('#heroLogin').style.display=on?'none':'';$('#heroStudio').style.display=on?'':'none';
   $('#finLogin').style.display=on?'none':'';$('#finStudio').style.display=on?'':'none';
   $('#demoBtn').style.display=on?'':'none';
-  if(on){const m=u.user_metadata||{};$('#uname').textContent=m.preferred_username||m.name||m.full_name||'Профиль';
+  if(on){const m=u.user_metadata||{};$('#uname').textContent=m.preferred_username||m.name||m.full_name||(u.email||'').split('@')[0]||'Профиль';
     const a=m.avatar_url||m.picture;if(a)$('#uava').src=a;else $('#uava').removeAttribute('src')}
 }
 $('#logout').addEventListener('click',async()=>{try{await sb.auth.signOut()}catch(e){}render(null)});
