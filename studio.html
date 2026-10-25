@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <title>Студия оверлея</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src https: data: blob:; media-src https: data: blob:; connect-src https://ycqczfrphjhsnelivact.supabase.co wss://ycqczfrphjhsnelivact.supabase.co https://7tv.io; frame-src https:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&family=Bangers&family=Pacifico&family=Press+Start+2P&display=swap">
 <style>
@@ -116,7 +118,7 @@ html.ov{color-scheme:normal}
 #bar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:4px}
 #bar::-webkit-scrollbar{display:none}
 #bar>*{flex:none}#bar .sp{flex:1 0 8px}
-#bar button{padding:6px 11px}
+#bar button{padding:6px 9px}
 .hd{position:absolute;inset:0;pointer-events:none}
 .hd i{position:absolute;width:calc(13px*var(--hs,1));height:calc(13px*var(--hs,1));margin:calc(-6.5px*var(--hs,1)) 0 0 calc(-6.5px*var(--hs,1));background:#fff;border:calc(2px*var(--hs,1)) solid var(--acc);border-radius:calc(4px*var(--hs,1));pointer-events:auto;touch-action:none;box-sizing:border-box}
 .hd i[data-d=nw]{left:0;top:0;cursor:nwse-resize}.hd i[data-d=n]{left:50%;top:0;cursor:ns-resize}
@@ -128,7 +130,7 @@ html.ov{color-scheme:normal}
 #aBg.on{background:rgba(124,108,255,.2);border-color:var(--acc)}
 @media (prefers-reduced-motion:reduce){.bg-blob,#bar,#layers,#panel{animation:none}}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="bg"><div class="bg-blob a"></div><div class="bg-blob b"></div><div class="bg-blob c"></div></div>
@@ -139,7 +141,7 @@ html.ov{color-scheme:normal}
   <button id="aText">Текст</button><button id="aImg" title="Загрузить картинку">Фото</button><button id="aUrl" title="Картинка или GIF по ссылке">Ссылка</button><button id="a7">7TV</button><button id="aWeb">Браузер</button><button id="aTw">Стрим</button><button id="aWd">Таймер</button>
   <span class="sp"></span>
   <span id="st"><i></i><span>локально</span></span>
-  <button id="aBg" title="Показать стрим на фоне зоны">Фон-стрим</button><select id="chSel" title="Канал для фона"></select><button id="aClr">Очистить</button><button id="fit" title="Показать всю зону">Вид</button><button id="cfgB">Realtime</button><button id="link" class="pri">Ссылка для OBS</button>
+  <button id="aBg" title="Показать стрим на фоне зоны">Фон-стрим</button><select id="chSel" title="Канал для фона"></select><button id="aClr">Очистить</button><button id="fit" title="Показать всю зону">Вид</button><button id="lgn" style="display:none">Войти через Twitch</button><button id="cfgB" title="Старая ссылка для OBS перестанет работать">Новая ссылка</button><button id="link" class="pri">Ссылка для OBS</button>
 </div>
 <div id="layers" class="box"></div>
 <div id="panel" class="box">
@@ -150,13 +152,6 @@ html.ov{color-scheme:normal}
 </div>
 <div id="hint">Фон: двигать полотно. Колесо: масштаб. Маркеры вокруг элемента: менять размер. H: скрыть или показать выбранное. Del: удалить.</div>
 <div id="toast"></div>
-<dialog id="dlg">
-  <b>Realtime через Supabase</b>
-  <p>Бесплатный проект на supabase.com. Таблицы не нужны, используется Broadcast. Вставьте Project URL и anon key из Settings → API.</p>
-  <label>Project URL<input id="cU" type="text" placeholder="https://xxxx.supabase.co"></label>
-  <label>Anon key<input id="cK" type="text"></label>
-  <div class="row"><button id="cSave" class="pri">Сохранить</button><button id="cClose">Закрыть</button></div>
-</dialog>
 <dialog id="dlg7">
   <b>Эмодзи 7TV</b>
   <label>Канал (ник на Twitch, необязательно)<input id="s7c" type="text" placeholder="например, hepega"></label>
@@ -169,38 +164,70 @@ html.ov{color-scheme:normal}
 const $=s=>document.querySelector(s);
 const H=location.hash;
 const Q=new URLSearchParams(location.search);
-const ov=H.startsWith('#overlay')||H.startsWith('#o=')||Q.has('o')||Q.has('overlay');
+const OKEY=Q.get('o')||'';
+const keyed=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(OKEY);
+const ov=keyed||Q.has('overlay');
+if(!ov&&self!==top){document.documentElement.innerHTML='';throw new Error('framed')}
+const SB_URL='https://ycqczfrphjhsnelivact.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljcWN6ZnJwaGpoc25lbGl2YWN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Njc5ODAsImV4cCI6MjEwODM0Mzk4MH0.9GCUHuAi_g0MZWtH4DaH2Rp5iLkdelowwl3TkaTTnB4';
 document.body.classList.add(ov?'ov':'ed');if(ov)document.documentElement.classList.add('ov');
 const uid=()=>Math.random().toString(36).slice(2,9);
-let items=[],sel=null,view={x:80,y:110,k:.4},cfg=null,bc=null,ch=null;
+let items=[],sel=null,view={x:80,y:110,k:.4},bc=null,ch=null,chReady=false,sess=null,myKey='';
 try{bc=new BroadcastChannel('hs-scene')}catch(e){}
-if(Q.get('o')||H.startsWith('#o=')){try{cfg=JSON.parse(Q.get('o')||decodeURIComponent(H.slice(3)))}catch(e){}}
-else if(!ov){try{cfg=JSON.parse(localStorage.getItem('hs-cfg'))}catch(e){}}
 const base={w:800,h:450,mute:'true',url:'',channel:'',rot:0,op:1,font:'Manrope',weight:800,stroke:0,strokeC:'#000000',glow:0,radius:0,anim:'',fx:'fade',dur:450,s:1,visible:true,locked:false};
 const mkItem=o=>Object.assign({id:uid()},base,o);
 const demo=()=>[mkItem({type:'text',text:'Привет, стрим!',x:640,y:420,s:1.6,color:'#ffffff',anim:'float',glow:24}),mkItem({type:'widget',x:70,y:60,t0:Date.now()})];
+
+const TYPES=['text','img','widget','web','twitch'],ANIMS=['','pulse','float','shake','spin'],FXS=['fade','slide','pop','zoom','blur'],FONTS_OK=['Manrope','Bangers','Pacifico','Press Start 2P','Impact','Georgia','Consolas'];
+const num=(v,d,a,b)=>{v=parseFloat(v);return isFinite(v)?Math.min(b,Math.max(a,v)):d};
+const col=(v,d)=>typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v)?v:d;
+const str=(v,n)=>typeof v==='string'?v.slice(0,n):'';
+function clean(a){
+  if(!Array.isArray(a))return [];
+  return a.slice(0,200).map(o=>{
+    if(!o||typeof o!=='object'||!TYPES.includes(o.type))return null;
+    return {id:str(o.id,24).replace(/[^\w-]/g,'')||uid(),type:o.type,
+      x:num(o.x,0,-20000,20000),y:num(o.y,0,-20000,20000),s:num(o.s,1,.05,20),rot:num(o.rot,0,-360,360),op:num(o.op,1,0,1),
+      visible:o.visible!==false,locked:!!o.locked,anim:ANIMS.includes(o.anim)?o.anim:'',fx:FXS.includes(o.fx)?o.fx:'fade',dur:num(o.dur,450,50,3000),
+      text:str(o.text,500),color:col(o.color,'#ffffff'),strokeC:col(o.strokeC,'#000000'),font:FONTS_OK.includes(o.font)?o.font:'Manrope',
+      weight:[500,700,800].includes(+o.weight)?+o.weight:800,stroke:num(o.stroke,0,0,12),glow:num(o.glow,0,0,60),radius:num(o.radius,0,0,300),
+      w:num(o.w,800,60,4000),h:num(o.h,450,40,4000),mute:o.mute==='false'?'false':'true',
+      channel:typeof o.channel==='string'&&/^[a-z0-9_]{1,25}$/i.test(o.channel)?o.channel.toLowerCase():'',t0:num(o.t0,Date.now(),0,4e12),
+      src:typeof o.src==='string'&&/^(https:\/\/|data:image\/(png|jpeg|webp|gif);base64,)/.test(o.src)?o.src.slice(0,400000):'',
+      url:typeof o.url==='string'&&/^https:\/\//i.test(o.url)?o.url.slice(0,2000):''};
+  }).filter(it=>it&&!(it.type==='img'&&!it.src)&&!(it.type==='web'&&!it.url)&&!(it.type==='twitch'&&!it.channel));
+}
 const DEMO=Q.has('demo');
-try{const r=DEMO?null:localStorage.getItem('hs');items=r?JSON.parse(r):(DEMO?demo():[])}catch(e){items=DEMO?demo():[]}
+try{const r=(DEMO||keyed)?null:localStorage.getItem('hs');items=r?clean(JSON.parse(r)):(DEMO?demo():[])}catch(e){items=DEMO?demo():[]}
 
 function setStatus(live){const s=$('#st');if(!s)return;s.classList.toggle('live',live);s.lastChild.textContent=live?'онлайн':'локально'}
-function send(e,p){if(DEMO)return;try{bc&&bc.postMessage({e,p})}catch(_){}try{ch&&ch.send({type:'broadcast',event:e,payload:p})}catch(_){}}
+function send(e,p){if(DEMO)return;try{bc&&bc.postMessage({e,p})}catch(_){}try{ch&&chReady&&ch.send({type:'broadcast',event:e,payload:p})}catch(_){}}
+let sT=null;function sendScene(){if(sT)return;sT=setTimeout(()=>{sT=null;send('scene',items)},80)}
 function onMsg(e,p){
-  if(e==='scene'&&ov){items=p;sync($('#ovz'))}
-  else if(e==='pos'&&ov){const it=items.find(i=>i.id===p.id);if(it){it.x=p.x;it.y=p.y}}
-  else if(e==='geo'&&ov){const it=items.find(i=>i.id===p.id);if(it){Object.assign(it,p);const el=$('#ovz').querySelector('[data-id="'+it.id+'"]');if(el)fill(el,it)}}
-  else if(e==='hello'&&!ov)send('scene',items);
+  if(!ov||!p)return;
+  if(e==='scene'){items=clean(p);sync($('#ovz'))}
+  else if(e==='pos'){const it=items.find(i=>i.id===p.id);if(it){it.x=num(p.x,it.x,-20000,20000);it.y=num(p.y,it.y,-20000,20000)}}
+  else if(e==='geo'){const it=items.find(i=>i.id===p.id);if(it){
+    it.x=num(p.x,it.x,-20000,20000);it.y=num(p.y,it.y,-20000,20000);it.s=num(p.s,it.s,.05,20);
+    if(it.type==='web'||it.type==='twitch'){it.w=num(p.w,it.w,60,4000);it.h=num(p.h,it.h,40,4000)}
+    const el=$('#ovz').querySelector('[data-id="'+it.id+'"]');if(el)fill(el,it)}}
 }
-if(bc)bc.onmessage=m=>onMsg(m.data.e,m.data.p);
+if(bc)bc.onmessage=m=>{try{onMsg(m.data.e,m.data.p)}catch(_){}};
 let SB=null;
-function getSB(){if(!SB&&window.supabase&&cfg&&cfg.u&&cfg.k){try{SB=window.supabase.createClient(cfg.u,cfg.k)}catch(e){}}return SB}
-function connect(){
-  if(!cfg||!cfg.u||!cfg.k||!window.supabase){setStatus(false);return}
-  try{
-    const sb=getSB();
-    ch=sb.channel('hs-'+cfg.t);
-    ['scene','pos','hello'].forEach(ev=>ch.on('broadcast',{event:ev},m=>onMsg(ev,m.payload)));
-    ch.subscribe(s=>{if(s==='SUBSCRIBED'){setStatus(true);if(ov)ch.send({type:'broadcast',event:'hello',payload:{}})}else if(s==='CHANNEL_ERROR'||s==='TIMED_OUT'||s==='CLOSED')setStatus(false)});
-  }catch(e){setStatus(false)}
+function getSB(){
+  if(!SB&&window.supabase){try{SB=window.supabase.createClient(SB_URL,SB_KEY,ov?{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}}:{auth:{flowType:'pkce'}})}catch(e){}}
+  return SB;
+}
+async function fetchOverlay(){
+  const sb=getSB();if(!sb)return;
+  try{const r=await sb.rpc('get_overlay_scene',{k:OKEY});if(!r.error&&Array.isArray(r.data)){items=clean(r.data);sync($('#ovz'))}}catch(e){}
+}
+function connectOverlay(){
+  const sb=getSB();if(!sb)return;
+  fetchOverlay();
+  ch=sb.channel('ov:'+OKEY,{config:{private:true}});
+  ['scene','pos','geo'].forEach(ev=>ch.on('broadcast',{event:ev},m=>onMsg(ev,m.payload)));
+  ch.subscribe(st=>{if(st==='SUBSCRIBED')fetchOverlay()});
 }
 
 function fill(el,it){
@@ -216,7 +243,7 @@ function fill(el,it){
   }else if(it.type==='web'||it.type==='twitch'){
     const src=it.type==='web'?it.url:'https://player.twitch.tv/?channel='+encodeURIComponent(it.channel)+'&parent='+location.hostname+'&muted='+it.mute+'&autoplay=true';
     Object.assign(n.style,{width:it.w+'px',height:it.h+'px',borderRadius:it.radius+'px',overflow:'hidden'});
-    if(n._src!==src){n._src=src;n.innerHTML='';const fr=document.createElement('iframe');fr.src=src;fr.allow='autoplay; fullscreen';fr.scrolling='no';fr.setAttribute('allowtransparency','true');n.appendChild(fr)}
+    if(n._src!==src){n._src=src;n.innerHTML='';const fr=document.createElement('iframe');fr.src=src;fr.allow='autoplay; fullscreen';fr.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-popups allow-presentation');fr.scrolling='no';fr.setAttribute('allowtransparency','true');n.appendChild(fr)}
   }
   if(!el._boot)el.classList.toggle('hid',!it.visible);
   el.classList.toggle('sel',!ov&&it.id===sel);el.classList.toggle('lock',!!it.locked);handles(el,it);
@@ -257,20 +284,17 @@ function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clea
 
 if(ov){
   const z=$('#ovz');const fit=()=>{z.style.transform='scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'};
-  fit();addEventListener('resize',fit);sync(z);loop();connect();
-  addEventListener('storage',e=>{if(e.key==='hs'&&!ch){try{items=JSON.parse(e.newValue);sync(z)}catch(_){}}});
+  fit();addEventListener('resize',fit);sync(z);loop();if(keyed)connectOverlay();
 }else{
-  if(!cfg)cfg={};cfg.u=cfg.u||'https://ycqczfrphjhsnelivact.supabase.co';cfg.k=cfg.k||'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljcWN6ZnJwaGpoc25lbGl2YWN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Njc5ODAsImV4cCI6MjEwODM0Mzk4MH0.9GCUHuAi_g0MZWtH4DaH2Rp5iLkdelowwl3TkaTTnB4';if(!cfg.t)cfg.t=uid()+uid();
   const vp=$('#vp'),world=$('#world');
   let bgOn=false,myLogin='';
-  const saveCfg=()=>{try{localStorage.setItem('hs-cfg',JSON.stringify(cfg))}catch(e){}};saveCfg();
   const apply=()=>{world.style.transform='translate('+view.x+'px,'+view.y+'px) scale('+view.k+')';
     vp.style.backgroundSize=(40*view.k)+'px '+(40*view.k)+'px';vp.style.backgroundPosition=view.x+'px '+view.y+'px'};
   const fitView=()=>{const k=Math.min((innerWidth-540)/1920,(innerHeight-190)/1080);view={k:Math.max(k,.1),x:232,y:110};apply()};
   const cur=()=>items.find(i=>i.id===sel);
   const FONTS=[['Manrope','Manrope'],['Bangers','Bangers'],['Pacifico','Pacifico'],['Press Start 2P','Pixel'],['Impact','Impact'],['Georgia','Georgia'],['Consolas','Mono']];
   const F=[
-    {k:'text',l:'Текст',t:'ta',only:'text'},
+    {k:'text',l:'New text',t:'ta',only:'text'},
     {k:'url',l:'Адрес (многие сайты запрещают встраивание)',t:'i',only:'web',w:2},{k:'channel',l:'Канал Twitch',t:'i',only:'twitch',w:2},
     {k:'w',l:'Ширина',t:'n',only:'web twitch'},{k:'h',l:'Высота',t:'n',only:'web twitch'},
     {k:'mute',l:'Звук',t:'s',o:[['true','Выключен'],['false','Включён']],only:'twitch',w:2},
@@ -292,7 +316,10 @@ if(ov){
     else if(f.t==='i'){i=document.createElement('input');i.type='text'}
     else{i=document.createElement('input');i.type=f.t==='r'?'range':f.t==='c'?'color':'number';if(f.t==='r'){i.min=f.min;i.max=f.max}i.step=f.st||1}
     f.el=i;f.lab=l;l.append(i);P.append(l);
-    i.addEventListener((f.t==='s'||f.t==='i')?'change':'input',()=>{const it=cur();if(!it)return;it[f.k]=(f.t==='n'||f.t==='r')?(parseFloat(i.value)||0):(f.k==='weight'?+i.value:i.value);commit(true)});
+    i.addEventListener((f.t==='s'||f.t==='i')?'change':'input',()=>{const it=cur();if(!it)return;let v=(f.t==='n'||f.t==='r')?(parseFloat(i.value)||0):(f.k==='weight'?+i.value:i.value);
+      if(f.k==='url'&&v&&!/^https:\/\//i.test(v)){toast('Нужен адрес https://');i.value=it.url||'';return}
+      if(f.k==='channel'){v=String(v).toLowerCase().replace(/[^a-z0-9_]/g,'').slice(0,25);i.value=v}
+      it[f.k]=v;commit(true)});
   });
   function panelUpdate(){
     const it=cur(),p=$('#panel');p.classList.toggle('on',!!it);if(!it)return;
@@ -313,10 +340,13 @@ if(ov){
   function commit(keepPanel){
     sync(world);layers();
     if(!DEMO)try{localStorage.setItem('hs',JSON.stringify(items))}catch(e){}
-    send('scene',items);if(!keepPanel)panelUpdate();
+    sendScene();saveRemote();if(!keepPanel)panelUpdate();
   }
   const select=id=>{sel=id;sync(world);layers();panelUpdate()};
-  const add=o=>{const it=mkItem(Object.assign({x:Math.round((innerWidth/2-view.x)/view.k-200),y:Math.round((innerHeight/2-view.y)/view.k-80)},o));items.push(it);sel=it.id;commit()};
+  const add=o=>{
+    const it=clean([mkItem(Object.assign({x:Math.round((innerWidth/2-view.x)/view.k-200),y:Math.round((innerHeight/2-view.y)/view.k-80)},o))])[0];
+    if(!it||(it.type==='img'&&!it.src)||(it.type==='web'&&!it.url)||(it.type==='twitch'&&!it.channel)){toast('Нужна ссылка https:// или корректный ник');return}
+    items.push(it);sel=it.id;commit()};
   function doResize(dr,dx,dy){
     const it=dr.it,d=dr.d,th=(it.rot||0)*Math.PI/180,c=Math.cos(th),sn=Math.sin(th),os=dr.os;
     const wx=dx/view.k,wy=dy/view.k,lx=wx*c+wy*sn,ly=-wx*sn+wy*c;
@@ -362,7 +392,7 @@ if(ov){
   vp.addEventListener('pointerup',end);vp.addEventListener('pointercancel',end);
   vp.addEventListener('wheel',e=>{e.preventDefault();const k=Math.min(3,Math.max(.1,view.k*(e.deltaY<0?1.1:1/1.1)));
     const r=k/view.k;view.x=e.clientX-(e.clientX-view.x)*r;view.y=e.clientY-(e.clientY-view.y)*r;view.k=k;apply()},{passive:false});
-  $('#aText').onclick=()=>{add({type:'text',text:'Текст',color:'#ffffff'});setTimeout(()=>{const t=F[0].el;t.focus();t.select()},60)};
+  $('#aText').onclick=()=>{add({type:'text',text:'New text',color:'#ffffff'});setTimeout(()=>{const t=F[0].el;t.focus();t.select()},60)};
   $('#aWd').onclick=()=>add({type:'widget',t0:Date.now()});
   $('#aUrl').onclick=()=>{const u=prompt('Ссылка на картинку или GIF');if(u)add({type:'img',src:u})};
   $('#aWeb').onclick=()=>{const u=prompt('Адрес страницы (https://...)');if(u)add({type:'web',url:u,w:800,h:450})};
@@ -390,7 +420,7 @@ if(ov){
       else{const d=await gql({query:'query($q:String!){emotes(query:$q,page:1,limit:36){items{id name}}}',variables:{q}});list=d.emotes.items}
       res.innerHTML='';
       if(!list.length)res.textContent='Ничего не найдено';
-      list.slice(0,60).forEach(e=>{
+      list.filter(e=>/^[0-9A-Za-z]{8,40}$/.test(e.id)).slice(0,60).forEach(e=>{
         const b=document.createElement('button'),im=new Image(),sp=document.createElement('span');
         im.src='https://cdn.7tv.app/emote/'+e.id+'/2x.webp';im.loading='lazy';sp.textContent=e.name;b.append(im,sp);
         b.onclick=()=>{add({type:'img',src:'https://cdn.7tv.app/emote/'+e.id+'/4x.webp'});toast('Добавлено: '+e.name)};
@@ -402,11 +432,21 @@ if(ov){
   $('#s7go').onclick=find7;$('#s7x').onclick=()=>$('#dlg7').close();
   ['#s7c','#s7q'].forEach(x=>$(x).addEventListener('keydown',e=>{if(e.key==='Enter')find7()}));
   $('#aImg').onclick=()=>$('#file').click();
-  $('#file').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  $('#file').onchange=async e=>{
+    const f=e.target.files[0];e.target.value='';if(!f)return;
+    const ext={'image/png':'png','image/jpeg':'jpg','image/webp':'webp','image/gif':'gif'}[f.type];
+    if(!ext){toast('Нужна картинка PNG, JPG, WebP или GIF');return}
+    if(sess){
+      if(f.size>3145728){toast('Файл больше 3 МБ');return}
+      const sb=getSB(),path=sess.user.id+'/'+uid()+uid()+'.'+ext;
+      const r=await sb.storage.from('images').upload(path,f,{contentType:f.type,cacheControl:'31536000'});
+      if(r.error){toast('Не удалось загрузить: '+r.error.message);return}
+      add({type:'img',src:sb.storage.from('images').getPublicUrl(path).data.publicUrl});return}
+    const r=new FileReader();
     r.onload=()=>{if(f.size<120000)return add({type:'img',src:r.result});
       const im=new Image();im.onload=()=>{const k=Math.min(1,512/Math.max(im.width,im.height)),c=document.createElement('canvas');
         c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);add({type:'img',src:c.toDataURL('image/webp',.85)})};im.src=r.result};
-    r.readAsDataURL(f);e.target.value=''};
+    r.readAsDataURL(f)};
   $('#fit').onclick=fitView;
   $('#aClr').onclick=()=>{if(items.length&&confirm('Удалить все элементы со сцены?')){items=[];sel=null;commit()}};
   const bgKey='hs-bg';
@@ -426,7 +466,7 @@ if(ov){
   function bgRender(ch){
     const z=$('#zone');let f=$('#bgs');
     if(!ch){if(f)f.remove();bgOn=false;$('#aBg').classList.remove('on');layers();return}
-    if(!f){f=document.createElement('iframe');f.id='bgs';f.allow='autoplay';f.scrolling='no';z.append(f)}
+    if(!f){f=document.createElement('iframe');f.id='bgs';f.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-popups allow-presentation');f.allow='autoplay';f.scrolling='no';z.append(f)}
     f.src='https://player.twitch.tv/?channel='+encodeURIComponent(ch)+'&parent='+location.hostname+'&muted=true&autoplay=true';
     bgOn=true;$('#aBg').classList.add('on');layers();
   }
@@ -458,13 +498,50 @@ if(ov){
   })}
   function demoUI(){$('#link').style.display='none';$('#cfgB').style.display='none';$('#st').lastChild.textContent='демо';
     $('#hint').innerHTML='Демо-режим: изменения не сохраняются и не идут в эфир. <a href="studio.html" style="color:var(--accL)">Открыть свою студию</a>'}
-  $('#link').onclick=()=>{
-    const u=location.origin+location.pathname+(cfg.u&&cfg.k?'?o='+encodeURIComponent(JSON.stringify(cfg)):'?overlay');
-    (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('Ссылка скопирована'),()=>prompt('Ссылка для OBS',u));
+  let saveT=null;
+  function saveRemote(){
+    if(DEMO||!sess)return;clearTimeout(saveT);
+    saveT=setTimeout(async()=>{
+      const r=await getSB().from('scenes').update({data:items,updated_at:new Date().toISOString()}).eq('user_id',sess.user.id);
+      if(r.error)toast('Не удалось сохранить сцену');
+    },700);
+  }
+  function openCh(){
+    const sb=getSB();chReady=false;
+    ch=sb.channel('ov:'+myKey,{config:{private:true}});
+    ch.subscribe(st=>{chReady=st==='SUBSCRIBED';setStatus(chReady)});
+  }
+  async function connectEditor(){
+    const sb=getSB();if(!sb){setStatus(false);return}
+    try{
+      const r=await sb.auth.getSession();sess=r.data.session;$('#lgn').style.display=sess?'none':'';
+      if(!sess){setStatus(false);return}
+      let row=(await sb.from('scenes').select('overlay_key,data').maybeSingle()).data;
+      if(!row)row=(await sb.from('scenes').insert({user_id:sess.user.id,data:items}).select('overlay_key,data').single()).data;
+      if(!row){toast('Не удалось открыть сцену');return}
+      myKey=row.overlay_key;const remote=clean(row.data);
+      if(remote.length||!items.length){items=remote;sel=null;sync(world);layers();panelUpdate()}else saveRemote();
+      openCh();
+    }catch(e){setStatus(false)}
+  }
+  $('#lgn').onclick=async()=>{
+    const sb=getSB();if(!sb){toast('Не загрузился модуль входа');return}
+    const r=await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}});
+    if(r.error)toast('Ошибка входа: '+r.error.message);
   };
-  $('#cfgB').onclick=()=>{$('#cU').value=cfg.u||'';$('#cK').value=cfg.k||'';$('#dlg').showModal()};
-  $('#cClose').onclick=()=>$('#dlg').close();
-  $('#cSave').onclick=()=>{cfg.u=$('#cU').value.trim();cfg.k=$('#cK').value.trim();saveCfg();$('#dlg').close();location.reload()};
+  $('#link').onclick=()=>{
+    if(!sess||!myKey){toast('Войдите через Twitch, чтобы получить ссылку для OBS');return}
+    const u=location.origin+location.pathname+'?o='+myKey;
+    (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('Ссылка скопирована. Никому её не показывайте'),()=>prompt('Ссылка для OBS',u));
+  };
+  $('#cfgB').onclick=async()=>{
+    if(!sess){toast('Сначала войдите через Twitch');return}
+    if(!confirm('Создать новую ссылку для OBS? Старая перестанет работать.'))return;
+    const sb=getSB(),r=await sb.rpc('rotate_overlay_key');
+    if(r.error||!r.data){toast('Не удалось сменить ссылку');return}
+    myKey=r.data;try{await sb.removeChannel(ch)}catch(e){}
+    openCh();toast('Готово. Скопируйте новую ссылку для OBS');
+  };
   const act=fn=>()=>{const it=cur();if(it){fn(it);commit()}};
   const toggle=act(i=>i.visible=!i.visible);
   $('#fEye').onclick=toggle;
@@ -476,8 +553,8 @@ if(ov){
   const del=()=>{const it=cur();if(it){items=items.filter(i=>i!==it);sel=null;commit()}};
   $('#fDel').onclick=del;
   addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
-    if(e.key==='h'||e.key==='H')toggle();if(e.key==='Delete'||e.key==='Backspace')del()});
-  fitView();sync(world);layers();loop();if(!DEMO)connect();initBg();if(DEMO)demoUI();
+    if(e.key==='h'||e.key==='H')toggle();if(e.key==='Delete')del()});
+  fitView();sync(world);layers();loop();if(!DEMO)connectEditor();initBg();if(DEMO)demoUI();
 }
 </script>
 </body>
