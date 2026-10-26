@@ -1,16 +1,14 @@
-name: Build Windows installer
+name: Build and release
 on:
   workflow_dispatch:
   push:
-    tags: ['v*']
+    branches: [main]
+    paths: ['launcher/**']
 permissions:
   contents: write
 jobs:
-  build:
+  release:
     runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: launcher
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,14 +18,32 @@ jobs:
       - uses: swatinem/rust-cache@v2
         with:
           workspaces: launcher/src-tauri
+      - name: Set version from run number
+        shell: pwsh
+        run: |
+          $v = "0.1.$env:GITHUB_RUN_NUMBER"
+          $p = "launcher/src-tauri/tauri.conf.json"
+          (Get-Content $p -Raw) -replace '"version": "[^"]*"', ('"version": "' + $v + '"') | Set-Content $p -NoNewline
+          "APP_VERSION=$v" | Out-File -FilePath $env:GITHUB_ENV -Append
       - run: npm install
-      - run: npx tauri build
-      - uses: actions/upload-artifact@v4
+        working-directory: launcher
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
-          name: overlay-studio-installer
-          path: launcher/src-tauri/target/release/bundle/nsis/*.exe
-      - name: Publish release (only for v* tags)
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: launcher/src-tauri/target/release/bundle/nsis/*.exe
+          projectPath: launcher
+          tagName: v__VERSION__
+          releaseName: Overlay Studio v__VERSION__
+          releaseBody: Установщик для Windows. Приложение обновляется само при запуске.
+          releaseDraft: false
+          prerelease: false
+      - name: Stable installer name for the site button
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $exe = Get-ChildItem launcher/src-tauri/target/release/bundle/nsis/*-setup.exe | Select-Object -First 1
+          Copy-Item $exe.FullName Overlay-Studio-Setup.exe
+          gh release upload "v$env:APP_VERSION" Overlay-Studio-Setup.exe --clobber
