@@ -24,7 +24,7 @@ async function go(){
   document.getElementById('bar').style.display='';
   document.getElementById('st').textContent='Подключаюсь…';
   const c=new AbortController(),t=setTimeout(()=>c.abort(),10000);
-  try{await fetch(URL_,{mode:'no-cors',cache:'no-store',signal:c.signal});clearTimeout(t);location.replace(URL_)}
+  try{await fetch(URL_,{mode:'no-cors',cache:'no-store',signal:c.signal});clearTimeout(t);location.replace(URL_+'?t='+Date.now())}
   catch(e){clearTimeout(t);document.getElementById('bar').style.display='none';
     document.getElementById('st').textContent='Нет соединения. Проверьте интернет и повторите.';
     document.getElementById('retry').style.display='inline-block'}
