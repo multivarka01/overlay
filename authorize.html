@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src https: data:; connect-src https://ycqczfrphjhsnelivact.supabase.co; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Подключение приложения · Overlay Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>if(self!==top){document.documentElement.innerHTML=""}</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" integrity="sha384-BWcjm9OdFth9TbhCxZPdm+gAOUMAzQy9nmTs12ioXdCcbVnJaPMn+fMUoQCLt60R" crossorigin="anonymous"></script>
+<style>
+:root{color-scheme:dark;--bg:#0a0a0b;--card:#131316;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);--text:#f5f5f7;--mute:#a1a1aa;--faint:#6b6b72;--acc:#7c6cff;--accL:#c9c2ff;--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{font:500 15px Inter,system-ui,sans-serif;background:radial-gradient(70% 45% at 50% 0%,rgba(124,108,255,.22),transparent 70%),var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;padding:28px 16px 48px}
+main{width:min(520px,100%);display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;letter-spacing:-.02em;margin:6px 0 10px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--acc);box-shadow:0 0 16px 3px rgba(124,108,255,.55)}
+.tile{width:72px;height:72px;border-radius:20px;background:#17171b;border:1px solid var(--line);display:grid;place-items:center;box-shadow:0 20px 50px -20px rgba(124,108,255,.5)}
+.tile b{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#7c6cff,#4b3fd1);display:grid;place-items:center}.tile i{width:9px;height:9px;border-radius:50%;background:#fff}
+.who{margin:6px 0 0;font-size:17px;font-weight:700;color:var(--accL)}
+h1{margin:0;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.card{width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:8px}
+.card h2{margin:0 0 14px;font-size:16px}.card h2 span{color:var(--accL)}
+.perm{display:flex;gap:12px;align-items:flex-start;margin:0 0 14px}
+.ic{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(124,108,255,.16);color:var(--accL);font-weight:800;font-size:14px}
+.perm b{display:block;font-size:14px}.perm small{display:block;color:var(--faint);font-size:12.5px;line-height:1.45;margin-top:2px}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0 12px}
+.row{display:flex;gap:18px;font-size:13px;margin:6px 0}.row span{width:96px;color:var(--faint)}.row b{font-weight:600;word-break:break-all}
+.hint{width:100%;text-align:left;color:var(--faint);font-size:12.5px;line-height:1.5;margin:4px 2px}
+.hint a{color:var(--accL)}
+button{font:inherit;font-weight:700;cursor:pointer;border-radius:14px;border:1px solid var(--line);padding:14px;width:100%;color:var(--text);background:rgba(255,255,255,.06);transition:transform .25s var(--ease),background .25s var(--ease)}
+button:hover{background:rgba(255,255,255,.1)}button:active{transform:scale(.98)}button:disabled{opacity:.5;cursor:default}
+button.pri{background:var(--text);color:#0a0a0b;border-color:transparent}button.pri:hover{background:#fff}
+:focus-visible{outline:2px solid var(--accL);outline-offset:3px}
+label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--mute);margin-bottom:10px;text-align:left}
+input{font:inherit;color:var(--text);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:11px 12px;width:100%}
+input:focus{outline:none;border-color:var(--acc)}
+.tabs{display:flex;gap:4px;padding:4px;border-radius:100px;background:rgba(255,255,255,.05);margin-bottom:14px}
+.tabs button{border:0;background:transparent;border-radius:100px;padding:8px}.tabs button.on{background:var(--text);color:#0a0a0b}
+.err{min-height:18px;font-size:13px;color:#ff8a9b;text-align:left;margin:0 0 8px}.err.ok{color:var(--accL)}
+.stack{display:flex;flex-direction:column;gap:10px;width:100%}
+.app{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}.app:first-of-type{border-top:0}
+.app div{flex:1;text-align:left}.app small{display:block;color:var(--faint);font-size:12px}.app button{width:auto;padding:8px 14px;font-size:13px}
+.center{padding:40px 0;color:var(--mute)}
+</style>
+</head>
+<body>
+<main id="app"><div class="brand"><span class="dot"></span>Overlay Studio</div><div class="center" id="msg">Загрузка…</div></main>
+<script>
+(function(){
+const SB_URL='https://ycqczfrphjhsnelivact.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljcWN6ZnJwaGpoc25lbGl2YWN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Njc5ODAsImV4cCI6MjEwODM0Mzk4MH0.9GCUHuAi_g0MZWtH4DaH2Rp5iLkdelowwl3TkaTTnB4';
+const Q=new URLSearchParams(location.search),AID=Q.get('authorization_id')||'',APPS=Q.has('apps');
+const app=document.getElementById('app');
+let sb=null;try{sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{flowType:'pkce'}})}catch(e){}
+const el=(t,c,x)=>{const n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n};
+function reset(){app.innerHTML='';const b=el('div','brand');b.append(el('span','dot'),document.createTextNode('Overlay Studio'));app.append(b)}
+function say(text,isErr){reset();const d=el('div','center',text);if(isErr)d.style.color='#ff8a9b';app.append(d);
+  const a=el('a','hint','← На главную');a.href='index.html';a.style.textAlign='center';app.append(a)}
+function host(u){try{const x=new URL(u);return x.host}catch(e){return '—'}}
+
+function loginView(){
+  reset();
+  app.append(el('h1','','Войдите, чтобы продолжить'));
+  const card=el('div','card');
+  const tabs=el('div','tabs'),tIn=el('button','on','Вход'),tUp=el('button','','Регистрация');tabs.append(tIn,tUp);
+  const e1=el('label','','Почта'),em=el('input');em.type='email';em.autocomplete='username';e1.append(em);
+  const e2=el('label','','Пароль'),pw=el('input');pw.type='password';pw.autocomplete='current-password';e2.append(pw);
+  const err=el('div','err');err.setAttribute('role','alert');
+  const go=el('button','pri','Войти'),tw=el('button','','Войти через Twitch');
+  let mode='in';
+  const tab=m=>{mode=m;tIn.classList.toggle('on',m==='in');tUp.classList.toggle('on',m==='up');go.textContent=m==='in'?'Войти':'Создать аккаунт';err.textContent=''};
+  tIn.onclick=()=>tab('in');tUp.onclick=()=>tab('up');
+  const show=(m,ok)=>{err.textContent=m;err.classList.toggle('ok',!!ok)};
+  async function submit(){
+    if(!sb){show('Не загрузился модуль входа');return}
+    const email=em.value.trim(),password=pw.value;
+    if(!/^\S+@\S+\.\S+$/.test(email)){show('Введите корректную почту');return}
+    if(password.length<6){show('Пароль минимум 6 символов');return}
+    go.disabled=true;show('');
+    try{
+      if(mode==='in'){const r=await sb.auth.signInWithPassword({email,password});
+        if(r.error){const m=r.error.message||'';show(/Invalid login/i.test(m)?'Неверная почта или пароль':/not confirmed/i.test(m)?'Почта не подтверждена':m);return}
+        main()}
+      else{const r=await sb.auth.signUp({email,password});
+        if(r.error){show(/registered/i.test(r.error.message||'')?'Эта почта уже зарегистрирована':r.error.message);return}
+        if(r.data.session)main();else show('Аккаунт создан. Подтвердите почту по письму и войдите.',true)}
+    }finally{go.disabled=false}
+  }
+  go.onclick=submit;[em,pw].forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter')submit()}));
+  tw.onclick=async()=>{if(!sb)return;const r=await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.href}});if(r.error)show(r.error.message)};
+  const st=el('div','stack');st.append(go,tw);
+  card.append(tabs,e1,e2,err,st);app.append(card);
+}
+
+async function consentView(d){
+  reset();
+  const client=(d.client&&d.client.name)||'Приложение';
+  const tile=el('div','tile');const b=el('b');b.append(el('i'));tile.append(b);app.append(tile);
+  app.append(el('div','who',client),el('h1','','хочет подключиться к твоему аккаунту'));
+  const card=el('div','card');const h=el('h2');h.append(el('span','',client),document.createTextNode(' сможет:'));card.append(h);
+  const perm=(ic,t,s)=>{const p=el('div','perm'),i=el('span','ic',ic),w=el('div');w.append(el('b','',t),el('small','',s));p.append(i,w);card.append(p)};
+  perm('✎','Читать и менять твои оверлеи','Сцены и настройки сохраняются в твоём аккаунте и подтягиваются в приложение.');
+  perm('↑','Загружать картинки от твоего имени','Файлы попадают в твоё хранилище и открываются по прямой ссылке (это нужно для оверлея в OBS).');
+  if((d.scope||'').split(' ').includes('email'))perm('@','Видеть адрес твоей почты','Только чтобы показать, в какой аккаунт ты вошёл.');
+  card.append(el('hr'));
+  const r1=el('div','row');r1.append(el('span','','Приложение'),el('b','',client));
+  const r2=el('div','row');r2.append(el('span','','Возврат в'),el('b','',host(d.redirect_uri)));
+  card.append(r1,r2);app.append(card);
+  const hint=el('div','hint');hint.append(document.createTextNode('Отключить приложение можно в любой момент на странице '));
+  const a=el('a','','«Подключённые приложения»');a.href='?apps=1';hint.append(a,document.createTextNode('.'));app.append(hint);
+  const st=el('div','stack'),ok=el('button','pri','Разрешить'),no=el('button','','Отмена');st.append(ok,no);app.append(st);
+  const finish=async fn=>{ok.disabled=no.disabled=true;
+    const r=await fn(AID,{skipBrowserRedirect:true});
+    if(r.error||!r.data||!r.data.redirect_url){say('Ошибка: '+((r.error&&r.error.message)||'не удалось завершить'),true);return}
+    say('Готово. Можно вернуться в приложение…');location.replace(r.data.redirect_url)};
+  ok.onclick=()=>finish(sb.auth.oauth.approveAuthorization.bind(sb.auth.oauth));
+  no.onclick=()=>finish(sb.auth.oauth.denyAuthorization.bind(sb.auth.oauth));
+}
+
+async function appsView(){
+  reset();app.append(el('h1','','Подключённые приложения'));
+  const card=el('div','card');app.append(card);
+  const r=await sb.auth.oauth.listGrants();
+  if(r.error){card.textContent='Ошибка: '+r.error.message;return}
+  const list=Array.isArray(r.data)?r.data:[];
+  if(!list.length)card.textContent='Пока ничего не подключено.';
+  list.forEach(g=>{const row=el('div','app'),w=el('div'),b=el('button','','Отозвать');
+    w.append(el('b','',g.client_name||g.client&&g.client.name||'Приложение'),el('small','',g.created_at?new Date(g.created_at).toLocaleDateString('ru'):''));
+    b.onclick=async()=>{b.disabled=true;const x=await sb.auth.oauth.revokeGrant({clientId:g.client_id||(g.client&&g.client.id)});if(x.error){b.disabled=false;b.textContent='Ошибка'}else row.remove()};
+    row.append(w,b);card.append(row)});
+  const a=el('a','hint','← На главную');a.href='index.html';a.style.textAlign='center';app.append(a);
+}
+
+async function main(){
+  if(!sb){say('Не загрузился модуль входа. Проверьте интернет.',true);return}
+  try{
+    const s=(await sb.auth.getSession()).data.session;
+    if(!s){loginView();return}
+    if(APPS){await appsView();return}
+    if(!AID){say('Эта страница открывается из приложения Overlay Studio. Запустите вход в приложении.',true);return}
+    const r=await sb.auth.oauth.getAuthorizationDetails(AID);
+    if(r.error||!r.data){say('Запрос недействителен или устарел. Повторите вход в приложении.',true);return}
+    if(!('authorization_id' in r.data)){say('Приложение уже подключено…');location.replace(r.data.redirect_url);return}
+    await consentView(r.data);
+  }catch(e){say('Что-то пошло не так. Повторите вход в приложении.',true)}
+}
+main();
+})();
+</script>
+</body>
+</html>
