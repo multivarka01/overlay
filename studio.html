@@ -199,7 +199,7 @@ const ov=keyed||Q.has('overlay');
 if(!ov&&self!==top){document.documentElement.innerHTML='';throw new Error('framed')}
 const SB_URL='https://ycqczfrphjhsnelivact.supabase.co';
 // Client ID приложения из Supabase → Authentication → OAuth Apps (нужен для входа через браузер в лаунчере)
-const OAUTH_CLIENT_ID='';
+const OAUTH_CLIENT_ID='3b467d3a-9ea7-4c62-8aa9-e34dc7932563';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljcWN6ZnJwaGpoc25lbGl2YWN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Njc5ODAsImV4cCI6MjEwODM0Mzk4MH0.9GCUHuAi_g0MZWtH4DaH2Rp5iLkdelowwl3TkaTTnB4';
 document.body.classList.add(ov?'ov':'ed');if(ov)document.documentElement.classList.add('ov');
 const uid=()=>Math.random().toString(36).slice(2,9);
