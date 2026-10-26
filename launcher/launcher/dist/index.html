@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><title>Overlay Studio</title>
+<style>
+html,body{height:100%;margin:0;background:#0a0a0b;color:#f5f5f7;font:500 15px Inter,"Segoe UI",system-ui,sans-serif}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+background:radial-gradient(60% 50% at 50% 0%,rgba(124,108,255,.28),transparent 70%),#0a0a0b}
+.logo{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#7c6cff,#4b3fd1);box-shadow:0 0 60px rgba(124,108,255,.5);display:grid;place-items:center}
+.logo i{width:14px;height:14px;border-radius:50%;background:#fff}
+h1{margin:0;font-size:20px;letter-spacing:-.01em}
+p{margin:0;color:#a1a1aa}
+button{display:none;background:#f5f5f7;color:#0a0a0b;border:0;border-radius:100px;padding:11px 22px;font:700 14px inherit;font-family:inherit;cursor:pointer}
+.bar{width:160px;height:3px;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden}
+.bar b{display:block;width:40%;height:100%;background:#7c6cff;animation:m 1.1s ease-in-out infinite}
+@keyframes m{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+</style></head>
+<body>
+<div class="logo"><i></i></div><h1>Overlay Studio</h1>
+<div class="bar" id="bar"><b></b></div><p id="st">Подключаюсь…</p>
+<button id="retry">Повторить</button>
+<script>
+const URL_='https://multivarka01.github.io/overlay/studio.html';
+async function go(){
+  document.getElementById('retry').style.display='none';
+  document.getElementById('bar').style.display='';
+  document.getElementById('st').textContent='Подключаюсь…';
+  const c=new AbortController(),t=setTimeout(()=>c.abort(),10000);
+  try{await fetch(URL_,{mode:'no-cors',cache:'no-store',signal:c.signal});clearTimeout(t);location.replace(URL_)}
+  catch(e){clearTimeout(t);document.getElementById('bar').style.display='none';
+    document.getElementById('st').textContent='Нет соединения. Проверьте интернет и повторите.';
+    document.getElementById('retry').style.display='inline-block'}
+}
+document.getElementById('retry').onclick=go;go();
+</script></body></html>
