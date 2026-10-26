@@ -9,6 +9,8 @@ tauri-build = { version = "2", features = [] }
 
 [dependencies]
 tauri = { version = "2", features = [] }
+webbrowser = "1"
+tauri-plugin-updater = "2"
 
 [profile.release]
 lto = true

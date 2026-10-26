@@ -1,0 +1,16 @@
+{
+  "identifier": "remote-studio",
+  "description": "Разрешает странице студии вызвать вход через браузер",
+  "windows": [
+    "main"
+  ],
+  "remote": {
+    "urls": [
+      "https://multivarka01.github.io/overlay/*"
+    ]
+  },
+  "permissions": [
+    "core:default",
+    "allow-browser-login"
+  ]
+}

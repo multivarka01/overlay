@@ -3,7 +3,9 @@
   "productName": "Overlay Studio",
   "version": "0.1.0",
   "identifier": "com.multivarka.overlaystudio",
-  "build": { "frontendDist": "../dist" },
+  "build": {
+    "frontendDist": "../dist"
+  },
   "app": {
     "windows": [
       {
@@ -16,14 +18,41 @@
         "backgroundColor": "#0a0a0b"
       }
     ],
-    "security": { "csp": null }
+    "security": {
+      "csp": null
+    }
   },
   "bundle": {
     "active": true,
-    "targets": ["nsis"],
-    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.ico"],
+    "targets": [
+      "nsis"
+    ],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico"
+    ],
     "windows": {
-      "nsis": { "installMode": "currentUser", "languages": ["Russian", "English"] }
+      "nsis": {
+        "installMode": "currentUser",
+        "languages": [
+          "Russian",
+          "English"
+        ]
+      }
+    },
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEQ5QzA1NjgyQUMwRDMyOTAKUldTUU1nMnNnbGJBMmRMNGovUElITjVlUzdZVk5mcnJuOVA0VmgzVDFBblNRc2lzYmhhMnpuTCsK",
+      "endpoints": [
+        "https://github.com/multivarka01/overlay/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
     }
   }
 }
