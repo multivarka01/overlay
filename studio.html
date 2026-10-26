@@ -183,6 +183,7 @@ html.ov{color-scheme:normal}
     <label>Пароль<input id="auP" type="password" autocomplete="current-password" placeholder="Минимум 6 символов"></label>
     <div id="auErr" role="alert"></div>
     <button id="auGo" class="pri">Войти</button>
+    <button id="auBr" class="pri" hidden>Войти через сайт (браузер)</button>
     <button id="auTw">Войти через Twitch</button>
     <a class="back" href="index.html">← На главную</a>
   </div>
@@ -197,6 +198,8 @@ const keyed=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.te
 const ov=keyed||Q.has('overlay');
 if(!ov&&self!==top){document.documentElement.innerHTML='';throw new Error('framed')}
 const SB_URL='https://ycqczfrphjhsnelivact.supabase.co';
+// Client ID приложения из Supabase → Authentication → OAuth Apps (нужен для входа через браузер в лаунчере)
+const OAUTH_CLIENT_ID='';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljcWN6ZnJwaGpoc25lbGl2YWN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Njc5ODAsImV4cCI6MjEwODM0Mzk4MH0.9GCUHuAi_g0MZWtH4DaH2Rp5iLkdelowwl3TkaTTnB4';
 document.body.classList.add(ov?'ov':'ed');if(ov)document.documentElement.classList.add('ov');
 const uid=()=>Math.random().toString(36).slice(2,9);
@@ -559,7 +562,7 @@ if(ov){
     }catch(e){setStatus(false)}
   }
   const setAuErr=(m,ok)=>{const e=$('#auErr');e.textContent=m||'';e.classList.toggle('ok',!!ok)};
-  function showAuth(msg){$('#auth').hidden=false;if(msg)setAuErr(msg)}
+  function showAuth(msg){$('#auth').hidden=false;$('#auBr').hidden=!window.__TAURI_INTERNALS__;if(msg)setAuErr(msg)}
   let aMode='in';
   function setTab(m){aMode=m;$('#tIn').classList.toggle('on',m==='in');$('#tUp').classList.toggle('on',m==='up');
     $('#auGo').textContent=m==='in'?'Войти':'Создать аккаунт';$('#auT').textContent=m==='in'?'Вход в Overlay Studio':'Создание аккаунта';
@@ -585,6 +588,33 @@ if(ov){
   }
   $('#auGo').onclick=submitAuth;
   ['#auE','#auP'].forEach(x=>$(x).addEventListener('keydown',e=>{if(e.key==='Enter')submitAuth()}));
+  const REDIR='http://127.0.0.1:53682/callback';
+  const b64u=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  $('#auBr').onclick=async()=>{
+    const inv=window.__TAURI_INTERNALS__&&window.__TAURI_INTERNALS__.invoke,sb=getSB();
+    if(!inv){setAuErr('Эта кнопка работает только в приложении.');return}
+    if(!OAUTH_CLIENT_ID){setAuErr('Приложение ещё не зарегистрировано в Supabase (OAUTH_CLIENT_ID пуст).');return}
+    if(!sb){setAuErr('Не загрузился модуль входа.');return}
+    $('#auBr').disabled=true;
+    try{
+      const rnd=n=>b64u(crypto.getRandomValues(new Uint8Array(n)));
+      const verifier=rnd(48),state=rnd(16);
+      const challenge=b64u(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(verifier)));
+      const url=SB_URL+'/auth/v1/oauth/authorize?'+new URLSearchParams({response_type:'code',client_id:OAUTH_CLIENT_ID,redirect_uri:REDIR,state,code_challenge:challenge,code_challenge_method:'S256',scope:'email'});
+      setAuErr('Подтвердите вход в браузере…',true);
+      const q=new URLSearchParams(await inv('browser_login',{url}));
+      if(q.get('error')){setAuErr(q.get('error')==='access_denied'?'Вход отменён':'Ошибка: '+q.get('error'));return}
+      if(q.get('state')!==state||!q.get('code')){setAuErr('Ответ не прошёл проверку. Повторите вход.');return}
+      const resp=await fetch(SB_URL+'/auth/v1/oauth/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body:new URLSearchParams({grant_type:'authorization_code',code:q.get('code'),client_id:OAUTH_CLIENT_ID,redirect_uri:REDIR,code_verifier:verifier})});
+      const t=await resp.json();
+      if(!resp.ok||!t.access_token){setAuErr('Не удалось завершить вход: '+(t.error_description||t.error||resp.status));return}
+      const r=await sb.auth.setSession({access_token:t.access_token,refresh_token:t.refresh_token});
+      if(r.error){setAuErr(r.error.message);return}
+      await connectEditor();
+    }catch(e){setAuErr('Не удалось войти: '+((e&&e.message)||e))}
+    finally{$('#auBr').disabled=false}
+  };
   $('#auTw').onclick=async()=>{
     const sb=getSB();if(!sb){setAuErr('Не загрузился модуль входа.');return}
     const r=await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}});
