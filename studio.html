@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&family=Bangers&family=Pacifico&family=Press+Start+2P&display=swap">
 <style>
-:root{color-scheme:dark;--bg:#0a0a0b;--panel:rgba(15,15,18,.62);--hi:rgba(255,255,255,.06);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);--text:#f5f5f7;--mute:#a1a1aa;--acc:#7c6cff;--accT:#0a0a0b;--accL:#c9c2ff;--dot:rgba(255,255,255,.07);--ease:cubic-bezier(.22,1,.36,1);--ease-out:cubic-bezier(.16,1,.3,1);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{color-scheme:dark;--bg:#1d1d27;--panel:rgba(40,40,54,.74);--hi:rgba(255,255,255,.09);--line:rgba(255,255,255,.13);--line2:rgba(255,255,255,.24);--text:#f7f7fa;--mute:#c2c2ce;--acc:#7c6cff;--accT:#0a0a0b;--accL:#c9c2ff;--dot:rgba(255,255,255,.11);--ease:cubic-bezier(.22,1,.36,1);--ease-out:cubic-bezier(.16,1,.3,1);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font:500 14px Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
 #vp{position:absolute;inset:0;touch-action:none;cursor:grab;background-image:radial-gradient(var(--dot) 1.5px,transparent 1.5px)}
@@ -78,7 +78,7 @@ body.ov #ovz{display:block}
 /* ---- skin: glass / violet, как на kapitanych ---- */
 html,body{font-family:Inter,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.bg-blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+.bg-blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.85}
 .bg-blob.a{width:640px;height:640px;top:-220px;left:-160px;background:radial-gradient(circle at 30% 30%,rgba(124,108,255,.5),transparent 70%);animation:fb 22s ease-in-out infinite}
 .bg-blob.b{width:560px;height:560px;top:-80px;right:-220px;background:radial-gradient(circle at 60% 40%,rgba(66,58,145,.4),transparent 70%);animation:fb 26s ease-in-out infinite reverse}
 .bg-blob.c{width:520px;height:520px;bottom:-260px;left:30%;background:radial-gradient(circle,rgba(124,108,255,.22),transparent 70%);animation:fb 30s ease-in-out infinite}
@@ -98,24 +98,24 @@ button.pri{background:var(--text);color:var(--accT);border-color:transparent}
 button.pri:hover{background:#fff;box-shadow:0 14px 32px -12px rgba(255,255,255,.3)}
 input:not([type=range]):not([type=color]),select,textarea{border-radius:12px;background:rgba(255,255,255,.05);transition:border-color .22s var(--ease)}
 input:not([type=range]):not([type=color]):focus,select:focus,textarea:focus{border-color:var(--acc)}
-select option{background:#131316;color:var(--text)}
+select option{background:#262633;color:var(--text)}
 :focus-visible{outline-color:var(--accL)}
-#zone{outline:2px solid rgba(124,108,255,.85);border-radius:3px;background:rgba(255,255,255,.025);box-shadow:0 0 120px rgba(124,108,255,.2)}
+#zone{outline:2px solid rgba(124,108,255,.85);border-radius:3px;background:rgba(255,255,255,.055);box-shadow:0 0 120px rgba(124,108,255,.2)}
 #zone span{color:var(--accL);font-weight:600}
 .ed .it.sel{outline:2px solid var(--accL);outline-offset:8px;border-radius:6px}
 .ly{border-radius:12px;transition:background .22s var(--ease)}
 .ly.on{background:rgba(124,108,255,.16);outline:1px solid rgba(124,108,255,.5)}
 #st.live i{box-shadow:0 0 10px 2px rgba(124,108,255,.65)}
-#hint{color:#6b6b72}
+#hint{color:#a4a4b2}
 #toast{background:var(--text);color:var(--accT);border-radius:100px}
-dialog{background:#131316;border:1px solid var(--line2);border-radius:28px;padding:22px 24px;box-shadow:0 40px 100px -30px rgba(0,0,0,.7)}
+dialog{background:#262633;border:1px solid var(--line2);border-radius:28px;padding:22px 24px;box-shadow:0 40px 100px -30px rgba(0,0,0,.7)}
 dialog::backdrop{background:rgba(6,6,8,.65);backdrop-filter:blur(10px)}
 #res button{border-radius:14px}
 #panel,#layers,#res{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
 body.ov .bg{display:none}
 #auth{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(6,6,8,.78);backdrop-filter:blur(14px);padding:16px}
 #auth[hidden]{display:none}
-.acard{width:min(380px,100%);padding:28px;border-radius:28px;background:#131316;border:1px solid var(--line2);box-shadow:0 40px 100px -30px rgba(0,0,0,.7);display:flex;flex-direction:column;gap:12px}
+.acard{width:min(380px,100%);padding:28px;border-radius:28px;background:#262633;border:1px solid var(--line2);box-shadow:0 40px 100px -30px rgba(0,0,0,.7);display:flex;flex-direction:column;gap:12px}
 .alogo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#7c6cff,#4b3fd1);display:grid;place-items:center;box-shadow:0 0 40px rgba(124,108,255,.45)}
 .alogo i{width:10px;height:10px;border-radius:50%;background:#fff}
 .acard h2{margin:6px 0 0;font-size:20px;letter-spacing:-.01em}
@@ -154,6 +154,35 @@ html.ov{color-scheme:normal}
 .chi{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:var(--hi);cursor:pointer;font-weight:600;color:var(--text)}
 .chi:hover{border-color:var(--acc)}.chi.on{background:rgba(124,108,255,.16);border-color:var(--acc)}
 .chi b{flex:1;font-weight:600}.chi button{padding:2px 8px;font-size:12px}
+/* ---- new layout ---- */
+#top{right:12px;top:calc(12px + env(safe-area-inset-top,0px));display:flex;align-items:center;gap:8px;padding:6px 8px 6px 16px;border-radius:100px;animation:drop .9s var(--ease-out) both}
+#top button{padding:7px 14px}
+#bar{left:50%;right:auto;top:auto;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);max-width:calc(100% - 24px);padding:8px 12px;animation:none;justify-content:flex-start}
+#bar .sep{width:1px;height:20px;background:var(--line2);margin:0 4px}
+#panel{top:64px;max-height:calc(100% - 170px)}
+#hint{top:calc(18px + env(safe-area-inset-top,0px));bottom:auto;max-width:calc(100% - 420px)}
+@media (max-width:900px){#hint{display:none}}
+#layers{width:auto;max-height:260px;overflow:auto;padding:0;animation:none}
+#scn{border:0;padding:0;margin:0 0 4px}
+.lb{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:6px 0}
+#mn{width:min(980px,100%);max-height:100%;overflow:auto;padding:26px 30px;border-radius:32px;background:#262633;border:1px solid var(--line2);box-shadow:0 40px 100px -30px rgba(0,0,0,.6);display:flex;flex-direction:column;gap:18px;scrollbar-width:thin}
+#mnH{display:flex;align-items:center;justify-content:space-between}
+#mnT{margin:0;font-size:24px;font-weight:800;letter-spacing:-.01em}#mnT .w{color:#fff}#mnT .g{color:var(--accL)}
+#mnX{padding:6px 12px}
+#chl{flex-direction:row;flex-wrap:wrap;gap:14px;color:inherit}
+.cc{width:146px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--mute);font-size:11px}
+.cc .av{position:relative;width:146px;height:146px;border-radius:28px;display:grid;place-items:center;font-size:56px;font-weight:800;color:#fff;border:1px solid var(--line2);transition:transform .26s var(--ease),box-shadow .26s var(--ease)}
+.cc:hover .av{transform:translateY(-3px);box-shadow:0 14px 34px -12px rgba(124,108,255,.6)}
+.cc.on .av{box-shadow:0 0 0 2px var(--accL),0 14px 34px -12px rgba(124,108,255,.7)}
+.cc .nm{position:absolute;left:0;right:0;bottom:10px;padding:0 8px;font-size:14px;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,.6);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cc .bd{position:absolute;top:10px;left:50%;transform:translateX(-50%);padding:3px 10px;border-radius:100px;background:rgba(20,20,26,.72);font-size:11px;font-weight:800;letter-spacing:.06em;white-space:nowrap}
+.cc .rm{position:absolute;top:8px;right:8px;padding:0 7px;font-size:12px;line-height:20px;background:rgba(20,20,26,.6);border:0}
+.cc.add .av{background:transparent;border:2px dashed var(--line2);font-size:44px;color:var(--mute)}
+#mnB{display:flex;flex-wrap:wrap;gap:10px;padding-top:16px;border-top:1px solid var(--line)}
+#mnB>*{padding:10px 18px;font-size:13px}
+.pill{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);border-radius:100px;font-weight:600}
+.pill.blue{background:rgba(110,140,220,.3);border-color:rgba(150,175,255,.55)}
+#lgo{margin-left:auto;background:linear-gradient(135deg,#ef4444,#dc2626);border-color:transparent;font-weight:700}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous"></script>
 </head>
@@ -161,14 +190,12 @@ html.ov{color-scheme:normal}
 <div class="bg"><div class="bg-blob a"></div><div class="bg-blob b"></div><div class="bg-blob c"></div></div>
 <div id="vp"><div id="world"><div id="zone"><span>Зона стрима 1920×1080</span><div id="empty">Пусто. Добавьте элемент сверху</div></div></div></div>
 <div id="ovz"></div>
+<div id="top" class="box"><span id="st"><i></i><span>локально</span></span><button id="link" class="pri">Ссылка для OBS</button><button id="menuB" title="Каналы, сцены, слои, аккаунт">☰ Меню</button></div>
 <div id="bar" class="box">
-  <button id="back" title="Выбор канала">← Назад</button>
   <button id="aText">Текст</button><button id="aImg" title="Загрузить картинку">Фото</button><button id="aUrl" title="Картинка или GIF по ссылке">Ссылка</button><button id="a7">7TV</button><button id="aWeb">Браузер</button><button id="aTw">Стрим</button><button id="aWd">Таймер</button>
-  <span class="sp"></span>
-  <span id="st"><i></i><span>локально</span></span>
-  <button id="aBg" title="Показать стрим на фоне зоны">Фон-стрим</button><button id="aClr">Очистить</button><button id="fit" title="Показать всю зону">Вид</button><button id="lgo" style="display:none" title="Выйти из аккаунта">Выйти</button><button id="cfgB" title="Старая ссылка для OBS перестанет работать">Новая ссылка</button><button id="link" class="pri">Ссылка для OBS</button>
+  <span class="sep"></span>
+  <button id="aBg" title="Показать стрим на фоне зоны">Фон-стрим</button><button id="aClr">Очистить</button><button id="fit" title="Показать всю зону">Вид</button>
 </div>
-<div id="layers" class="box"></div>
 <div id="panel" class="box">
   <div id="fields"></div>
   <div class="row"><button id="fEye">Скрыть</button><button id="fLock">Закрепить</button></div>
@@ -199,12 +226,13 @@ html.ov{color-scheme:normal}
     <a class="back" href="index.html">← На главную</a>
   </div>
 </div>
-<div id="chs" hidden><div class="acard" style="max-height:100%;overflow:auto">
-<div class="alogo"><i></i></div><h2>Выбор канала</h2><p class="asub">Стрим выбранного канала будет фоном в студии.</p>
+<div id="chs" hidden><div id="mn">
+<div id="mnH"><div class="alogo"><i></i></div><button id="mnX" title="Закрыть (Esc)">✕</button></div>
+<h2 id="mnT"></h2>
 <div id="chl"></div>
-<div class="row"><input id="chN" type="text" placeholder="Ник Twitch-канала" style="flex:2"><button id="chAdd" class="pri">Добавить</button></div>
-<button id="chOff">Без фона</button><button id="chGo" class="pri">Продолжить в студию</button>
-<a class="back" href="index.html">← На главную</a></div></div>
+<div id="layers"></div>
+<div id="mnB"><a class="pill blue" href="index.html">На главную</a><button id="chOff">Убрать фон</button><button id="cfgB" title="Старая ссылка для OBS перестанет работать">Новая ссылка</button><button id="lgo" style="display:none" title="Выйти из аккаунта">Выйти из аккаунта</button></div>
+</div></div>
 <input id="file" type="file" accept="image/*" hidden>
 <script>
 const $=s=>document.querySelector(s);
@@ -262,8 +290,28 @@ function onMsg(e,p){
 }
 if(bc)bc.onmessage=m=>{try{onMsg(m.data.e,m.data.p)}catch(_){}};
 let SB=null;
+// ---- запоминание входа: копия refresh-токена и восстановление, если штатная сессия пропала ----
+let authM='pw';try{authM=localStorage.getItem('hs-am')||'pw'}catch(e){}
+const setAM=m=>{authM=m;try{localStorage.setItem('hs-am',m)}catch(e){}};
+function trackSession(sb){
+try{sb.auth.onAuthStateChange((ev,ss)=>{if(ss&&ss.refresh_token){try{localStorage.setItem('hs-rt',JSON.stringify({rt:ss.refresh_token,m:authM}))}catch(e){}}})}catch(e){}
+}
+async function restoreSession(sb){
+let saved=null;try{saved=JSON.parse(localStorage.getItem('hs-rt')||'null')}catch(e){}
+if(!saved||!saved.rt||typeof saved.rt!=='string')return null;
+try{
+if(saved.m==='oauth'&&OAUTH_CLIENT_ID){
+const resp=await fetch(SB_URL+'/auth/v1/oauth/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({grant_type:'refresh_token',refresh_token:saved.rt,client_id:OAUTH_CLIENT_ID})});
+const t=await resp.json();
+if(resp.ok&&t.access_token){const r=await sb.auth.setSession({access_token:t.access_token,refresh_token:t.refresh_token||saved.rt});if(!r.error)return r.data.session}
+}else{
+const r=await sb.auth.refreshSession({refresh_token:saved.rt});if(!r.error&&r.data.session)return r.data.session;
+}
+}catch(e){}
+return null;
+}
 function getSB(){
-  if(!SB&&window.supabase){try{SB=window.supabase.createClient(SB_URL,SB_KEY,ov?{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}}:{auth:{flowType:'pkce'}})}catch(e){}}
+  if(!SB&&window.supabase){try{SB=window.supabase.createClient(SB_URL,SB_KEY,ov?{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}}:{auth:{flowType:'pkce',persistSession:true,autoRefreshToken:true}})}catch(e){}if(SB&&!ov)trackSession(SB)}
   return SB;
 }
 async function fetchOverlay(){
@@ -338,7 +386,7 @@ if(ov){
   let bgOn=false,myLogin='';
   const apply=()=>{world.style.transform='translate('+view.x+'px,'+view.y+'px) scale('+view.k+')';
     vp.style.backgroundSize=(40*view.k)+'px '+(40*view.k)+'px';vp.style.backgroundPosition=view.x+'px '+view.y+'px'};
-  const fitView=()=>{const k=Math.min((innerWidth-540)/1920,(innerHeight-190)/1080);view={k:Math.max(k,.1),x:232,y:110};apply()};
+  const fitView=()=>{const k=Math.max(.1,Math.min((innerWidth-320)/1920,(innerHeight-190)/1080));view={k,x:Math.max(12,(innerWidth-300-1920*k)/2),y:Math.max(60,(innerHeight-1080*k-70)/2+20)};apply()};
   const cur=()=>items.find(i=>i.id===sel);
   const FONTS=[['Manrope','Manrope'],['Bangers','Bangers'],['Pacifico','Pacifico'],['Press Start 2P','Pixel'],['Impact','Impact'],['Georgia','Georgia'],['Consolas','Mono']];
   const F=[
@@ -376,12 +424,12 @@ if(ov){
   }
   function layers(){
     const em=$('#empty');if(em)em.style.display=(items.length||bgOn)?'none':'';
-    const L=$('#layers');L.innerHTML='';scenesUI(L);
+    const L=$('#layers');L.innerHTML='';lbl(L,'Сцены');scenesUI(L);lbl(L,'Слои');
     [...items].reverse().forEach(it=>{
       const r=document.createElement('div');r.className='ly'+(it.id===sel?' on':'')+(it.visible?'':' off');
       const b=document.createElement('b');b.textContent=it.type==='text'?it.text.split('\n')[0]||'Текст':it.type==='img'?'Картинка':it.type==='web'?'Браузер':it.type==='twitch'?'Стрим: '+it.channel:'Таймер';
       const e=document.createElement('button');e.textContent=it.visible?'Скрыть':'Показать';e.onclick=ev=>{ev.stopPropagation();it.visible=!it.visible;commit();panelUpdate()};
-      r.append(b,e);r.onclick=()=>select(it.id);L.append(r);
+      r.append(b,e);r.onclick=()=>{select(it.id);closeMenu()};L.append(r);
     });
     if(!items.length){const d=document.createElement('div');d.textContent='Пусто. Добавьте элемент сверху.';d.style.padding='6px';L.append(d)}
   }
@@ -411,6 +459,7 @@ const i=SC.list.findIndex(x=>x.id===id);SC.list.splice(i,1);
 if(SC.active===id){SC.active=SC.list[Math.max(0,i-1)].id;items=clean(curSc().items);sel=null}
 commit();
 }
+const lbl=(L,t)=>{const d=document.createElement('div');d.className='lb';d.textContent=t;L.append(d)};
 function scenesUI(L){
 const w=document.createElement('div');w.id='scn';
 SC.list.forEach(x=>{
@@ -540,15 +589,27 @@ function commit(keepPanel){
   const saveCh=()=>{try{localStorage.setItem('hs-chs',JSON.stringify(chs));localStorage.setItem(bgKey+'-ch',curCh)}catch(e){}};
   const setOn=v=>{try{localStorage.setItem(bgKey,v?'1':'')}catch(e){}};
 function chOpts(){
+const T=$('#mnT');T.textContent='';
+const g=document.createElement('span');g.className='g';
+if(myLogin){const w=document.createElement('span');w.className='w';w.textContent=myLogin+', ';g.textContent='выберите стримера:';T.append(w,g)}
+else{g.textContent='Выберите стримера:';T.append(g)}
 const L=$('#chl');L.innerHTML='';
 const list=[...new Set([myLogin,...chs].filter(Boolean))];
 list.forEach(c=>{
-const r=document.createElement('div');r.className='chi'+(bgOn&&c===curCh?' on':'');
-const b=document.createElement('b');b.textContent=c===myLogin?c+' (я)':c;r.append(b);
-if(c!==myLogin){const x=document.createElement('button');x.textContent='Убрать';x.onclick=ev=>{ev.stopPropagation();chs=chs.filter(v=>v!==c);if(curCh===c){curCh='';setOn(false);bgRender(null)}saveCh();chOpts()};r.append(x)}
-r.onclick=()=>{pick(c);closeCh()};L.append(r);
+const on=bgOn&&c===curCh,r=document.createElement('div');r.className='cc'+(on?' on':'');
+let h=0;for(const k of c)h=(h*31+k.charCodeAt(0))%360;
+const av=document.createElement('div');av.className='av';av.textContent=c[0].toUpperCase();
+av.style.background='linear-gradient(135deg,hsl('+h+' 65% 58%),hsl('+((h+40)%360)+' 60% 38%))';
+const nm=document.createElement('span');nm.className='nm';nm.textContent=c+(c===myLogin?' (я)':'');av.append(nm);
+if(on){const bd=document.createElement('span');bd.className='bd';bd.textContent='● ФОН';av.append(bd)}
+if(c!==myLogin){const x=document.createElement('button');x.className='rm';x.textContent='✕';x.title='Убрать канал';x.onclick=ev=>{ev.stopPropagation();chs=chs.filter(v=>v!==c);if(curCh===c){curCh='';setOn(false);bgRender(null)}saveCh();chOpts()};av.append(x)}
+const cp=document.createElement('span');cp.textContent=on?'Сейчас фоном':'Нажмите, чтобы выбрать';
+r.append(av,cp);r.onclick=()=>{pick(c);closeCh()};L.append(r);
 });
-if(!list.length)L.textContent='Каналов пока нет. Добавьте ник ниже.';
+const a=document.createElement('div');a.className='cc add';
+const aa=document.createElement('div');aa.className='av';aa.textContent='＋';
+const ac=document.createElement('span');ac.textContent='Добавить канал';
+a.append(aa,ac);a.onclick=()=>addCh();L.append(a);
 }
   function bgRender(ch){
     const z=$('#zone');let f=$('#bgs');
@@ -558,18 +619,18 @@ if(!list.length)L.textContent='Каналов пока нет. Добавьте 
     bgOn=true;$('#aBg').classList.add('on');layers();
   }
   const pick=ch=>{curCh=ch;saveCh();setOn(true);bgRender(ch);chOpts()};
-const closeCh=()=>{$('#chs').hidden=true};
-$('#back').onclick=()=>{chOpts();$('#chs').hidden=false};
-$('#chGo').onclick=closeCh;
+const closeCh=()=>{$('#chs').hidden=true},closeMenu=closeCh;
+const openMenu=()=>{chOpts();layers();$('#chs').hidden=false};
+$('#menuB').onclick=openMenu;$('#mnX').onclick=closeCh;
+$('#chs').addEventListener('click',e=>{if(e.target.id==='chs')closeCh()});
 $('#chOff').onclick=()=>{setOn(false);bgRender(null);chOpts();closeCh()};
-const addCh=()=>{const n=$('#chN').value.trim().toLowerCase().replace(/^@/,'');
-if(!/^[a-z0-9_]{1,25}$/.test(n)){toast('Некорректный ник');return}
-if(n!==myLogin&&!chs.includes(n))chs.push(n);$('#chN').value='';pick(n);closeCh()};
-$('#chAdd').onclick=addCh;$('#chN').addEventListener('keydown',e=>{if(e.key==='Enter')addCh()});
+const addCh=()=>{const n=(prompt('Ник Twitch-канала')||'').trim().toLowerCase().replace(/^@/,'');
+if(!n)return;if(!/^[a-z0-9_]{1,25}$/.test(n)){toast('Некорректный ник');return}
+if(n!==myLogin&&!chs.includes(n))chs.push(n);pick(n);closeCh()};
 addEventListener('keydown',e=>{if(e.key==='Escape')closeCh()});
   $('#aBg').onclick=()=>{
     if(bgOn){setOn(false);bgRender(null);return}
-    if(!curCh){chOpts();$('#chs').hidden=false;return}
+    if(!curCh){openMenu();return}
     setOn(true);bgRender(curCh);
   };
   async function myChannel(){
@@ -602,7 +663,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeCh()});
   async function connectEditor(){
     const sb=getSB();if(!sb){setStatus(false);showAuth('Не загрузился модуль входа. Проверьте интернет и перезапустите.');return}
     try{
-      const r=await sb.auth.getSession();sess=r.data.session;$('#lgo').style.display=sess?'':'none';
+      const r=await sb.auth.getSession();sess=r.data.session;if(!sess)sess=await restoreSession(sb);$('#lgo').style.display=sess?'':'none';
       if(!sess){setStatus(false);showAuth();return}
       $('#auth').hidden=true;
       let row=(await sb.from('scenes').select('overlay_key,data').maybeSingle()).data;
@@ -630,7 +691,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeCh()});
     const email=$('#auE').value.trim(),password=$('#auP').value;
     if(!/^\S+@\S+\.\S+$/.test(email)){setAuErr('Введите корректную почту');return}
     if(password.length<6){setAuErr('Пароль минимум 6 символов');return}
-    $('#auGo').disabled=true;setAuErr('');
+    $('#auGo').disabled=true;setAuErr('');setAM('pw');
     try{
       if(aMode==='in'){
         const r=await sb.auth.signInWithPassword({email,password});
@@ -666,7 +727,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeCh()});
         body:new URLSearchParams({grant_type:'authorization_code',code:q.get('code'),client_id:OAUTH_CLIENT_ID,redirect_uri:REDIR,code_verifier:verifier})});
       const t=await resp.json();
       if(!resp.ok||!t.access_token){setAuErr('Не удалось завершить вход: '+(t.error_description||t.error||resp.status));return}
-      const r=await sb.auth.setSession({access_token:t.access_token,refresh_token:t.refresh_token});
+      setAM('oauth');const r=await sb.auth.setSession({access_token:t.access_token,refresh_token:t.refresh_token});
       if(r.error){setAuErr(r.error.message);return}
       await connectEditor();
     }catch(e){setAuErr('Не удалось войти: '+((e&&e.message)||e))}
@@ -674,10 +735,11 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeCh()});
   };
   $('#auTw').onclick=async()=>{
     const sb=getSB();if(!sb){setAuErr('Не загрузился модуль входа.');return}
-    const r=await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}});
+    setAM('pw');const r=await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}});
     if(r.error)setAuErr('Ошибка входа: '+r.error.message);
   };
-  $('#lgo').onclick=async()=>{try{await getSB().auth.signOut()}catch(e){}location.reload()};
+  $('#lgo').onclick=async()=>{try{localStorage.removeItem('hs-rt')}catch(e){}try{await getSB().auth.signOut()}catch(e){}location.reload()};
+setInterval(async()=>{if(!sess||authM!=='oauth')return;const ns=await restoreSession(getSB());if(ns)sess=ns},30*60*1000);
   $('#link').onclick=()=>{
     if(!sess||!myKey){toast('Войдите через Twitch, чтобы получить ссылку для OBS');return}
     const u=location.origin+location.pathname+'?o='+myKey;
