@@ -143,6 +143,17 @@ html.ov{color-scheme:normal}
 #bgs{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none;opacity:.9;background:#000;color-scheme:normal}
 #aBg.on{background:rgba(124,108,255,.2);border-color:var(--acc)}
 @media (prefers-reduced-motion:reduce){.bg-blob,#bar,#layers,#panel{animation:none}}
+#back{display:flex;align-items:center;gap:6px;font-weight:700;padding:6px 14px 6px 10px;margin-right:4px}
+#scn{display:flex;flex-wrap:wrap;gap:4px;padding:2px 2px 8px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+#scn .sc{padding:4px 10px;font-size:12px;display:flex;align-items:center;gap:6px}
+#scn .sc.on{background:rgba(124,108,255,.2);border-color:var(--acc)}
+#scn .sc u{text-decoration:none;opacity:.55}#scn .sc u:hover{opacity:1}
+#chs{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;background:rgba(6,6,8,.86);backdrop-filter:blur(16px);padding:16px}
+#chs[hidden]{display:none}
+#chl{display:flex;flex-direction:column;gap:6px;color:var(--mute);font-size:13px}
+.chi{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:var(--hi);cursor:pointer;font-weight:600;color:var(--text)}
+.chi:hover{border-color:var(--acc)}.chi.on{background:rgba(124,108,255,.16);border-color:var(--acc)}
+.chi b{flex:1;font-weight:600}.chi button{padding:2px 8px;font-size:12px}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous"></script>
 </head>
@@ -151,11 +162,11 @@ html.ov{color-scheme:normal}
 <div id="vp"><div id="world"><div id="zone"><span>Зона стрима 1920×1080</span><div id="empty">Пусто. Добавьте элемент сверху</div></div></div></div>
 <div id="ovz"></div>
 <div id="bar" class="box">
-  <a class="brand" href="index.html" style="color:inherit;text-decoration:none"><span class="dot"></span>Studio</a>
+  <button id="back" title="Выбор канала">← Назад</button>
   <button id="aText">Текст</button><button id="aImg" title="Загрузить картинку">Фото</button><button id="aUrl" title="Картинка или GIF по ссылке">Ссылка</button><button id="a7">7TV</button><button id="aWeb">Браузер</button><button id="aTw">Стрим</button><button id="aWd">Таймер</button>
   <span class="sp"></span>
   <span id="st"><i></i><span>локально</span></span>
-  <button id="aBg" title="Показать стрим на фоне зоны">Фон-стрим</button><select id="chSel" title="Канал для фона"></select><button id="aClr">Очистить</button><button id="fit" title="Показать всю зону">Вид</button><button id="lgo" style="display:none" title="Выйти из аккаунта">Выйти</button><button id="cfgB" title="Старая ссылка для OBS перестанет работать">Новая ссылка</button><button id="link" class="pri">Ссылка для OBS</button>
+  <button id="aBg" title="Показать стрим на фоне зоны">Фон-стрим</button><button id="aClr">Очистить</button><button id="fit" title="Показать всю зону">Вид</button><button id="lgo" style="display:none" title="Выйти из аккаунта">Выйти</button><button id="cfgB" title="Старая ссылка для OBS перестанет работать">Новая ссылка</button><button id="link" class="pri">Ссылка для OBS</button>
 </div>
 <div id="layers" class="box"></div>
 <div id="panel" class="box">
@@ -188,6 +199,12 @@ html.ov{color-scheme:normal}
     <a class="back" href="index.html">← На главную</a>
   </div>
 </div>
+<div id="chs" hidden><div class="acard" style="max-height:100%;overflow:auto">
+<div class="alogo"><i></i></div><h2>Выбор канала</h2><p class="asub">Стрим выбранного канала будет фоном в студии.</p>
+<div id="chl"></div>
+<div class="row"><input id="chN" type="text" placeholder="Ник Twitch-канала" style="flex:2"><button id="chAdd" class="pri">Добавить</button></div>
+<button id="chOff">Без фона</button><button id="chGo" class="pri">Продолжить в студию</button>
+<a class="back" href="index.html">← На главную</a></div></div>
 <input id="file" type="file" accept="image/*" hidden>
 <script>
 const $=s=>document.querySelector(s);
@@ -359,19 +376,56 @@ if(ov){
   }
   function layers(){
     const em=$('#empty');if(em)em.style.display=(items.length||bgOn)?'none':'';
-    const L=$('#layers');L.innerHTML='';
+    const L=$('#layers');L.innerHTML='';scenesUI(L);
     [...items].reverse().forEach(it=>{
       const r=document.createElement('div');r.className='ly'+(it.id===sel?' on':'')+(it.visible?'':' off');
       const b=document.createElement('b');b.textContent=it.type==='text'?it.text.split('\n')[0]||'Текст':it.type==='img'?'Картинка':it.type==='web'?'Браузер':it.type==='twitch'?'Стрим: '+it.channel:'Таймер';
       const e=document.createElement('button');e.textContent=it.visible?'Скрыть':'Показать';e.onclick=ev=>{ev.stopPropagation();it.visible=!it.visible;commit();panelUpdate()};
       r.append(b,e);r.onclick=()=>select(it.id);L.append(r);
     });
-    if(!items.length)L.textContent='Пусто. Добавьте элемент сверху.';
+    if(!items.length){const d=document.createElement('div');d.textContent='Пусто. Добавьте элемент сверху.';d.style.padding='6px';L.append(d)}
   }
-  function commit(keepPanel){
+  let SC={list:[],active:''};
+try{SC=JSON.parse(localStorage.getItem('hs-scenes')||'null')||SC}catch(e){}
+if(!Array.isArray(SC.list)||!SC.list.length)SC={list:[{id:uid(),name:'Основная',items:[]}],active:''};
+SC.list=SC.list.slice(0,20).map(x=>({id:str(x.id,24).replace(/[^\w-]/g,'')||uid(),name:str(x.name,24)||'Сцена',items:Array.isArray(x.items)?x.items:[]}));
+if(!SC.list.some(x=>x.id===SC.active))SC.active=SC.list[0].id;
+const curSc=()=>SC.list.find(x=>x.id===SC.active);
+curSc().items=items;
+function saveScenes(){
+const a=curSc();if(a)a.items=items;
+if(DEMO)return;
+try{localStorage.setItem('hs-scenes',JSON.stringify({active:SC.active,list:SC.list.map(x=>({id:x.id,name:x.name,items:x.id===SC.active?[]:x.items}))}))}catch(e){toast('Не хватает места для сцен')}
+}
+function switchScene(id){
+if(id===SC.active)return;
+curSc().items=items;SC.active=id;items=clean(curSc().items);sel=null;commit();
+}
+function addScene(){
+const n=(prompt('Название сцены','Игровая')||'').trim().slice(0,24);if(!n)return;
+curSc().items=items;const ns={id:uid(),name:n,items:[]};SC.list.push(ns);SC.active=ns.id;items=[];sel=null;commit();
+}
+function delScene(id){
+if(SC.list.length<2||!confirm('Удалить сцену?'))return;
+const i=SC.list.findIndex(x=>x.id===id);SC.list.splice(i,1);
+if(SC.active===id){SC.active=SC.list[Math.max(0,i-1)].id;items=clean(curSc().items);sel=null}
+commit();
+}
+function scenesUI(L){
+const w=document.createElement('div');w.id='scn';
+SC.list.forEach(x=>{
+const b=document.createElement('button');b.className='sc'+(x.id===SC.active?' on':'');b.textContent=x.name;b.title='Двойной клик: переименовать';
+b.onclick=()=>switchScene(x.id);
+b.ondblclick=()=>{const n=(prompt('Название сцены',x.name)||'').trim().slice(0,24);if(n){x.name=n;commit(true)}};
+if(SC.list.length>1&&x.id===SC.active){const d=document.createElement('u');d.textContent='×';d.title='Удалить сцену';d.onclick=ev=>{ev.stopPropagation();delScene(x.id)};b.append(d)}
+w.append(b);
+});
+const p=document.createElement('button');p.className='sc';p.textContent='＋';p.title='Новая сцена';p.onclick=addScene;w.append(p);L.append(w);
+}
+function commit(keepPanel){
     sync(world);layers();
     if(!DEMO)try{localStorage.setItem('hs',JSON.stringify(items))}catch(e){}
-    sendScene();saveRemote();if(!keepPanel)panelUpdate();
+    saveScenes();sendScene();saveRemote();if(!keepPanel)panelUpdate();
   }
   const select=id=>{sel=id;sync(world);layers();panelUpdate()};
   const add=o=>{
@@ -485,15 +539,17 @@ if(ov){
   try{chs=JSON.parse(localStorage.getItem('hs-chs')||'[]');curCh=localStorage.getItem(bgKey+'-ch')||''}catch(e){}
   const saveCh=()=>{try{localStorage.setItem('hs-chs',JSON.stringify(chs));localStorage.setItem(bgKey+'-ch',curCh)}catch(e){}};
   const setOn=v=>{try{localStorage.setItem(bgKey,v?'1':'')}catch(e){}};
-  function chOpts(){
-    const S=$('#chSel');S.innerHTML='';
-    const list=[...new Set([myLogin,...chs].filter(Boolean))];
-    S.add(new Option('Выбрать канал',''));
-    list.forEach(c=>S.add(new Option(c===myLogin?c+' (я)':c,c)));
-    S.add(new Option('＋ Добавить канал','__add'));
-    if(curCh&&chs.includes(curCh))S.add(new Option('− Убрать «'+curCh+'»','__del'));
-    S.value=list.includes(curCh)?curCh:'';
-  }
+function chOpts(){
+const L=$('#chl');L.innerHTML='';
+const list=[...new Set([myLogin,...chs].filter(Boolean))];
+list.forEach(c=>{
+const r=document.createElement('div');r.className='chi'+(bgOn&&c===curCh?' on':'');
+const b=document.createElement('b');b.textContent=c===myLogin?c+' (я)':c;r.append(b);
+if(c!==myLogin){const x=document.createElement('button');x.textContent='Убрать';x.onclick=ev=>{ev.stopPropagation();chs=chs.filter(v=>v!==c);if(curCh===c){curCh='';setOn(false);bgRender(null)}saveCh();chOpts()};r.append(x)}
+r.onclick=()=>{pick(c);closeCh()};L.append(r);
+});
+if(!list.length)L.textContent='Каналов пока нет. Добавьте ник ниже.';
+}
   function bgRender(ch){
     const z=$('#zone');let f=$('#bgs');
     if(!ch){if(f)f.remove();bgOn=false;$('#aBg').classList.remove('on');layers();return}
@@ -502,17 +558,18 @@ if(ov){
     bgOn=true;$('#aBg').classList.add('on');layers();
   }
   const pick=ch=>{curCh=ch;saveCh();setOn(true);bgRender(ch);chOpts()};
-  $('#chSel').onchange=e=>{
-    const v=e.target.value;
-    if(v==='__add'){
-      const n=(prompt('Ник Twitch-канала')||'').trim().toLowerCase().replace(/^@/,'');
-      if(n){if(n!==myLogin&&!chs.includes(n))chs.push(n);pick(n)}else chOpts();return}
-    if(v==='__del'){chs=chs.filter(c=>c!==curCh);curCh='';saveCh();setOn(false);bgRender(null);chOpts();return}
-    if(v)pick(v);
-  };
+const closeCh=()=>{$('#chs').hidden=true};
+$('#back').onclick=()=>{chOpts();$('#chs').hidden=false};
+$('#chGo').onclick=closeCh;
+$('#chOff').onclick=()=>{setOn(false);bgRender(null);chOpts();closeCh()};
+const addCh=()=>{const n=$('#chN').value.trim().toLowerCase().replace(/^@/,'');
+if(!/^[a-z0-9_]{1,25}$/.test(n)){toast('Некорректный ник');return}
+if(n!==myLogin&&!chs.includes(n))chs.push(n);$('#chN').value='';pick(n);closeCh()};
+$('#chAdd').onclick=addCh;$('#chN').addEventListener('keydown',e=>{if(e.key==='Enter')addCh()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeCh()});
   $('#aBg').onclick=()=>{
     if(bgOn){setOn(false);bgRender(null);return}
-    if(!curCh){$('#chSel').focus();toast('Выберите канал в списке');return}
+    if(!curCh){chOpts();$('#chs').hidden=false;return}
     setOn(true);bgRender(curCh);
   };
   async function myChannel(){
@@ -556,7 +613,7 @@ if(ov){
       if(remote.length&&local.length&&ids(remote)!==ids(local)&&confirm('На этом компьютере есть несохранённая сцена ('+local.length+' эл.). Добавить её к оверлею из аккаунта?'))
         items=[...remote,...local.filter(l=>!remote.some(r=>r.id===l.id))];
       else if(remote.length||!local.length)items=remote;
-      sel=null;sync(world);layers();panelUpdate();
+      sel=null;saveScenes();sync(world);layers();panelUpdate();
       if(items.length&&JSON.stringify(items)!==JSON.stringify(remote))saveRemote();
       openCh();
     }catch(e){setStatus(false)}
