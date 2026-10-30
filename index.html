@@ -5,255 +5,188 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src https: data: blob:; connect-src https://ycqczfrphjhsnelivact.supabase.co; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0a0a0b">
+<meta name="theme-color" content="#000000">
 <title>Overlay Studio · оверлеи для Twitch</title>
-<meta name="description" content="Бесплатная студия оверлеев для стрима: бесконечное полотно, 7TV, браузер-источник, realtime в OBS.">
+<meta name="description" content="Бесплатная студия оверлеев для стрима: бесконечное полотно, 7TV, браузер-источник, сцены, realtime в OBS.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js');</script>
 <script>if(self!==top){document.documentElement.innerHTML=""}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous"></script>
 <style>
-:root{color-scheme:dark;--bg:#0a0a0b;--surface:rgba(255,255,255,.045);--surface-hover:rgba(255,255,255,.075);--border:rgba(255,255,255,.08);--border-hover:rgba(255,255,255,.16);--text:#f5f5f7;--text-dim:#a1a1aa;--text-faint:#6b6b72;--accent:#7c6cff;--accent-soft:rgba(124,108,255,.16);--accent-text:#c9c2ff;--ease:cubic-bezier(.22,1,.36,1);--ease-out:cubic-bezier(.16,1,.3,1);--r-lg:28px;--r-md:20px}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-html,body{margin:0;min-height:100%;-webkit-text-size-adjust:100%}
-body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;position:relative;min-height:100vh;-webkit-font-smoothing:antialiased}
-a{color:inherit}button{font-family:inherit}
-::selection{background:var(--accent);color:#fff}
-:focus-visible{outline:2px solid var(--accent-text);outline-offset:3px;border-radius:6px}
-.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.bg-blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
-.bg-blob.a{width:640px;height:640px;top:-220px;left:-160px;background:radial-gradient(circle at 30% 30%,rgba(124,108,255,.55),transparent 70%);animation:fb 22s ease-in-out infinite}
-.bg-blob.b{width:560px;height:560px;top:-80px;right:-220px;background:radial-gradient(circle at 60% 40%,rgba(66,58,145,.4),transparent 70%);animation:fb 26s ease-in-out infinite reverse}
-.bg-blob.c{width:520px;height:520px;bottom:-260px;left:30%;background:radial-gradient(circle,rgba(124,108,255,.22),transparent 70%);animation:fb 30s ease-in-out infinite}
-@keyframes fb{50%{transform:translate(30px,40px) scale(1.06)}}
-.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:70;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--accent),var(--accent-text))}
-.js [data-reveal]{opacity:0;translate:0 30px;filter:blur(6px);transition:opacity .9s var(--ease-out),translate .9s var(--ease-out),filter .9s var(--ease-out)}
-.js [data-reveal].in-view{opacity:1;translate:0 0;filter:blur(0);transition-delay:var(--d,0s)}
-.js [data-load]{opacity:0;translate:0 24px;filter:blur(8px);transition:opacity 1s var(--ease-out),translate 1s var(--ease-out),filter 1s var(--ease-out)}
-.js .ready [data-load]{opacity:1;translate:0 0;filter:blur(0);transition-delay:var(--d,0s)}
-/* navbar */
-.navbar{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(960px,calc(100vw - 24px));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 20px;border-radius:100px;border:1px solid var(--border);background:rgba(15,15,18,.55);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);transition:background .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease),translate .9s var(--ease-out),opacity .9s var(--ease-out)}
-.js .navbar{translate:0 -24px;opacity:0}.js .ready .navbar{translate:0 0;opacity:1}
-.navbar.scrolled{background:rgba(12,12,15,.78);border-color:var(--border-hover);box-shadow:0 12px 40px -12px rgba(0,0,0,.5)}
-.nav-brand{font-weight:700;font-size:.95rem;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px 2px var(--accent-soft)}
-.nav-links{display:flex;gap:6px;font-size:.86rem;color:var(--text-dim)}
-.nav-links a{padding:8px 14px;border-radius:100px;text-decoration:none;transition:color .22s var(--ease),background .22s var(--ease)}
-.nav-links a:hover,.nav-links a.active{color:var(--text);background:var(--surface)}
-.nav-actions{display:flex;align-items:center;gap:8px}
-.pill{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;border-radius:100px;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .26s var(--ease),background .26s var(--ease),box-shadow .26s var(--ease),border-color .26s var(--ease)}
-.pill::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(90px 90px at var(--mx,50%) var(--my,50%),rgba(124,108,255,.45),transparent 70%);opacity:0;transition:opacity .32s var(--ease)}
-.pill:hover::before{opacity:1}.pill:active{transform:scale(.97)}
-.nav-cta{background:var(--text);color:#0a0a0b;font-size:.84rem;padding:9px 16px}
-.btn{padding:14px 24px;font-size:.92rem}
-.btn-primary{background:var(--text);color:#0a0a0b}
-.btn-primary:hover{box-shadow:0 14px 32px -12px rgba(255,255,255,.25)}
-.btn-ghost{background:var(--surface);color:var(--text);border-color:var(--border)}
-.btn-ghost::before{background:radial-gradient(90px 90px at var(--mx,50%) var(--my,50%),rgba(255,255,255,.18),transparent 70%)}
-.btn-ghost:hover{background:var(--surface-hover);border-color:var(--border-hover)}
-.tw{width:16px;height:16px}
-.user{display:none;align-items:center;gap:8px;padding:4px 6px 4px 4px;border:1px solid var(--border);border-radius:100px;font-size:.82rem;color:var(--text-dim)}
-.user.on{display:flex}
-.user img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:var(--surface)}
-.user span{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-weight:600}
-.user button{background:none;border:none;color:var(--text-faint);cursor:pointer;font-size:.78rem;padding:6px 8px;border-radius:100px}
-.user button:hover{color:var(--text);background:var(--surface)}
-@media(max-width:760px){.nav-links{display:none}.user span{display:none}}
-main{position:relative;z-index:1}
-.shell{width:min(1100px,calc(100vw - 28px));margin:0 auto}
+:root{color-scheme:dark;--bg:#09090b;--g1:#1d1d21;--g2:#141417;--g3:#26262b;--g4:#1a1a1e;--a5:#df3939;--a4:#e56060;--t2:#d4d4d8;--t3:#a1a1aa;--t4:#8a8a93;--t5:#6b6b73;--fast:.15s;--slow:.3s}
+*{box-sizing:border-box}html{scroll-behavior:smooth}html,body{margin:0}
+body{font-family:Inter,-apple-system,sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font-family:inherit}::selection{background:var(--a5);color:#fff}
+h1,h2,h3,.mf{font-family:Manrope,Inter,sans-serif}
+.c{max-width:1200px;margin:0 auto;padding:0 24px}
+/* header */
+header{position:fixed;inset:0 0 auto;z-index:50}
+.hw{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lg{display:flex;align-items:center;gap:10px;font:800 18px Manrope,sans-serif;letter-spacing:-.01em}
+.lm{width:32px;height:32px;border-radius:10px;background:linear-gradient(180deg,var(--a4),var(--a5));display:grid;place-items:center}.lm i{width:9px;height:9px;border-radius:50%;background:#fff}
+nav{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+nav a{padding:8px 16px;border-radius:14px;font-size:14px;font-weight:500;line-height:24px;color:var(--t3);transition:background var(--fast),color var(--fast)}nav a:hover{background:var(--g3);color:#fff}
+.pb{position:absolute;inset-inline:0;bottom:0;height:4rem;pointer-events:none}.pb i{position:absolute;inset:0}
+.pb i:nth-child(1){backdrop-filter:blur(.5px);mask-image:linear-gradient(180deg,#000 0,#000 60%,transparent)}
+.pb i:nth-child(2){backdrop-filter:blur(1px);mask-image:linear-gradient(180deg,#000 0,#000 40%,transparent)}
+.pb i:nth-child(3){backdrop-filter:blur(2px);mask-image:linear-gradient(180deg,#000 0,#000 20%,transparent)}
+.pb i:nth-child(4){backdrop-filter:blur(4px);mask-image:linear-gradient(180deg,#000 0,#000 5%,transparent)}
+.act{display:flex;align-items:center;gap:8px}
+.bp{display:inline-flex;align-items:stretch;border:0;border-radius:14px;background:linear-gradient(to bottom,var(--a4),var(--a5));padding:2px;cursor:pointer;overflow:clip;transition:scale var(--fast),opacity var(--fast)}.bp:active{scale:.95}
+.bp span{display:flex;align-items:center;justify-content:center;width:100%;border-radius:12px;background:var(--a5);padding:6px 14px;font-size:16px;font-weight:600;line-height:24px;color:#fff;white-space:nowrap}
+.bgh{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:14px;background:transparent;padding:8px 16px;font-size:16px;font-weight:600;line-height:24px;color:var(--t2);cursor:pointer;white-space:nowrap;transition:background var(--slow),transform var(--slow)}.bgh:hover{background:var(--g3)}.bgh:active{transform:scale(.95)}
+.bw{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:14px;background:#fff;color:var(--a5);padding:10px 24px;font-size:16px;font-weight:600;cursor:pointer;transition:opacity var(--fast),transform var(--fast)}.bw:hover{opacity:.9}.bw:active{transform:scale(.95)}
+.bo{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.4);border-radius:14px;padding:10px 24px;font-size:16px;font-weight:600;transition:background var(--fast),border-color var(--fast),transform var(--fast)}.bo:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}.bo:active{transform:scale(.95)}
+.user{display:none;align-items:center;gap:8px;padding:3px 6px 3px 3px;border-radius:100px;background:var(--g2);font-size:14px}.user.on{display:flex}
+.user img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:var(--g3)}.user span{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.user button{background:none;border:0;color:var(--t4);cursor:pointer;font-size:13px;padding:6px 8px;border-radius:100px}.user button:hover{color:#fff;background:var(--g3)}
 /* hero */
-.hero{padding:150px 0 40px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
-.chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:100px;border:1px solid var(--border);background:var(--surface);font-size:.78rem;color:var(--text-dim);font-weight:500}
-.chip i{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2.2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(124,108,255,.5)}70%{box-shadow:0 0 0 8px rgba(124,108,255,0)}100%{box-shadow:0 0 0 0 rgba(124,108,255,0)}}
-h1{margin:20px 0 0;font-size:clamp(2.5rem,5vw,4.1rem);font-weight:800;line-height:1.06;letter-spacing:-.03em}
-.w{display:inline-block;overflow:hidden;vertical-align:top;padding:.08em 0 .14em;margin:-.08em 0 -.14em}
-.wi{display:inline-block;transform:translateY(108%);transition:transform 1s var(--ease-out);transition-delay:calc(var(--i)*90ms + 300ms)}
-.ready .wi{transform:none}
-h1 em{font-style:normal;background:linear-gradient(90deg,#9d8fff,var(--accent-text));-webkit-background-clip:text;background-clip:text;color:transparent}
-.tagline{margin:18px 0 0;color:var(--text-dim);font-size:1.05rem;line-height:1.6;max-width:31rem}
-.cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
-.note{margin:14px 0 0;color:var(--text-faint);font-size:.8rem}
-/* hero visual */
-.visual{position:relative;aspect-ratio:1/1.02;border-radius:var(--r-lg);border:1px solid var(--border);background:radial-gradient(120% 100% at 30% 15%,rgba(124,108,255,.28),transparent 55%),linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));overflow:hidden;transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .55s var(--ease),opacity 1s var(--ease-out),translate 1s var(--ease-out),filter 1s var(--ease-out)}
-.visual.tilting{transition:transform 60ms linear,opacity 1s var(--ease-out),translate 1s var(--ease-out),filter 1s var(--ease-out)}
-.grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.1) 1.4px,transparent 1.4px);background-size:26px 26px;mask-image:radial-gradient(circle at 50% 50%,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 30%,transparent 80%)}
-.zone{position:absolute;left:12%;right:12%;top:22%;bottom:20%;border:2px solid rgba(124,108,255,.85);border-radius:6px;background:rgba(255,255,255,.03);box-shadow:0 0 70px rgba(124,108,255,.25)}
-.zone b{position:absolute;left:0;top:-24px;font-size:.7rem;font-weight:600;color:var(--accent-text)}
-.mi{position:absolute;white-space:nowrap;font-weight:800;animation:fl 6s ease-in-out infinite}
-@keyframes fl{50%{transform:translateY(-9px)}}
-.m1{left:50%;top:50%;translate:-50% -50%;font-size:clamp(1.1rem,2.6vw,1.8rem);text-shadow:0 0 22px rgba(255,255,255,.7)}
-.m2{left:6%;top:8%;font-size:.95rem;padding:7px 12px;border-radius:12px;background:rgba(20,18,30,.88);border:2px solid var(--accent);box-shadow:0 0 22px rgba(124,108,255,.35);font-variant-numeric:tabular-nums;animation-delay:1.2s}
-.m3{right:7%;top:12%;font-size:2.3rem;animation-delay:2s}
-.m4{right:5%;bottom:7%;font-size:.72rem;padding:8px 12px;border-radius:12px;background:rgba(20,18,30,.85);border:1px solid var(--border-hover);color:var(--text-dim);animation-delay:2.8s}
-.m4 i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff5c7a;margin-right:6px}
-.fc{position:absolute;padding:7px 13px;border-radius:100px;background:rgba(20,20,24,.7);border:1px solid var(--border);backdrop-filter:blur(10px);font-size:.74rem;font-weight:600;color:var(--text-dim);animation:fl 6s ease-in-out infinite}
-.f1{left:7%;bottom:8%;animation-delay:.6s}.f2{left:38%;top:5%;animation-delay:1.8s}
-.cursor{position:absolute;width:22px;height:22px;left:56%;top:58%;animation:cur 7s ease-in-out infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
-@keyframes cur{0%,100%{transform:translate(0,0)}35%{transform:translate(-60px,-40px)}70%{transform:translate(30px,20px)}}
+.hero{position:relative;display:flex;min-height:100svh;align-items:center;justify-content:center;overflow:hidden;background:#000}
+.hero .l{position:absolute;inset:0}
+.hm{opacity:.6;-webkit-mask-image:radial-gradient(ellipse 160% 150% at 50% -40%,#000 55%,transparent 80%);mask-image:radial-gradient(ellipse 160% 150% at 50% -40%,#000 55%,transparent 80%)}
+.hb{position:absolute;inset:0;animation:br 8s ease-in-out infinite}
+.hs{position:absolute;top:0;bottom:0;left:-100%;width:200%;opacity:.4;background:linear-gradient(63deg,#09090B 6%,#DF3939 12%,#09090B 22%,#DF3939 29%,#DF3939 37%,#09090B 45%,#DF3939 54%,#09090B 81%,#DF3939 88%,#09090B 95%);animation:dr 30s ease-in-out infinite alternate}
+@keyframes br{50%{opacity:.8;transform:scale(1.03)}}@keyframes dr{to{transform:translateX(25%)}}
+.hg{background:radial-gradient(ellipse 55% 45% at 50% 46%,rgba(229,96,96,.22),transparent)}
+.hero .hf{top:auto;height:38%;background:linear-gradient(to top,#000,rgba(0,0,0,.7),transparent)}
+.hv{background:radial-gradient(ellipse 125% 95% at 50% 44%,transparent 52%,rgba(0,0,0,.85))}
+.gr{opacity:.05;mix-blend-mode:overlay;pointer-events:none;background-size:160px 160px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='a'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2' stitchTiles='stitch' type='fractalNoise'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E")}
+.hi{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:80px 16px 96px}
+.bd{display:inline-flex;align-items:center;gap:8px;border-radius:100px;background:var(--g2);backdrop-filter:blur(12px);padding:8px 16px;font-size:14px;font-weight:500;line-height:20px;color:var(--t4)}
+.bd i{position:relative;width:8px;height:8px;border-radius:50%;background:#22c55e}.bd i::after{content:"";position:absolute;inset:0;border-radius:50%;background:#22c55e;animation:pg 1.4s cubic-bezier(0,0,.2,1) infinite}
+@keyframes pg{75%,100%{transform:scale(2.2);opacity:0}}
+h1{margin:32px 0 0;max-width:900px;font-size:clamp(40px,7vw,72px);font-weight:800;line-height:1.1;letter-spacing:-.02em;background:linear-gradient(to bottom,#fff,var(--t2));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 em{font-style:normal;-webkit-text-fill-color:var(--a5)}
+.lead{margin:24px 0 0;max-width:520px;font-size:18px;line-height:28px;color:var(--t3)}
+.cta{display:flex;gap:12px;margin-top:40px;align-items:center;justify-content:center;flex-wrap:wrap}
 /* sections */
-.head{display:flex;align-items:baseline;justify-content:space-between;margin:0 2px 18px}
-.head h2{margin:0;font-size:1.4rem;font-weight:700;letter-spacing:-.01em}.head span{color:var(--text-faint);font-size:.85rem}
-section{padding-top:56px}
-.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(150px,auto);gap:14px}
-.card{position:relative;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface);padding:22px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift,0px));transition:transform .48s var(--ease),background .38s var(--ease),border-color .38s var(--ease),box-shadow .38s var(--ease),opacity .9s var(--ease-out),translate .9s var(--ease-out),filter .9s var(--ease-out)}
-.card.tilting{transition:transform 60ms linear,background .38s var(--ease),border-color .38s var(--ease),box-shadow .38s var(--ease),opacity .9s var(--ease-out),translate .9s var(--ease-out),filter .9s var(--ease-out)}
-.card::before{content:"";position:absolute;inset:0;background:radial-gradient(200px 140px at var(--mx,50%) var(--my,0%),rgba(124,108,255,.16),transparent 70%);opacity:0;transition:opacity .38s var(--ease);pointer-events:none}
-.card:hover{--lift:-4px;background:var(--surface-hover);border-color:var(--border-hover);box-shadow:0 20px 50px -20px rgba(0,0,0,.55)}
-.card:hover::before{opacity:1}
-.glare{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(220px 180px at var(--mx,50%) var(--my,0%),rgba(255,255,255,.14),transparent 65%);opacity:0;transition:opacity .3s var(--ease);mix-blend-mode:overlay}
-.card.tilting .glare{opacity:1}
-.big{grid-column:span 2;grid-row:span 2;justify-content:flex-end}
-.eyebrow{color:var(--text-faint);font-size:.78rem;font-weight:600;text-transform:uppercase}
-.big h3{margin:10px 0 0;font-size:1.7rem;font-weight:700;letter-spacing:-.01em}
-.big p{margin:10px 0 0;color:var(--text-dim);font-size:.92rem;line-height:1.55;max-width:26rem}
-.ico{width:22px;height:22px;color:var(--accent-text)}.ico svg{width:22px;height:22px}
-.card h4{margin:14px 0 0;font-size:1.02rem;font-weight:700}
-.card p.s{margin:6px 0 0;color:var(--text-dim);font-size:.85rem;line-height:1.5}
-.wide{grid-column:span 2}
-/* steps */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:s}
-.step{position:relative;padding:24px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface)}
-.step::before{counter-increment:s;content:"0" counter(s);display:block;font-size:.78rem;font-weight:700;color:var(--accent-text);margin-bottom:14px}
-.step h4{margin:0;font-size:1.05rem}.step p{margin:8px 0 0;color:var(--text-dim);font-size:.88rem;line-height:1.55}
-/* final cta */
-.final{margin-top:56px;padding:48px 28px;text-align:center;border-radius:var(--r-lg);border:1px solid var(--border);background:radial-gradient(100% 120% at 50% 0%,rgba(124,108,255,.25),transparent 65%),var(--surface)}
-.final h2{margin:0;font-size:clamp(1.6rem,3.4vw,2.4rem);letter-spacing:-.02em}
-.final p{color:var(--text-dim);max-width:30rem;margin:12px auto 0;line-height:1.55}
-.final .cta{justify-content:center}
-footer{position:relative;z-index:1;border-top:1px solid var(--border);margin-top:56px}
-.fi{width:min(1100px,calc(100vw - 28px));margin:0 auto;padding:30px 0 44px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;color:var(--text-faint);font-size:.84rem}
-.fi b{color:var(--text)}.fi a{text-decoration:none;color:var(--text-dim)}.fi a:hover{color:var(--text)}
-#toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--text);color:#0a0a0b;padding:10px 18px;border-radius:100px;font-size:.85rem;font-weight:600;opacity:0;pointer-events:none;transition:all .35s var(--ease);z-index:90}
-#toast.on{opacity:1;transform:translateX(-50%)}
-@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:120px}.visual{order:-1;aspect-ratio:16/11}.bento{grid-template-columns:repeat(2,1fr)}.big{grid-row:span 1}.steps{grid-template-columns:1fr}}
-@media(max-width:560px){.navbar{padding:8px 8px 8px 16px;top:10px}.hero{padding-top:104px}.cta .btn{flex:1;justify-content:center}.bento{grid-template-columns:1fr}.big,.wide{grid-column:span 1}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bg-blob,.mi,.fc,.cursor,.chip i{animation:none!important}.js [data-reveal],.js [data-load]{opacity:1;translate:0 0;filter:none;transition:none}.js .navbar{translate:0 0;opacity:1}.wi{transform:none;transition:none}.visual,.card{transform:none!important}}
+section{position:relative;padding:64px 0}@media(min-width:768px){section{padding:128px 0}}
+.hd{display:flex;flex-direction:column;align-items:center;text-align:center}
+h2{margin:0;max-width:720px;font-size:clamp(28px,4vw,32px);font-weight:700;line-height:1.25;letter-spacing:-.01em}
+.hd p{margin:16px 0 0;max-width:640px;font-size:16px;line-height:24px;color:var(--t3)}
+.gap{margin-top:64px}@media(min-width:768px){.gap{margin-top:96px}}
+.js .fi{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}.js .fi.in{opacity:1;transform:none}
+.bento{display:grid;gap:8px;grid-template-columns:1fr 1fr}.col{display:flex;flex-direction:column;gap:8px}
+.gc{position:relative;display:flex;flex-direction:column;border-radius:24px;background:var(--g2);padding:32px;transition:background var(--fast)}.gc:hover{background:var(--g1)}
+.gc.fl{flex:1}
+.gc h3{margin:0;max-width:calc(100% - 40px);font-size:24px;font-weight:700;line-height:32px}
+.gc>p{margin:12px 0 0;font-size:16px;font-weight:500;line-height:24px;color:var(--t3)}
+.ar{position:absolute;right:32px;top:32px;opacity:0;transform:translateY(-4px);transition:opacity var(--fast),transform var(--fast)}.gc:hover .ar{opacity:.4;transform:none}
+.mt{margin-top:auto;padding-top:24px}
+.pv{position:relative;display:flex;align-items:center;justify-content:center;border-radius:14px;border:1px solid rgba(255,255,255,.04);background:rgba(0,0,0,.4);overflow:hidden}
+.em{font-size:34px;opacity:.7}
+.st{position:relative;width:100%;height:100%;min-height:150px;background-image:radial-gradient(rgba(255,255,255,.09) 1.2px,transparent 1.2px);background-size:22px 22px}
+.zn{position:absolute;inset:14% 8%;border:2px solid rgba(223,57,57,.85);border-radius:6px;box-shadow:0 0 50px rgba(223,57,57,.2)}
+.st b{position:absolute;white-space:nowrap;font-weight:800}.s1{left:50%;top:50%;transform:translate(-50%,-50%);font-size:20px;text-shadow:0 0 20px rgba(255,255,255,.5)}
+.s2{left:14%;top:24%;font-size:13px;padding:4px 10px;border-radius:10px;background:#1c1214;border:2px solid var(--a5)}.s3{right:14%;top:22%;font-size:26px}
+.chips{display:flex;gap:8px;font-size:13px;font-weight:600}.chips span{padding:6px 14px;border-radius:100px;background:var(--g3);color:var(--t3)}.chips .on{background:#fff;color:#000}
+.row{display:grid;gap:32px;align-items:center}@media(min-width:768px){.row{grid-template-columns:1fr 1fr;gap:48px}.row.rev .ph{order:2}}
+.rows{display:flex;flex-direction:column;gap:56px}
+.ph{position:relative;aspect-ratio:570/460;border-radius:24px;background:var(--g2);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:24px}
+.rt{max-width:400px}.rt h3{margin:0;font-size:24px;font-weight:700;line-height:32px}.rt p{margin:12px 0 0;font-size:16px;font-weight:500;line-height:24px;color:var(--t3)}
+.mk{width:min(300px,100%);display:flex;flex-direction:column;gap:10px;font-size:13px}.mk b{font-size:16px}.mk i{font-style:normal;padding:10px 12px;border-radius:12px;background:var(--g3);color:var(--t4)}.mk u{text-decoration:none;text-align:center;padding:10px;border-radius:12px;background:var(--a5);font-weight:600}.mk u.tw{background:var(--g3);color:var(--t2)}
+.g3{display:grid;gap:16px}@media(min-width:768px){.g3{grid-template-columns:1fr 1fr}}@media(min-width:1024px){.g3{grid-template-columns:repeat(3,1fr)}}
+.pl{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;border-radius:100px;background:#fff;color:#000;padding:8px 16px;font-size:14px;font-weight:700;line-height:20px}
+.lp{margin:24px 0 0;font-size:16px;font-weight:500;line-height:24px;color:var(--t4)}
+.gc ul{margin:16px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px}.gc li{font-size:16px;line-height:24px;color:var(--t3)}.gc li::marker{color:var(--t2)}
+.lk{margin-top:24px;align-self:flex-start;font-size:14px;font-weight:500;line-height:20px;color:var(--a5);transition:color var(--fast)}.lk:hover{color:var(--a4)}
+.pc{margin:32px 0 0;display:flex;align-items:baseline;gap:8px}.pc b{font:800 40px/48px Manrope,sans-serif;letter-spacing:-.02em}.pc span{font-weight:500;color:var(--t3)}
+.pg{display:grid;gap:16px;align-items:stretch}@media(min-width:768px){.pg{grid-template-columns:1fr 1fr}}@media(min-width:1024px){.pg{grid-template-columns:repeat(3,1fr)}}
+.pc2{position:relative}.pc2.hot{border:2px solid var(--a5)}
+.pc2 .tg{position:absolute;top:-14px;left:50%;transform:translateX(-50%);border-radius:100px;background:var(--a5);padding:6px 16px;font-size:14px;font-weight:600;line-height:20px;white-space:nowrap}
+.pc2 h3{margin:0;max-width:none;font-size:28px;line-height:36px}.pc2 .pt{margin:8px 0 0;font-size:16px;line-height:24px;color:var(--t3)}
+.pc{margin:32px 0 0;display:flex;align-items:baseline;gap:8px}.pc b{font:800 40px/48px Manrope,sans-serif;letter-spacing:-.02em}.pc span{font-weight:500;color:var(--t3)}
+.pc2 .bp{margin-top:24px}
+.pc2 ul{list-style:none;padding:0;margin:32px 0 0;gap:12px}.pc2 li{display:flex;gap:12px;align-items:flex-start;color:var(--t4);font-weight:500;font-size:16px;line-height:24px}.pc2 li svg{margin-top:4px;flex:none;color:var(--t2)}.pc2.hot li svg{color:var(--a5)}
+.cw{display:flex;justify-content:center;margin-top:48px}
+.wb{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:100px;background:#fff;color:#000;padding:12px 24px;font-size:16px;font-weight:700;line-height:24px;cursor:pointer;transition:opacity var(--fast),transform var(--fast)}.wb:hover{opacity:.9}.wb:active{transform:scale(.95)}.wb svg{transition:transform var(--slow)}.wb[aria-expanded=true] svg{transform:rotate(180deg)}
+.cmpw{display:grid;grid-template-rows:0fr;transition:grid-template-rows var(--slow)}.cmpw.open{grid-template-rows:1fr;margin-top:24px}.cmpw>div{min-height:0;overflow:hidden}
+.tbl{overflow-x:auto;border-radius:24px;background:var(--g2)}
+.tbl table{width:100%;min-width:600px;border-collapse:collapse}.tbl th,.tbl td{padding:16px 24px;text-align:left;font-size:15px;border-bottom:1px solid rgba(255,255,255,.06)}
+.tbl th{font:700 16px Manrope,sans-serif}.tbl th.h{color:var(--a5)}.tbl td{color:var(--t2)}.tbl td:first-child{color:var(--t3)}.tbl tr:last-child td{border-bottom:0}.tbl .no{color:var(--t5)}.tbl td svg{color:var(--a5);vertical-align:middle}
+.faq{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.fq{border-radius:24px;transition:background var(--fast)}.fq:not(.open):hover{background:var(--g4)}.fq.open{background:var(--g2)}
+.fq button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:24px;padding:24px 32px;border:0;background:none;color:#fff;text-align:left;cursor:pointer;font:700 20px/28px Manrope,sans-serif}
+.chv{flex:none;color:var(--t3);transition:transform var(--slow)}.fq.open .chv{transform:rotate(180deg)}
+.fa{display:grid;grid-template-rows:0fr;transition:grid-template-rows var(--slow)}.fq.open .fa{grid-template-rows:1fr}.fa>div{min-height:0;overflow:hidden}
+.fa p{margin:0;max-width:760px;padding:0 32px 32px;font-size:16px;line-height:24px;color:var(--t3)}
+.fin{position:relative;overflow:hidden;padding:0}
+.fin .bgk{position:absolute;inset:0;background:linear-gradient(to bottom,#000 0%,rgba(223,57,57,.16) 34%,rgba(223,57,57,.66) 68%,#d33838 100%)}
+.fin .bgl{position:absolute;inset:0;background:radial-gradient(ellipse 62% 58% at 50% 54%,rgba(255,255,255,.09),transparent)}
+.fin .in2{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:96px 0}@media(min-width:768px){.fin .in2{padding:160px 0}}
+.fin h2{max-width:900px;font-size:clamp(32px,5vw,48px);font-weight:800;line-height:1.17;letter-spacing:-.02em}
+.fin p{margin:20px 0 0;max-width:560px;color:rgba(255,255,255,.75);line-height:24px}
+footer{padding-top:0}
+.fg{display:grid;gap:48px;padding:64px 0}@media(min-width:1024px){.fg{grid-template-columns:1.4fr 1fr 1fr .9fr;gap:32px;padding:80px 0}}
+.fg>div>p{margin:24px 0 0;max-width:340px;font-size:16px;line-height:24px;color:var(--t3)}
+.fg h4{margin:0;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;line-height:20px;color:var(--t3)}
+.fg ul{list-style:none;margin:24px 0 0;padding:0;display:flex;flex-direction:column;gap:16px}.fg li a{font-size:16px;line-height:24px;color:var(--t4);transition:color var(--fast)}.fg li a:hover{color:#fff}
+.fb{display:flex;flex-direction:column;gap:12px;border-top:1px solid rgba(255,255,255,.06);padding:32px 0}@media(min-width:768px){.fb{flex-direction:row;align-items:center;justify-content:space-between}}
+.fb p{margin:0;font-size:14px;line-height:20px;color:var(--t3)}.fb a:hover{color:#fff}.cr{font-size:12px!important;color:var(--t5)!important}.cr a{text-decoration:underline;text-underline-offset:2px}
+@media(max-width:900px){nav{display:none}.bento{grid-template-columns:1fr}}
+@media(max-width:600px){.user span{display:none}.cta>*{width:100%}.fq button{padding:20px;font-size:18px}.fa p{padding:0 20px 24px}.gc{padding:24px}.ar{right:24px;top:24px}}
+@media(prefers-reduced-motion:reduce){.hb,.hs{animation:none}.js .fi{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<div class="bg"><div class="bg-blob a"></div><div class="bg-blob b"></div><div class="bg-blob c"></div></div>
-<div class="progress" id="progress"></div>
-<nav class="navbar" id="navbar">
-  <a href="#top" class="nav-brand"><span class="dot"></span>Overlay Studio</a>
-  <div class="nav-links"><a href="#top">Главная</a><a href="#features">Возможности</a><a href="#how">Как это работает</a><a href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe">Скачать</a></div>
-  <div class="nav-actions">
-    <div class="user" id="user"><img id="uava" alt=""><span id="uname"></span><button id="logout">Выйти</button></div>
-    <button class="pill nav-cta" id="navLogin">Войти</button>
-    <a class="pill nav-cta" id="navStudio" href="studio.html" style="display:none">Открыть студию</a>
-  </div>
-</nav>
-<main>
-<div class="shell" id="top">
-  <section class="hero" style="padding-top:150px">
-    <div>
-      <span class="chip" data-load style="--d:.15s"><i></i>Бесплатно · работает в OBS</span>
-      <h1 id="h1" aria-label="Собери оверлей для стрима на бесконечном полотне">Собери оверлей для стрима на <em>бесконечном полотне</em></h1>
-      <p class="tagline" data-load style="--d:.8s">Картинки, 7TV-эмодзи, текст, таймеры и даже чужие стримы. Расставь всё в зоне кадра, вставь одну ссылку в OBS — и каждое движение мыши сразу летит в эфир.</p>
-      <div class="cta" data-load style="--d:.95s">
-        <button class="pill btn btn-primary" id="heroLogin">Войти</button>
-        <a class="pill btn btn-primary" id="heroStudio" href="studio.html" style="display:none">Открыть студию</a>
-        <a class="pill btn btn-ghost" href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe">Скачать для Windows</a>
-        <a class="pill btn btn-ghost" href="studio.html?demo=1" id="demoBtn" style="display:none">Демо</a>
-      </div>
-      <p class="note" data-load style="--d:1.05s">Без карты и подписок. Вход занимает пару секунд.</p>
-    </div>
-    <div class="visual" id="visual" data-load style="--d:.45s" aria-hidden="true">
-      <div class="grid"></div>
-      <div class="zone"><b>Зона стрима 1920×1080</b></div>
-      <div class="mi m1">Привет, стрим!</div>
-      <div class="mi m2">00:12:48</div>
-      <div class="mi m3">🐸</div>
-      <div class="mi m4"><i></i>LIVE · twitch</div>
-      <div class="fc f1">7TV</div><div class="fc f2">Realtime</div>
-      <svg class="cursor" viewBox="0 0 24 24" fill="#fff" stroke="#0a0a0b" stroke-width="1.2"><path d="M4 2l16 9-7 2-3 7z"/></svg>
-    </div>
-  </section>
-
-  <section id="features">
-    <div class="head" data-reveal><h2>Возможности</h2><span>всё, что нужно для оверлея</span></div>
-    <div class="bento">
-      <div class="card big" data-reveal>
-        <span class="eyebrow">Realtime</span>
-        <h3>Двигаешь в студии, зрители видят сразу</h3>
-        <p>Одна ссылка в Browser Source. Всё, что внутри зоны стрима, приезжает в OBS мгновенно, без обновления страницы и перезапуска.</p>
-      </div>
-      <div class="card" data-reveal><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M12 3v18M7 7l-4 5 4 5M17 7l4 5-4 5"/></svg></span><div><h4>Бесконечное полотно</h4><p class="s">Двигай и масштабируй свободно, зона кадра подсвечена.</p></div></div>
-      <div class="card" data-reveal><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9.5h.01M15 9.5h.01"/></svg></span><div><h4>7TV-эмодзи</h4><p class="s">Поиск по каналу и по названию, добавление в один клик.</p></div></div>
-      <div class="card" data-reveal><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18"/></svg></span><div><h4>Источник «Браузер»</h4><p class="s">Донат-виджеты, чаты и любые страницы прямо на полотне.</p></div></div>
-      <div class="card" data-reveal><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="m10 9 5 2-5 2zM8 21h8"/></svg></span><div><h4>Чужие стримы</h4><p class="s">Полотно со стримом любого канала Twitch, со звуком или без.</p></div></div>
-      <div class="card wide" data-reveal><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></span><div><h4>Плавные анимации и тонкая настройка</h4><p class="s">Элементы появляются и скрываются плавно: fade, всплеск, размытие. Шрифты, обводка, свечение, поворот, прозрачность, слои и закрепление.</p></div></div>
-      <div class="card wide" data-reveal><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 6v6c0 4.5 3.2 7.8 8 9 4.8-1.2 8-4.5 8-9V6l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></span><div><h4>Бесплатно и без установки</h4><p class="s">Работает в браузере. Прозрачный фон в OBS: на эфир попадают только ваши элементы.</p></div></div>
-    </div>
-  </section>
-
-  <section id="how">
-    <div class="head" data-reveal><h2>Как это работает</h2><span>три шага</span></div>
-    <div class="steps">
-      <div class="step" data-reveal><h4>Создай аккаунт</h4><p>Почта и пароль или вход через Twitch. Все оверлеи хранятся в аккаунте.</p></div>
-      <div class="step" data-reveal><h4>Собери сцену</h4><p>Добавь картинки, эмодзи, текст, таймер или чужой стрим и расставь их по зоне кадра.</p></div>
-      <div class="step" data-reveal><h4>Вставь ссылку в OBS</h4><p>Нажми «Ссылка для OBS», добавь её в Browser Source 1920×1080 — готово.</p></div>
-    </div>
-    <div class="final" data-reveal>
-      <h2>Готов собрать свой оверлей?</h2>
-      <p>Создай аккаунт за минуту или скачай программу для Windows. Оверлеи сохраняются в аккаунте и доступны на любом компьютере.</p>
-      <div class="cta">
-        <button class="pill btn btn-primary" id="finLogin">Войти</button>
-        <a class="pill btn btn-primary" id="finStudio" href="studio.html" style="display:none">Открыть студию</a>
-        <a class="pill btn btn-ghost" href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe">Скачать для Windows</a>
-      </div>
-    </div>
-  </section>
-</div>
+<header><div class="hw">
+<a href="#top" class="lg"><span class="lm"><i></i></span>Overlay Studio</a>
+<nav><a href="#features">Возможности</a><a href="#how">Как это работает</a><a href="#tools">Инструменты</a><a href="#pricing">Тарифы</a><a href="#faq">FAQ</a></nav>
+<div class="act"><div class="user" id="user"><img id="uava" alt=""><span id="uname"></span><button id="logout">Выйти</button></div>
+<button class="bp" id="navLogin"><span>Войти</span></button><a class="bp" id="navStudio" href="studio.html" style="display:none"><span>Открыть студию</span></a></div>
+</div><div class="pb"><i></i><i></i><i></i><i></i></div></header>
+<main id="top">
+<section class="hero" style="padding:0"><div class="l" aria-hidden="true"><div class="l hm"><div class="hb"><div class="hs"></div></div></div><div class="l hg"></div><div class="l hf"></div><div class="l hv"></div><div class="l gr"></div></div>
+<div class="hi"><span class="bd"><i></i>Бесплатно · открытая бета</span>
+<h1>Всё для оверлея стрима <em>на одном полотне</em></h1>
+<p class="lead">Картинки, 7TV-эмодзи, текст, таймеры и чужие стримы. Расставьте всё в зоне кадра, вставьте одну ссылку в OBS, и каждое движение мыши сразу летит в эфир.</p>
+<div class="cta"><button class="bp" id="heroLogin"><span>Начать бесплатно</span></button><a class="bp" id="heroStudio" href="studio.html" style="display:none"><span>Открыть студию</span></a><a class="bgh" href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe">Скачать для Windows</a><a class="bgh" id="demoBtn" href="studio.html?demo=1" style="display:none">Демо</a></div></div></section>
+<section id="features"><div class="c"><div class="fi"><div class="bento"><div class="col"><div class="gc "><span class="ar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17M8 7h9v9"/></svg></span><h3>Realtime</h3><p>Двигаете элемент в студии, он сразу меняется в OBS. Без обновления страницы и перезапуска.</p><div class="mt"><div class="pv" style="height:260px"><div class="st"><div class="zn"></div><b class="s1">Привет, стрим!</b><b class="s2">00:12:48</b><b class="s3">🐸</b></div></div></div></div><div class="gc "><span class="ar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17M8 7h9v9"/></svg></span><h3>Бесконечное полотно</h3><p>Масштаб и перемещение колесом и мышью, зона кадра 1920×1080 подсвечена.</p><div class="mt"><div class="pv" style="height:190px"><span class="em">🖼</span></div></div></div><div class="gc "><span class="ar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17M8 7h9v9"/></svg></span><h3>7TV-эмодзи</h3><p>Поиск по каналу и названию, добавление на сцену в один клик.</p></div><div class="gc fl"><span class="ar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17M8 7h9v9"/></svg></span><h3>Источник «Браузер»</h3><p>Донат-виджеты, чаты и любые страницы прямо на полотне.</p></div></div><div class="col"><div class="gc "><span class="ar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17M8 7h9v9"/></svg></span><h3>Чужие стримы</h3><p>Стрим любого канала Twitch как фон или элемент, со звуком или без.</p></div><div class="gc "><span class="ar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17M8 7h9v9"/></svg></span><h3>Сцены</h3><p>Основная, игровая и любые другие. Переключение сразу меняет то, что видно в OBS.</p><div class="mt"><div class="pv" style="height:220px"><div class="chips"><span class="on">Основная</span><span>Игровая</span><span>＋</span></div></div></div></div><div class="gc "><span class="ar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17M8 7h9v9"/></svg></span><h3>Анимации и стили</h3><p>Fade, всплеск, размытие. Шрифты, обводка, свечение, поворот, прозрачность, слои.</p><div class="mt"><div class="pv" style="height:300px"><span class="em">✨</span></div></div></div><div class="gc fl"><span class="ar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17M8 7h9v9"/></svg></span><h3>Аккаунт и ссылка</h3><p>Вход по почте или Twitch, запоминается. Ссылку для OBS можно перевыпустить.</p></div></div></div></div></div></section>
+<section id="how"><div class="c"><div class="fi hd"><h2>Как это работает</h2><p>Три шага от аккаунта до эфира.</p></div><div class="fi rows gap"><div class="row"><div class="ph"><div class="mk"><b>Вход</b><i>Почта</i><i>Пароль</i><u>Войти</u><u class="tw">Войти через Twitch</u></div></div><div class="rt"><h3>Создайте аккаунт</h3><p>Почта и пароль или вход через Twitch. Оверлеи хранятся в аккаунте, вход запоминается.</p></div></div><div class="row rev"><div class="ph"><div class="st"><div class="zn"></div><b class="s1">Привет, стрим!</b><b class="s2">00:12:48</b><b class="s3">🐸</b></div></div><div class="rt"><h3>Соберите сцену</h3><p>Добавьте картинки, эмодзи, текст, таймер или чужой стрим и расставьте по зоне кадра.</p></div></div><div class="row"><div class="ph"><div class="mk"><b>Browser Source</b><i>https://…/overlay.html?k=••••••</i><i>Ширина 1920 · Высота 1080</i><u>Готово</u></div></div><div class="rt"><h3>Вставьте ссылку в OBS</h3><p>Нажмите «Ссылка для OBS», добавьте её в Browser Source 1920×1080 и стримьте.</p></div></div></div></div></section>
+<section id="tools"><div class="c"><div class="fi hd"><h2>Больше возможностей для вашего эфира</h2><p>Всё, что умеет студия, по группам.</p></div><div class="fi g3 gap"><div class="gc"><span class="pl">📚 Холст и элементы</span><p class="lp">Собирайте оформление эфира на бесконечном полотне.</p><ul><li>Текст и таймеры</li><li>Картинки и GIF</li><li>Слои и закрепление</li><li>Прозрачность и поворот</li></ul><a class="lk" href="studio.html">Открыть студию →</a></div><div class="gc"><span class="pl">😀 7TV и контент</span><p class="lp">Эмодзи и контент для вашего чата.</p><ul><li>Поиск по каналу</li><li>Поиск по названию</li><li>Добавление в один клик</li></ul><a class="lk" href="studio.html">Открыть студию →</a></div><div class="gc"><span class="pl">🧩 Браузер и виджеты</span><p class="lp">Любые страницы как элементы оверлея.</p><ul><li>Донат-виджеты</li><li>Чаты</li><li>Любые страницы по ссылке</li></ul><a class="lk" href="studio.html">Открыть студию →</a></div><div class="gc"><span class="pl">🎥 OBS</span><p class="lp">Подключение к OBS одной ссылкой.</p><ul><li>Один Browser Source</li><li>Прозрачный фон</li><li>Realtime-синхронизация</li></ul><a class="lk" href="studio.html">Открыть студию →</a></div><div class="gc"><span class="pl">📺 Стримы Twitch</span><p class="lp">Чужие стримы прямо на полотне.</p><ul><li>Стрим как фон зоны</li><li>Со звуком или без</li><li>Выбор канала в меню</li></ul><a class="lk" href="studio.html">Открыть студию →</a></div><div class="gc"><span class="pl">🎬 Сцены и аккаунт</span><p class="lp">Несколько сцен и надёжный вход.</p><ul><li>Несколько сцен</li><li>Вход по почте и Twitch</li><li>Запоминание входа</li></ul><a class="lk" href="studio.html">Открыть студию →</a></div></div></div></section>
+<section id="pricing"><div class="c"><div class="fi hd"><h2>Выберите подходящий тариф</h2><p>Начните бесплатно и переходите на расширенные возможности по мере роста.</p></div>
+<div class="fi gap"><div class="pg" id="plans"></div><div class="cw"><button class="wb" id="cmpB" type="button" aria-expanded="false" aria-controls="cmpW"><span>Сравнить все возможности</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9l6 6l6-6"/></svg></button></div>
+<div class="cmpw" id="cmpW"><div><div class="tbl" id="cmp"></div></div></div></div></div></section>
+<section id="faq"><div class="c"><div class="fi"><h2 style="text-align:center;margin:0 auto">Частые вопросы</h2><div class="faq gap"><div class="fq open"><button type="button" aria-expanded="true"><span>Нужно ли что-то устанавливать?</span><svg class="chv" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9l6 6l6-6"/></svg></button><div class="fa"><div><p>Нет, студия работает в браузере. Программа для Windows необязательна, это удобное окно с автообновлением.</p></div></div></div><div class="fq"><button type="button" aria-expanded="false"><span>Как подключить оверлей к OBS?</span><svg class="chv" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9l6 6l6-6"/></svg></button><div class="fa"><div><p>Нажмите «Ссылка для OBS» в студии и добавьте её как Browser Source размером 1920×1080. Фон прозрачный, в эфир попадают только ваши элементы.</p></div></div></div><div class="fq"><button type="button" aria-expanded="false"><span>Это бесплатно?</span><svg class="chv" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9l6 6l6-6"/></svg></button><div class="fa"><div><p>Да, без карты и подписок.</p></div></div></div><div class="fq"><button type="button" aria-expanded="false"><span>Можно ли сделать несколько сцен?</span><svg class="chv" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9l6 6l6-6"/></svg></button><div class="fa"><div><p>Да, например «Основная» и «Игровая». Активная сцена сразу показывается в OBS.</p></div></div></div><div class="fq"><button type="button" aria-expanded="false"><span>Что, если ссылка для OBS попала не в те руки?</span><svg class="chv" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9l6 6l6-6"/></svg></button><div class="fa"><div><p>Выберите в меню «Новая ссылка». Старая перестанет работать.</p></div></div></div><div class="fq"><button type="button" aria-expanded="false"><span>Нужно ли входить каждый раз?</span><svg class="chv" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9l6 6l6-6"/></svg></button><div class="fa"><div><p>Нет, вход запоминается, пока вы сами не нажмёте «Выйти».</p></div></div></div></div></div></div></section>
+<section class="fin"><div class="bgk"></div><div class="bgl"></div><div class="gr" style="position:absolute;inset:0"></div><div class="c"><div class="fi in2"><h2>Запустите следующий эфир вместе с Overlay Studio</h2><p>Создайте оверлей за минуту. Все сцены и ссылка для OBS хранятся в аккаунте.</p>
+<div class="cta"><button class="bw" id="finLogin">Начать бесплатно</button><a class="bw" id="finStudio" href="studio.html" style="display:none">Открыть студию</a><a class="bo" href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe">Скачать для Windows</a></div></div></div></section>
 </main>
-<footer><div class="fi"><span><b>Overlay Studio</b> · оверлеи для Twitch</span><span>© <span id="yr"></span> · <a href="studio.html">Студия</a></span></div></footer>
-<div id="toast"></div>
+<footer><div class="c"><div class="fg">
+<div><a href="#top" class="lg"><span class="lm"><i></i></span>Overlay Studio</a><p>Бесплатная студия оверлеев для Twitch: собираете сцену, вставляете ссылку в OBS.</p></div>
+<div><h4>Продукт</h4><ul><li><a href="#features">Возможности</a></li><li><a href="#how">Как это работает</a></li><li><a href="#tools">Инструменты</a></li><li><a href="studio.html">Открыть студию</a></li></ul></div>
+<div><h4>Информация</h4><ul><li><a href="#pricing">Тарифы</a></li><li><a href="#faq">FAQ</a></li><li><a href="https://github.com/multivarka01/overlay">GitHub</a></li></ul></div>
+<div><h4>Скачать</h4><ul><li><a href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe">Windows</a></li></ul></div></div>
+<div class="fb"><p>© <span id="yr"></span> Overlay Studio</p><p class="cr">Дизайн вдохновлён <a href="https://streamcontrol.io" target="_blank" rel="noopener noreferrer">https://streamcontrol.io</a></p></div></div></footer>
 <script>
 (function(){
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(hover: hover) and (pointer: fine)').matches;
-function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),3000)}
-/* h1: слова выезжают из маски */
-const h=$('#h1');let i=0;
-const tmp=h.cloneNode(true);h.innerHTML='';i=0;
-(function split(node,target){
-  node.childNodes.forEach(c=>{
-    if(c.nodeType===3){c.textContent.split(/(\s+)/).forEach(p=>{
-      if(!p)return;if(/^\s+$/.test(p)){target.append(' ');return}
-      const w=document.createElement('span');w.className='w';w.setAttribute('aria-hidden','true');
-      const x=document.createElement('span');x.className='wi';x.style.setProperty('--i',i++);x.textContent=p;w.append(x);target.append(w)})}
-    else{const el=c.cloneNode(false);target.append(el);split(c,el)}
-  });
-})(tmp,h);
-let started=false;const start=()=>{if(started)return;started=true;document.body.classList.add('ready')};
-addEventListener('load',()=>setTimeout(start,120));setTimeout(start,1500);
-/* скролл */
-const nav=$('#navbar'),pr=$('#progress');let tick=false;
-function frame(){const y=scrollY;nav.classList.toggle('scrolled',y>12);const m=document.documentElement.scrollHeight-innerHeight;pr.style.transform='scaleX('+(m>0?Math.min(y/m,1):0)+')';tick=false}
-addEventListener('scroll',()=>{if(!tick){requestAnimationFrame(frame);tick=true}},{passive:true});frame();
-/* reveal */
-const rv=$$('[data-reveal]');
-rv.forEach(el=>{const sib=[...el.parentElement.children].filter(c=>c.hasAttribute('data-reveal'));el.style.setProperty('--d',(Math.min(sib.indexOf(el),6)*.08).toFixed(2)+'s')});
-const mark=el=>{el.classList.add('in-view');setTimeout(()=>el.style.setProperty('--d','0s'),1800)};
-if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){mark(e.target);io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -50px 0px'});rv.forEach(el=>io.observe(el))}else rv.forEach(mark);
-
-const links=$$('.nav-links a');
-if('IntersectionObserver' in window){const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});['top','features','how'].forEach(id=>{const s=document.getElementById(id);s&&so.observe(s)})}
-
-function tilt(el,m){
-  el.addEventListener('mouseenter',()=>el.classList.add('tilting'));
-  el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
-    el.style.setProperty('--rx',((.5-py)*m).toFixed(2)+'deg');el.style.setProperty('--ry',((px-.5)*m).toFixed(2)+'deg');
-    el.style.setProperty('--mx',(px*100).toFixed(1)+'%');el.style.setProperty('--my',(py*100).toFixed(1)+'%')});
-  el.addEventListener('mouseleave',()=>{el.classList.remove('tilting');el.style.setProperty('--rx','0deg');el.style.setProperty('--ry','0deg')});
-}
-if(fine&&!reduce){tilt($('#visual'),10);$$('.card').forEach(c=>{const g=document.createElement('span');g.className='glare';c.append(g);tilt(c,7)});
-  $$('.pill').forEach(el=>{el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px')})})}
+const rv=$$('.fi');
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});rv.forEach(el=>io.observe(el))}else rv.forEach(el=>el.classList.add('in'));
+$$('.fq button').forEach(b=>b.addEventListener('click',()=>{const f=b.parentElement,o=!f.classList.contains('open');$$('.fq').forEach(x=>{x.classList.remove('open');x.firstChild.setAttribute('aria-expanded','false')});if(o){f.classList.add('open');b.setAttribute('aria-expanded','true')}}));
+const PLANS=[{n:'Старт',d:'Для знакомства со студией и первых эфиров.',p:'0 ₽',b:'Начать бесплатно'},{n:'Стример',d:'Для регулярных стримов и нескольких сцен.',p:'249 ₽',b:'Выбрать Стример',hot:1},{n:'Студия',d:'Для больших сетапов и сложных сцен.',p:'699 ₽',b:'Выбрать Студию'}];
+const ROWS=[['Элементов на полотне',['25','75','200']],['Сцены',['2','5','15']],['Источник «Браузер»',['1','5','Без лимита']],['7TV-эмодзи',['✓','✓','✓']],['Чужие стримы на фоне',['—','✓','✓']],['Свечение и анимации',['Базовые','Все','Все']],['Приоритетная поддержка',['—','—','✓']]];
+const CKS='<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.707 6.293a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 1.414-1.414l4.293 4.293l9.293-9.293a1 1 0 0 1 1.414 0"/></svg>';
+const mk=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+PLANS.forEach((p,i)=>{
+  const c=mk('div','gc pc2'+(p.hot?' hot':''));
+  if(p.hot)c.append(mk('span','tg','Популярный выбор'));
+  c.append(mk('h3',0,p.n),mk('p','pt',p.d));
+  const pr=mk('p','pc');pr.append(mk('b',0,p.p),mk('span',0,'в месяц'));c.append(pr);
+  const a=mk('a','bp');a.href='studio.html';a.append(mk('span',0,p.b));c.append(a);
+  const ul=mk('ul');
+  ROWS.filter(r=>r[1][i]!=='—').slice(0,5).forEach(r=>{const v=r[1][i],li=mk('li');li.innerHTML=CKS;li.append(mk('span',0,v==='✓'?r[0]:r[0]+': '+v));ul.append(li)});
+  c.append(ul);$('#plans').append(c);
+});
+const tb=mk('table'),th=mk('tr');th.append(mk('th',0,''));
+PLANS.forEach(p=>th.append(mk('th',p.hot?'h':'',p.n)));
+const tbh=mk('thead');tbh.append(th);tb.append(tbh);
+const tbd=mk('tbody');
+ROWS.forEach(r=>{const tr=mk('tr');tr.append(mk('td',0,r[0]));r[1].forEach(v=>{const td=mk('td',v==='—'?'no':'');if(v==='✓')td.innerHTML=CKS;else td.textContent=v;tr.append(td)});tbd.append(tr)});
+tb.append(tbd);$('#cmp').append(tb);
+$('#cmpB').addEventListener('click',()=>{const o=!$('#cmpW').classList.contains('open');$('#cmpW').classList.toggle('open',o);$('#cmpB').setAttribute('aria-expanded',o)});
 $('#yr').textContent=new Date().getFullYear();
-  
 const SB_URL='https://ycqczfrphjhsnelivact.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljcWN6ZnJwaGpoc25lbGl2YWN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Njc5ODAsImV4cCI6MjEwODM0Mzk4MH0.9GCUHuAi_g0MZWtH4DaH2Rp5iLkdelowwl3TkaTTnB4';
 let sb=null;try{sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{flowType:'pkce'}})}catch(e){}
@@ -269,11 +202,8 @@ function render(session){
   if(on){const m=u.user_metadata||{};$('#uname').textContent=m.preferred_username||m.name||m.full_name||(u.email||'').split('@')[0]||'Профиль';
     const a=m.avatar_url||m.picture;if(a)$('#uava').src=a;else $('#uava').removeAttribute('src')}
 }
-$('#logout').addEventListener('click',async()=>{try{await sb.auth.signOut()}catch(e){}render(null)});
-if(sb){
-  sb.auth.getSession().then(r=>render(r.data&&r.data.session)).catch(()=>{});
-  sb.auth.onAuthStateChange((_e,s)=>render(s));
-}
+$('#logout').addEventListener('click',async()=>{try{localStorage.removeItem('hs-rt');await sb.auth.signOut()}catch(e){}render(null)});
+if(sb){sb.auth.getSession().then(r=>render(r.data&&r.data.session)).catch(()=>{});sb.auth.onAuthStateChange((_e,s)=>render(s))}
 })();
 </script>
 </body>
