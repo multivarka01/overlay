@@ -7,7 +7,7 @@ use tauri_plugin_updater::UpdaterExt;
 
 const AUTH_PREFIX: &str = "https://ycqczfrphjhsnelivact.supabase.co/auth/v1/oauth/authorize?";
 const PORT: u16 = 53682;
-const DONE_HTML: &str = "<!doctype html><meta charset=utf-8><title>Overlay Studio</title><body style=\"background:#0a0a0b;color:#f5f5f7;font-family:system-ui,sans-serif;display:grid;place-items:center;height:100vh;margin:0\"><div style=\"text-align:center\"><h2>Готово</h2><p style=\"color:#a1a1aa\">Можно закрыть эту вкладку и вернуться в Overlay Studio.</p></div></body>";
+const DONE_HTML: &str = "<!doctype html><meta charset=utf-8><title>Stream Overlay</title><body style=\"background:#0e0e10;color:#f5f5f7;font-family:system-ui,sans-serif;display:grid;place-items:center;height:100vh;margin:0\"><div style=\"text-align:center\"><h2>Готово</h2><p style=\"color:#a1a1aa\">Можно закрыть эту вкладку и вернуться в Stream Overlay.</p></div></body>";
 
 /// Ждёт один запрос вида GET /callback?code=...&state=... на 127.0.0.1 и возвращает его query-строку.
 fn wait_callback(listener: TcpListener, timeout: Duration) -> Result<String, String> {
@@ -74,5 +74,5 @@ fn main() {
             Ok(())
         })
         .run(tauri::generate_context!())
-        .expect("не удалось запустить Overlay Studio");
+        .expect("не удалось запустить Stream Overlay");
 }
