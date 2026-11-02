@@ -789,7 +789,7 @@ async function ensureRow(k,data,claim){
     if(!r.error){delete ROWS[src];ROWS[k]=rowOf(r.data);return ROWS[k]}
   }
   const r=await sb.from('scenes').insert({user_id:sess.user.id,name:k.slice(0,40),data:data||[]}).select('id,name,overlay_key,data,updated_at').single();
-  if(r.error){toast('Не удалось создать ссылку. Максимум 10 стримеров');return null}
+  if(r.error){toast(/row-level security/i.test(r.error.message||'')?'Достигнут лимит: максимум 10 стримеров':'Не удалось создать ссылку: '+(r.error.message||'ошибка'));return null}
   ROWS[k]=rowOf(r.data);return ROWS[k];
 }
 async function doSave(k,data){
