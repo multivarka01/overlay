@@ -6,6 +6,9 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b0b0c">
+<meta name="description" content="Панель Stream Overlay: стримеры, ссылки для OBS и быстрый вход в студию оверлея.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 50' width='64' height='50'%3E%3Cpath fill='%23ff2030' fill-opacity='0.100' fill-rule='evenodd' d='M29.4,2.9L32.6,3.0L33.3,3.2L33.7,3.4L33.8,3.9L33.6,4.8L32.7,6.6L30.6,7.7L27.1,9.0L24.5,9.6L22.6,10.2L15.8,11.8L13.9,12.7L12.7,13.8L11.8,15.1L10.6,17.8L10.0,19.4L8.8,21.8L7.7,23.1L7.1,23.4L5.2,23.3L3.6,22.9L2.9,22.3L2.6,21.3L2.8,17.6L3.8,13.6L4.7,10.9L5.7,9.6L6.6,8.7L7.7,7.7L9.1,6.8L12.6,5.7L15.4,5.2L17.7,4.6L20.6,4.2L22.6,3.7L29.4,2.9ZM61.8,27.8L62.3,27.8L62.7,28.2L62.9,29.2L63.0,30.8L62.4,35.7L61.3,39.8L60.3,41.8L59.1,43.2L57.4,44.4L55.8,45.2L54.8,45.5L49.8,46.4L46.4,46.7L43.6,47.3L36.8,47.5L35.2,47.2L34.2,46.7L34.0,46.2L34.2,44.7L34.6,44.1L35.5,43.4L38.7,42.2L41.6,41.6L43.9,40.9L47.5,40.3L49.4,39.8L51.3,39.4L52.2,39.0L53.3,38.3L54.3,37.2L55.3,35.2L56.1,33.0L57.2,30.7L58.1,29.5L58.9,28.8L61.7,27.8Z'/%3E%3Cpath fill='%23ff2030' fill-opacity='0.111' fill-rule='evenodd' d='M25.0,3.9L28.4,3.9L29.4,4.1L29.9,4.3L30.1,4.8L29.7,5.8L28.7,7.2L28.0,7.7L25.6,8.7L21.6,10.0L15.6,11.4L13.7,12.4L12.4,13.5L11.5,14.7L9.8,18.4L8.7,20.2L8.2,20.7L7.3,21.0L4.1,20.3L3.6,19.8L3.5,18.9L3.9,14.7L4.8,11.8L5.8,10.1L6.8,8.9L8.1,7.9L10.3,6.7L13.4,5.9L16.3,5.4L18.3,4.9L24.9,3.9ZM61.2,30.1L61.7,30.1L62.1,30.7L62.2,32.7L62.1,34.9L60.9,39.6L60.1,41.3L58.7,42.9L57.0,44.2L54.4,45.2L51.5,45.6L48.8,46.1L43.1,46.7L39.8,46.8L38.7,46.6L38.1,46.1L38.0,45.2L38.3,43.8L38.9,43.3L41.2,42.2L45.7,41.0L48.9,40.4L52.4,39.4L53.6,38.6L54.6,37.6L55.6,36.0L56.3,34.1L57.6,32.1L58.7,31.2L61.2,30.1Z'/%3E%3Cpath fill='%23ff2030' fill-opacity='0.125' fill-rule='evenodd' d='M25.0,4.3L26.9,4.4L27.8,4.8L27.7,5.8L26.6,7.4L24.3,8.7L21.0,9.8L15.2,11.3L13.4,12.3L11.4,14.3L9.6,18.0L8.6,19.2L8.1,19.4L4.7,18.9L4.3,18.6L4.1,17.7L4.2,15.2L5.0,12.1L6.0,10.2L7.1,9.0L8.3,8.0L10.6,6.9L14.1,6.0L16.8,5.6L18.9,5.1L24.9,4.3ZM60.9,31.6L61.3,31.5L61.6,31.7L61.8,33.3L61.8,34.7L60.9,38.8L60.1,40.9L59.2,42.1L58.2,43.1L56.7,44.1L53.8,45.1L50.8,45.4L47.9,46.0L43.9,46.2L41.9,46.3L40.8,46.1L40.2,45.7L40.0,45.1L40.7,43.6L42.3,42.4L46.4,41.2L50.3,40.4L52.8,39.6L53.9,38.7L54.8,37.7L55.7,36.4L56.4,34.8L57.6,33.3L60.8,31.6Z'/%3E%3Cpath fill='%23ff2030' fill-opacity='0.143' fill-rule='evenodd' d='M22.4,4.9L24.9,4.9L25.8,5.2L26.0,5.8L25.1,7.4L23.9,8.3L23.2,8.7L20.5,9.7L17.9,10.3L14.4,11.4L13.1,12.3L12.1,13.2L11.2,14.3L9.4,17.4L8.7,18.0L8.2,18.2L5.0,17.7L4.6,17.3L4.4,16.7L4.5,15.3L5.2,12.2L6.2,10.3L7.2,9.2L8.4,8.1L10.7,7.0L14.7,6.1L19.7,5.2L22.3,4.9ZM60.3,32.8L61.1,32.8L61.4,33.7L61.4,34.7L60.7,38.7L60.0,40.7L59.1,41.9L58.0,42.9L56.6,44.0L53.8,44.9L46.7,45.8L42.8,45.8L41.9,45.6L41.7,45.3L41.7,45.1L42.5,43.7L43.2,42.8L43.7,42.5L47.2,41.3L50.7,40.6L53.0,39.7L54.8,38.1L55.9,36.7L56.6,35.5L57.4,34.5L60.2,32.8Z'/%3E%3Cpath fill='%23ff2030' fill-opacity='0.167' fill-rule='evenodd' d='M20.8,5.3L23.2,5.2L23.9,5.3L24.4,5.6L24.5,5.9L23.9,7.1L23.0,8.2L22.4,8.6L19.9,9.6L17.1,10.3L14.3,11.3L12.8,12.3L11.3,13.8L9.4,16.6L8.3,17.1L5.6,16.7L5.1,16.3L4.9,15.8L5.0,14.4L5.3,12.4L6.3,10.5L7.3,9.3L8.7,8.2L10.8,7.2L15.1,6.2L20.8,5.3ZM60.2,33.7L60.6,33.7L60.9,33.9L61.1,35.1L60.7,37.9L59.9,40.3L59.0,41.8L58.1,42.7L56.1,44.0L53.3,44.8L46.4,45.6L43.9,45.6L43.3,45.3L43.3,44.9L43.8,43.9L44.5,42.9L44.9,42.6L47.8,41.4L51.2,40.7L53.4,39.7L54.7,38.6L56.9,35.8L57.7,35.2L60.2,33.7Z'/%3E%3Cpath fill='%23ff2030' fill-opacity='0.200' fill-rule='evenodd' d='M21.8,5.6L22.7,5.7L23.0,5.9L22.7,6.9L21.7,8.3L19.1,9.6L16.6,10.3L14.1,11.2L12.3,12.5L11.1,13.7L9.4,15.9L8.9,16.1L5.8,15.8L5.5,15.6L5.3,15.1L5.3,13.9L5.6,12.5L6.3,10.9L7.6,9.3L9.0,8.2L11.3,7.2L15.9,6.2L21.7,5.6ZM60.1,34.6L60.3,34.5L60.6,34.6L60.8,35.7L60.6,37.4L60.0,39.6L59.7,40.5L58.9,41.7L57.7,42.8L55.8,43.9L52.2,44.8L45.8,45.2L45.0,45.1L44.9,44.8L44.9,44.3L45.9,42.8L46.4,42.4L48.5,41.6L51.6,40.8L53.6,39.8L54.8,38.8L56.8,36.7L59.9,34.6Z'/%3E%3Cpath fill='%23ff2030' fill-opacity='0.250' fill-rule='evenodd' d='M17.8,6.2L20.2,6.1L21.2,6.3L21.4,6.8L20.5,8.3L18.6,9.4L16.2,10.1L13.9,11.1L12.2,12.3L10.3,14.2L9.2,15.1L6.1,14.7L5.7,14.3L5.7,13.2L6.2,11.4L7.6,9.6L9.1,8.3L11.2,7.4L17.7,6.2ZM60.0,35.4L60.3,35.5L60.4,35.7L60.5,36.6L59.6,40.2L58.7,41.7L57.7,42.6L55.9,43.7L52.3,44.5L49.4,44.8L46.8,44.8L46.3,44.6L46.2,44.2L47.6,42.6L49.5,41.7L51.9,41.0L53.7,40.1L56.7,37.5L59.9,35.5Z'/%3E%3Cpath fill='%23ff2030' fill-opacity='0.333' fill-rule='evenodd' d='M17.4,6.4L18.9,6.4L19.7,6.7L19.7,6.9L18.9,8.4L17.6,9.4L15.7,10.1L13.7,11.0L12.1,12.1L10.3,13.6L9.3,13.9L6.8,13.6L6.4,13.1L6.5,11.6L7.2,10.3L8.0,9.4L9.4,8.3L11.6,7.4L17.3,6.4ZM59.2,36.7L59.7,36.7L59.9,37.2L59.9,38.6L59.6,39.9L58.5,41.6L57.5,42.6L55.8,43.6L54.3,44.0L50.6,44.5L48.7,44.5L48.2,44.4L47.9,44.2L49.2,42.8L50.8,41.8L52.4,41.2L54.2,40.2L57.6,38.0L59.2,36.7Z'/%3E%3Cpath fill='%23ff2030' fill-opacity='0.500' fill-rule='evenodd' d='M16.6,6.9L17.4,6.9L17.7,7.2L17.7,7.9L16.9,9.2L13.3,10.9L11.2,12.3L10.3,12.6L7.8,12.2L7.1,11.8L7.4,10.6L8.3,9.4L9.6,8.4L11.9,7.6L16.4,6.9ZM59.1,37.9L59.3,37.8L59.5,38.2L59.4,39.5L58.4,41.3L57.1,42.6L55.3,43.5L53.8,43.8L51.2,43.8L50.8,43.6L50.8,43.2L52.8,41.9L56.4,40.0L58.6,38.5L58.9,38.1Z'/%3E%3Cpath fill='%23ff2030' fill-opacity='1.000' fill-rule='evenodd' d='M14.2,7.4L15.8,7.5L16.1,7.7L16.1,7.9L15.5,8.4L15.2,9.2L14.3,9.6L13.5,10.3L11.9,11.0L8.8,10.7L8.5,10.2L8.6,9.7L10.3,8.4L12.6,7.7L14.1,7.4ZM58.2,39.9L58.5,40.1L58.4,40.6L58.0,41.3L56.7,42.4L54.3,43.4L53.4,43.4L53.1,43.3L53.1,43.2L54.4,42.6L55.1,42.1L56.1,41.6L57.6,40.6L58.1,40.0Z'/%3E%3Cpath fill='%23ffffff' fill-opacity='0.120' fill-rule='evenodd' d='M42.3,0.2L43.6,0.1L44.7,0.2L46.1,0.8L46.9,1.4L47.9,2.8L48.1,3.7L47.7,4.7L46.6,5.1L36.1,7.0L31.6,7.2L30.7,7.1L30.2,6.8L30.1,6.3L30.8,4.6L31.3,3.7L31.8,3.3L34.5,2.2L42.3,0.2ZM55.2,5.4L56.6,5.5L57.7,6.0L58.7,7.2L59.1,8.4L59.0,9.6L58.0,12.7L57.2,14.2L55.8,15.2L51.1,16.3L47.7,16.7L45.7,17.2L42.3,17.7L39.8,18.3L36.6,18.7L34.1,19.3L30.7,19.7L28.6,20.2L25.2,20.7L24.6,20.9L23.7,21.6L22.8,24.3L22.8,24.8L23.0,25.2L26.6,26.4L28.1,26.8L29.6,27.4L31.6,27.9L33.8,28.8L34.2,29.2L34.4,29.6L34.2,30.1L33.7,30.7L31.9,31.2L27.7,31.7L25.2,32.3L21.7,32.7L19.3,33.3L13.4,34.1L12.1,33.9L10.8,33.3L10.2,32.8L9.6,32.1L9.1,30.9L9.0,29.7L9.7,26.6L10.3,25.0L10.7,23.2L11.3,21.7L11.7,19.8L12.7,16.7L13.8,15.0L15.1,13.8L17.1,12.7L19.6,12.3L21.4,11.8L24.4,11.3L26.4,10.8L29.4,10.3L31.6,9.7L34.6,9.3L36.7,8.7L39.7,8.3L41.8,7.7L44.7,7.4L46.8,6.8L50.1,6.3L52.2,5.8L55.1,5.4ZM51.4,18.4L53.7,18.5L55.1,18.9L56.4,20.2L57.0,21.3L57.3,22.6L56.3,26.8L55.7,28.5L55.3,30.6L54.7,32.2L54.1,34.6L53.0,36.6L51.3,38.1L48.2,39.2L44.7,39.7L42.4,40.2L38.6,40.7L36.3,41.2L32.6,41.7L30.2,42.3L26.6,42.7L24.3,43.2L20.7,43.7L18.3,44.2L14.7,44.7L12.4,45.2L10.1,45.5L9.1,45.5L8.1,45.2L7.2,43.9L7.1,43.3L7.7,40.3L8.6,38.1L9.2,37.3L10.1,36.6L12.8,35.7L16.4,35.3L19.1,34.7L22.6,34.3L25.1,33.7L28.3,33.4L31.2,32.7L34.6,32.3L37.2,31.7L40.7,31.3L42.3,30.9L43.4,30.4L44.3,28.7L44.3,28.1L43.9,27.7L40.6,26.6L34.8,25.2L33.3,24.7L30.7,24.1L30.1,23.7L29.8,23.1L29.8,22.4L30.2,21.9L31.2,21.6L33.7,21.3L36.3,20.7L39.6,20.4L42.4,19.7L45.9,19.3L48.6,18.7L51.3,18.4ZM3.8,20.8L7.3,21.4L7.8,21.7L8.1,22.3L7.9,25.1L7.0,28.6L6.2,29.6L5.3,30.0L2.7,30.3L1.6,30.1L0.9,29.7L0.2,28.6L0.3,27.3L2.2,22.5L3.2,21.2L3.7,20.8ZM60.3,22.9L61.7,23.1L62.8,23.9L63.6,25.3L63.6,26.3L62.9,27.7L62.2,28.7L61.4,29.1L58.8,30.1L58.4,30.0L58.2,29.6L58.2,27.4L59.2,23.7L59.4,23.3L60.2,23.0ZM33.3,43.7L35.3,43.8L35.8,44.0L36.0,44.3L36.1,44.7L35.7,46.3L34.6,47.3L33.6,47.8L30.2,48.7L24.2,49.9L23.1,49.8L22.3,49.6L21.2,48.8L20.3,47.9L19.8,46.6L20.0,45.9L20.3,45.4L21.1,45.2L26.3,44.4L30.3,43.9L33.3,43.7Z'/%3E%3Cpath fill='%23ffffff' fill-opacity='0.182' fill-rule='evenodd' d='M43.3,0.9L45.3,1.2L46.6,2.1L47.3,3.3L47.3,3.7L47.1,4.0L46.4,4.4L45.7,4.6L38.2,5.7L36.2,5.7L35.6,5.6L35.3,5.3L35.8,3.8L36.6,2.9L37.5,2.4L40.9,1.4L43.3,0.9ZM54.9,5.8L56.3,5.9L57.1,6.2L58.1,7.1L58.6,8.4L58.0,11.4L57.1,13.6L56.7,14.1L55.6,14.8L50.1,16.0L46.8,16.4L44.4,17.0L41.3,17.4L38.9,18.0L35.9,18.4L33.2,19.0L30.4,19.3L27.4,20.0L24.9,20.3L24.3,20.5L23.5,21.2L22.3,24.2L22.3,24.9L22.6,25.4L25.6,26.6L30.7,28.1L33.1,29.0L33.7,29.4L33.6,29.8L33.3,30.1L32.2,30.6L30.8,30.9L26.7,31.4L18.1,33.0L13.6,33.6L12.4,33.5L11.3,33.1L10.2,32.2L9.6,30.9L9.5,29.6L10.0,27.2L11.6,22.4L13.0,17.2L14.1,15.3L15.4,14.1L17.9,12.9L25.4,11.6L27.4,11.0L30.4,10.6L32.4,10.0L35.5,9.6L37.6,9.0L40.7,8.6L42.8,8.0L45.8,7.6L47.9,7.0L54.8,5.8ZM51.4,18.8L53.4,18.8L54.7,19.2L56.0,20.3L56.5,21.4L56.8,22.6L56.0,26.1L55.4,27.8L53.9,33.9L52.9,36.1L52.0,37.1L50.8,37.9L47.1,39.0L43.9,39.4L40.8,40.0L37.5,40.4L34.9,41.0L31.4,41.4L29.1,42.0L25.9,42.4L23.1,43.0L19.6,43.4L17.2,44.0L13.7,44.4L10.1,45.1L9.2,45.1L8.3,44.8L7.7,43.9L7.6,43.2L8.0,41.1L8.9,38.4L9.9,37.2L10.4,36.9L13.8,36.0L16.9,35.7L19.9,35.0L23.5,34.6L26.1,34.0L28.9,33.7L32.2,33.0L41.8,31.6L42.9,31.2L43.8,30.6L44.4,29.6L44.7,28.8L44.7,27.9L44.4,27.4L41.4,26.4L35.6,25.0L33.9,24.4L31.6,23.9L30.9,23.6L30.6,22.9L30.6,22.4L30.9,22.2L31.9,21.9L34.8,21.6L37.3,21.0L40.7,20.6L43.4,20.0L47.1,19.6L51.3,18.8ZM2.7,24.7L3.1,24.6L3.7,24.9L4.7,25.4L6.2,25.4L6.3,26.3L6.0,28.1L5.8,28.6L5.4,28.9L2.7,29.5L2.0,29.3L1.4,28.8L1.3,28.2L1.4,27.3L2.7,24.7ZM21.7,46.2L23.9,46.1L25.2,46.3L25.6,46.9L25.3,47.9L24.9,48.3L24.3,48.5L22.8,48.5L21.6,47.7L21.0,46.7L21.1,46.4L21.6,46.2Z'/%3E%3Cpath fill='%23ffffff' fill-opacity='0.236' fill-rule='evenodd' d='M54.0,6.2L55.6,6.1L56.7,6.3L57.9,7.2L58.3,8.3L57.9,10.7L57.0,13.2L56.6,13.8L55.3,14.6L54.4,14.9L46.2,16.3L43.7,16.8L24.8,20.1L24.1,20.3L23.4,20.8L23.0,21.4L22.1,23.9L22.0,24.8L22.2,25.6L22.7,25.9L25.0,26.7L30.1,28.2L32.8,29.2L33.0,29.6L32.7,30.0L29.7,30.7L26.1,31.3L17.3,32.8L13.7,33.3L12.6,33.2L11.5,32.9L10.4,31.9L10.0,31.3L9.8,30.3L10.1,27.9L13.2,17.5L14.4,15.3L15.9,14.1L18.3,13.2L53.9,6.2ZM51.5,19.1L53.7,19.1L54.4,19.4L55.3,20.1L55.7,20.4L56.1,21.2L56.4,22.7L55.8,25.6L53.7,33.6L52.7,35.8L51.8,36.8L50.6,37.7L49.7,38.0L46.3,38.8L30.8,41.3L10.1,44.8L9.2,44.8L8.4,44.4L8.0,43.8L7.9,43.1L8.1,41.8L9.2,38.6L10.1,37.4L10.6,37.1L14.8,36.2L42.3,31.8L43.2,31.4L44.0,30.8L44.6,29.9L45.0,28.7L44.9,27.7L44.6,27.2L41.8,26.3L32.2,23.8L31.8,23.6L31.4,23.1L31.3,22.7L31.6,22.4L32.4,22.1L35.6,21.7L51.4,19.1Z'/%3E%3Cpath fill='%23ffffff' fill-opacity='0.309' fill-rule='evenodd' d='M54.5,6.4L55.6,6.4L56.6,6.6L57.6,7.3L57.9,8.1L58.0,8.9L57.7,10.5L56.8,12.9L56.1,13.8L53.9,14.7L27.8,19.2L23.9,20.1L23.1,20.8L22.2,22.6L21.8,24.6L21.8,25.3L22.1,25.8L24.2,26.7L31.8,29.2L32.3,29.6L31.7,30.0L28.8,30.6L16.4,32.7L13.4,33.0L11.7,32.7L10.4,31.5L10.1,30.8L10.1,30.1L10.3,28.3L13.4,17.7L14.3,16.0L16.1,14.3L18.9,13.4L54.4,6.4ZM51.8,19.3L53.6,19.4L55.0,20.2L55.8,21.2L56.1,22.7L55.7,24.9L53.6,32.6L52.9,34.8L52.6,35.4L51.7,36.6L50.6,37.3L49.4,37.8L45.3,38.6L9.9,44.5L9.3,44.5L8.4,44.0L8.1,43.6L8.1,42.8L9.4,38.8L10.3,37.7L10.9,37.3L15.8,36.3L42.4,32.0L43.5,31.7L44.1,31.2L44.7,30.4L45.3,28.7L45.2,27.6L44.8,27.0L42.6,26.2L32.9,23.7L32.5,23.4L32.2,23.1L32.2,22.8L32.4,22.5L33.1,22.3L51.8,19.3Z'/%3E%3Cpath fill='%23ffffff' fill-opacity='0.421' fill-rule='evenodd' d='M54.6,6.8L55.7,6.8L56.7,7.1L57.4,7.6L57.7,8.4L57.6,9.7L56.7,12.6L56.0,13.4L55.4,13.8L52.8,14.6L26.6,19.1L24.3,19.6L23.1,20.2L22.1,21.8L21.5,24.3L21.4,25.3L21.7,25.9L23.3,26.8L28.8,28.4L31.1,29.3L31.4,29.4L31.3,29.6L27.0,30.6L15.1,32.6L12.9,32.7L11.8,32.4L10.6,31.2L10.4,30.6L10.3,29.8L11.4,25.5L13.0,20.7L13.4,18.8L14.2,16.7L15.3,15.3L16.4,14.5L20.1,13.4L22.9,13.0L25.2,12.4L45.5,8.4L54.6,6.8ZM51.8,19.7L53.2,19.7L54.7,20.3L55.6,21.4L55.8,22.7L54.6,28.0L52.7,34.4L51.9,35.7L51.0,36.7L49.1,37.6L43.7,38.6L14.0,43.6L9.7,44.1L8.9,43.9L8.4,43.5L8.5,42.4L9.6,39.2L10.3,38.1L11.4,37.4L40.2,32.7L43.6,32.0L44.7,31.1L45.1,30.4L45.7,28.3L45.6,27.4L45.1,26.8L43.4,26.1L33.9,23.6L33.3,23.2L33.3,22.9L33.6,22.7L35.1,22.3L51.7,19.7Z'/%3E%3Cpath fill='%23ffffff' fill-opacity='1.000' fill-rule='evenodd' d='M54.4,7.3L55.4,7.3L56.4,7.4L56.9,7.8L57.3,8.6L56.3,12.3L55.2,13.5L51.6,14.3L47.6,14.9L45.5,15.4L36.4,16.9L34.1,17.4L30.6,17.9L28.5,18.4L25.1,18.9L22.9,19.8L22.0,20.9L21.8,21.4L20.9,24.4L20.8,25.4L21.0,25.9L22.4,27.1L24.5,27.6L25.9,28.2L28.0,28.7L29.3,29.4L28.8,29.7L25.3,30.4L21.8,30.8L19.3,31.4L13.9,32.2L12.8,32.2L11.6,31.6L10.9,30.6L10.9,29.8L11.6,26.8L14.6,17.0L15.6,15.7L16.8,14.8L17.8,14.4L19.7,14.1L21.7,13.6L24.6,13.1L26.6,12.6L29.1,12.2L31.7,11.6L45.1,9.1L47.2,8.6L50.4,8.1L52.4,7.6L54.3,7.3ZM52.2,20.2L53.3,20.2L54.3,20.6L55.3,21.8L55.4,22.7L53.4,30.1L52.8,31.7L52.4,33.6L52.2,34.1L51.6,34.6L51.4,35.4L50.3,36.4L47.9,36.5L47.7,36.6L47.7,37.1L47.1,37.3L43.9,37.7L41.5,38.4L38.3,38.8L35.6,39.4L29.7,40.4L26.4,40.8L23.8,41.4L20.4,41.9L18.2,42.4L14.6,42.8L12.3,43.4L9.9,43.7L9.2,43.6L8.9,43.2L9.6,40.5L10.5,38.6L11.9,37.9L13.1,37.6L17.1,37.0L19.0,36.6L22.8,36.1L25.2,35.6L28.7,35.2L31.3,34.6L34.9,34.2L37.4,33.6L40.8,33.3L44.3,32.3L45.2,31.3L46.1,29.1L46.2,27.6L45.8,26.8L44.4,25.9L35.6,23.6L35.0,23.3L34.9,23.1L35.3,22.8L36.3,22.6L40.1,22.1L42.5,21.6L52.1,20.2Z'/%3E%3C/svg%3E">
 <title>Панель · Stream Overlay</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,76 +17,105 @@
 <script>if(self!==top){document.documentElement.innerHTML=""}</script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous"></script>
 <style>
-:root{color-scheme:dark;--bg:#0b0b0c;--sb:#161617;--s1:#1d1d1f;--s2:#262628;--ln:rgba(255,255,255,.08);--ln2:rgba(255,255,255,.14);--t1:#f2f2f4;--t2:#a8a8b0;--t3:#7e7e88;--ac:#df3939;--act:#f26b6b;--e:cubic-bezier(.2,0,0,1)}
+/* Motion tokens: one scale for the whole dashboard. Only transform/opacity are animated
+   (the two accordions use grid-template-rows on purpose: it is the only way to animate auto height without JS). */
+:root{color-scheme:dark;--bg:#0b0b0c;--sb:#161617;--s1:#1d1d1f;--s2:#262628;--ln:rgba(255,255,255,.08);--ln2:rgba(255,255,255,.14);--t1:#f2f2f4;--t2:#a8a8b0;--t3:#8a8a94;--ac:#df3939;--act:#f26b6b;
+--e:cubic-bezier(.2,0,0,1);--d-fast:.15s;--d-base:.25s;--d-slow:.4s;--stg:45ms}
 *{box-sizing:border-box}html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--t1);font:400 14px/20px Manrope,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;cursor:pointer}
-:focus-visible{outline:2px solid var(--act);outline-offset:2px;border-radius:6px}
+:focus-visible{outline:2px solid var(--act);outline-offset:2px}
 @keyframes up{from{opacity:0;transform:translateY(8px)}}
+@keyframes sh{to{transform:translateX(100%)}}
+@keyframes bump{from{opacity:0;transform:translateY(4px)}}
 #app{display:grid;grid-template-columns:240px 1fr;height:100%}
-#sb{position:relative;display:flex;flex-direction:column;gap:8px;padding:16px;background:var(--sb);border-right:1px solid var(--ln);overflow:auto}
-.sel{position:relative}.sel>button{display:flex;align-items:center;gap:12px;width:100%;padding:8px 12px 8px 8px;border:0;border-radius:14px;background:var(--s2);text-align:left;transition:background-color .15s var(--e),transform .15s var(--e)}
+#sb{position:relative;isolation:isolate;display:flex;flex-direction:column;gap:8px;padding:16px;background:var(--sb);border-right:1px solid var(--ln);overflow:auto}
+.sbt{display:none;align-items:center;justify-content:space-between;gap:8px;padding:0 0 4px 4px;font-weight:700}
+.sel{position:relative}.sel>button{display:flex;align-items:center;gap:12px;width:100%;padding:8px 12px 8px 8px;border:0;border-radius:14px;background:var(--s2);text-align:left;transition:background-color var(--d-fast) var(--e),transform var(--d-fast) var(--e)}
 .sel>button:hover{background:#2d2d30}.sel>button:active,.usr:active,.dlb:active{transform:scale(.98)}.sel .tx{flex:1;min-width:0}.sel b{display:block;font-weight:600;font-size:14px;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sel small{display:block;font-size:12px;line-height:16px;color:var(--t3)}
-.pop{position:absolute;left:0;right:0;z-index:30;display:flex;flex-direction:column;gap:2px;padding:6px;background:var(--s2);border:1px solid var(--ln2);border-radius:14px;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-4px) scale(.96);transform-origin:top center;transition:opacity .15s var(--e),transform .18s var(--e),visibility 0s .18s}
+.pop{position:absolute;left:0;right:0;z-index:30;display:flex;flex-direction:column;gap:2px;max-height:min(60vh,420px);overflow:auto;padding:6px;background:var(--s2);border:1px solid var(--ln2);border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.4);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-4px) scale(.96);transform-origin:top center;transition:opacity var(--d-fast) var(--e),transform var(--d-base) var(--e),visibility 0s var(--d-base)}
 .pop.open{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition-delay:0s}
-.sel .pop{top:calc(100% + 6px)}.pop button,.pop a{display:flex;align-items:center;gap:10px;padding:8px;border:0;border-radius:10px;background:none;text-align:left;font-weight:500;color:var(--t1);transition:background-color .15s var(--e)}.pop button:hover,.pop a:hover{background:rgba(255,255,255,.07)}.pop .on{background:rgba(255,255,255,.07)}
-.pi{display:flex;align-items:center;border-radius:10px;transition:opacity .2s var(--e),transform .22s var(--e)}.pi .pk{flex:1;min-width:0}.pi .pk span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pop .pi .ib{margin-right:2px}.pop .pi .ib:hover{background:rgba(223,57,57,.16)}
+.sel .pop{top:calc(100% + 6px)}.pop button,.pop a{display:flex;align-items:center;gap:10px;padding:8px;border:0;border-radius:10px;background:none;text-align:left;font-weight:500;color:var(--t1);transition:background-color var(--d-fast) var(--e)}.pop button:hover,.pop a:hover{background:rgba(255,255,255,.07)}.pop .on{background:rgba(255,255,255,.07)}
+.pi{display:flex;align-items:center;border-radius:10px;transition:opacity var(--d-base) var(--e),transform var(--d-base) var(--e)}.pi .pk{flex:1;min-width:0}.pi .pk span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pop .pi .ib{margin-right:2px}.pop .pi .ib:hover{background:rgba(223,57,57,.16)}
 .pi.out,.sc.out,.lr.out{opacity:0;transform:scale(.92);pointer-events:none}
 .av{position:relative;flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:10px;overflow:hidden;background:#303033;color:var(--t2);font-weight:600}.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.av.has{color:transparent}
-.ib{flex:none;display:inline-grid;place-items:center;width:28px;height:28px;padding:0;border:0;border-radius:8px;background:none;color:var(--t3);transition:background-color .15s var(--e),color .15s var(--e),transform .15s var(--e)}.ib:hover{color:var(--act);background:rgba(223,57,57,.14)}.ib:active{transform:scale(.9)}
-.grp{margin-top:8px}.grp>button{display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px;border:0;background:none;font-weight:600;font-size:13px;color:var(--t2)}.grp>button svg{transition:transform .2s var(--e)}.grp.shut>button svg{transform:rotate(-90deg)}
-.gw{display:grid;grid-template-rows:1fr;transition:grid-template-rows .25s var(--e),visibility 0s}.grp.shut .gw{grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .25s var(--e),visibility 0s .25s}
-.gi{display:flex;flex-direction:column;gap:2px;min-height:0;overflow:hidden;padding:2px;margin:-2px}.gi a{display:flex;align-items:center;gap:12px;padding:9px 8px;border-radius:10px;font-weight:500;color:var(--t1);transition:background-color .15s var(--e),color .15s var(--e)}.gi a:hover{background:rgba(255,255,255,.06)}.gi a.on{color:var(--act)}
+.ib{flex:none;display:inline-grid;place-items:center;width:28px;height:28px;padding:0;border:0;border-radius:8px;background:none;color:var(--t3);transition:background-color var(--d-fast) var(--e),color var(--d-fast) var(--e),transform var(--d-fast) var(--e)}.ib:hover{color:var(--act);background:rgba(223,57,57,.14)}.ib:active{transform:scale(.9)}
+.grp{margin-top:8px}.grp>button{display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px;border:0;background:none;font-weight:600;font-size:13px;color:var(--t2)}.grp>button svg{transition:transform var(--d-base) var(--e)}.grp.shut>button svg{transform:rotate(-90deg)}
+.gw{display:grid;grid-template-rows:1fr;transition:grid-template-rows var(--d-base) var(--e),visibility 0s}.grp.shut .gw{grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows var(--d-base) var(--e),visibility 0s var(--d-base)}
+.gi{display:flex;flex-direction:column;gap:2px;min-height:0;overflow:hidden;padding:2px;margin:-2px}.gi a{display:flex;align-items:center;gap:12px;padding:9px 8px;border-radius:10px;font-weight:500;color:var(--t1);transition:background-color var(--d-fast) var(--e),color var(--d-fast) var(--e)}.gi a:hover{background:rgba(255,255,255,.06)}.gi a.on{color:var(--act)}
 .sbf{margin-top:auto;display:flex;flex-direction:column;gap:8px;position:relative}
-.dlb{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:12px;background:var(--s2);font-weight:500;color:var(--t2);transition:background-color .15s var(--e),color .15s var(--e),transform .15s var(--e)}.dlb:hover{background:#2d2d30;color:var(--t1)}
-.usr{display:flex;align-items:center;gap:10px;width:100%;padding:8px;border:0;border-radius:14px;background:var(--s2);text-align:left;transition:background-color .15s var(--e),transform .15s var(--e)}.usr:hover{background:#2d2d30}.usr b{flex:1;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dlb{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:12px;background:var(--s2);font-weight:500;color:var(--t2);transition:background-color var(--d-fast) var(--e),color var(--d-fast) var(--e),transform var(--d-fast) var(--e)}.dlb:hover{background:#2d2d30;color:var(--t1)}
+.usr{display:flex;align-items:center;gap:10px;width:100%;padding:8px;border:0;border-radius:14px;background:var(--s2);text-align:left;transition:background-color var(--d-fast) var(--e),transform var(--d-fast) var(--e)}.usr:hover{background:#2d2d30}.usr b{flex:1;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tag{padding:2px 8px;border-radius:6px;background:rgba(223,57,57,.18);color:var(--act);font-size:12px;line-height:16px;font-weight:500}
 .sbf .pop{bottom:calc(100% + 6px);transform-origin:bottom center;transform:translateY(4px) scale(.96)}.sbf .pop.open{transform:none}
 #mn{position:relative;overflow:auto;background:radial-gradient(ellipse 70% 38% at 50% -8%,rgba(223,57,57,.22),transparent 70%),var(--bg)}
-.mh{display:none;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--ln)}.mh button{padding:8px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--s1)}
+.mh{display:none;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--ln)}.mh button{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--s1)}
+#bd{display:none}
 #pg{max-width:984px;margin:0 auto;padding:32px 24px 64px}
 h1{margin:0 0 24px;font:500 20px/28px Manrope,sans-serif}h1 b{font-weight:600}h1 span{color:var(--t2)}
-h3.sh{margin:40px 0 16px;font:600 16px/24px Manrope,sans-serif}
+h3.sh{display:flex;align-items:baseline;gap:8px;margin:40px 0 4px;font:600 16px/24px Manrope,sans-serif}.cnt{font-weight:500;font-size:13px;color:var(--t3)}.cnt.bump{animation:bump var(--d-base) var(--e)}
+.sub{margin:0 0 16px;color:var(--t3)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card,.sc,.lr{animation:up .3s var(--e) backwards;animation-delay:calc(var(--i,0)*45ms)}.still .card,.still .sc,.still .lr{animation:none}
-.card{display:flex;flex-direction:column;justify-content:center;min-height:188px;padding:24px;border:1px solid var(--ln);border-radius:24px;background:rgba(255,255,255,.04);transition:border-color .2s var(--e),background-color .2s var(--e)}.card:hover{border-color:var(--ln2);background:rgba(255,255,255,.055)}
+.card,.sc,.lr{animation:up var(--d-base) var(--e) backwards;animation-delay:calc(var(--i,0)*var(--stg))}.still .card,.still .sc,.still .lr,.still .hp{animation:none}.still .sc.new{animation:up var(--d-base) var(--e) backwards}
+.card{display:flex;flex-direction:column;justify-content:center;min-height:188px;padding:24px;border:1px solid var(--ln);border-radius:24px;background:rgba(255,255,255,.04);transition:border-color var(--d-base) var(--e),background-color var(--d-base) var(--e)}.card:hover{border-color:var(--ln2);background:rgba(255,255,255,.055)}
 .c1{align-items:center;text-align:center;gap:12px}.c1 h2{margin:0;font:500 22px/28px Manrope,sans-serif}.chip{padding:2px 10px;border-radius:8px;background:rgba(255,255,255,.08);color:var(--t2);font-size:12px;line-height:20px}
 .c2{gap:4px}.c2 .ic{display:grid;place-items:center;width:40px;height:40px;margin-bottom:auto;border-radius:12px;background:rgba(223,57,57,.16);color:var(--act)}.c2 h2{margin:16px 0 0;font:600 22px/28px Manrope,sans-serif}.c2 p{margin:4px 0 0;color:var(--t2)}
 .c2 .av{width:48px;height:48px;border-radius:14px;margin-bottom:auto;font-size:18px}.rw{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-.bp{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border:0;border-radius:12px;background:linear-gradient(to bottom,#e56060,#df3939);color:#fff;font-weight:600;transition:transform .15s var(--e),opacity .15s var(--e)}.bp:hover{opacity:.92}.bp:active{transform:scale(.97)}
+.bp{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border:0;border-radius:12px;background:linear-gradient(to bottom,#e56060,#df3939);color:#fff;font-weight:600;transition:transform var(--d-fast) var(--e),opacity var(--d-fast) var(--e)}.bp:hover{opacity:.92}.bp:active{transform:scale(.97)}
 .bp.dg{background:#c92f2f}
-.bs{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border:1px solid var(--ln2);border-radius:12px;background:var(--s2);font-weight:500;transition:background-color .15s var(--e),transform .15s var(--e)}.bs:hover{background:#2d2d30}.bs:active{transform:scale(.97)}.bs[disabled]{opacity:.5;cursor:default}.bs[disabled]:active{transform:none}
+.bs{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border:1px solid var(--ln2);border-radius:12px;background:var(--s2);font-weight:500;transition:background-color var(--d-fast) var(--e),transform var(--d-fast) var(--e)}.bs:hover{background:#2d2d30}.bs:active{transform:scale(.97)}.bs[disabled]{opacity:.5;cursor:default}.bs[disabled]:active{transform:none}
 .sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px}
-.sc{position:relative;display:flex;flex-direction:column;gap:12px;padding:16px;border:1px solid var(--ln);border-radius:20px;background:rgba(255,255,255,.04);transition:transform .2s var(--e),opacity .2s var(--e),background-color .2s var(--e),border-color .2s var(--e)}.sc:hover{transform:translateY(-2px);border-color:var(--ln2)}.sc.on{border-color:var(--ln2);background:rgba(255,255,255,.07)}
+.sc{position:relative;display:flex;flex-direction:column;gap:12px;padding:16px;border:1px solid var(--ln);border-radius:20px;background:rgba(255,255,255,.04);transition:transform var(--d-base) var(--e),opacity var(--d-base) var(--e),background-color var(--d-base) var(--e),border-color var(--d-base) var(--e)}.sc:hover{transform:translateY(-2px);border-color:var(--ln2)}.sc.on{border-color:var(--ln2);background:rgba(255,255,255,.07)}
 .sc .ib{position:absolute;top:10px;right:10px}.sc.busy{opacity:.55;pointer-events:none}
 .sc .av{width:56px;height:56px;border-radius:16px;font-size:22px}.sc b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sc small{color:var(--t3)}.sc .bs,.sc .bp{padding:8px 12px;font-size:13px}
 .sc.add{align-items:center;justify-content:center;min-height:160px;border-style:dashed;background:none;color:var(--t2);cursor:pointer}.sc.add:hover{color:var(--t1);background:rgba(255,255,255,.04)}.sc.add:active{transform:scale(.98)}
-.lr{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid var(--ln);border-radius:16px;background:rgba(255,255,255,.04);transition:background-color .2s var(--e),border-color .2s var(--e)}.lr:hover{background:rgba(255,255,255,.06);border-color:var(--ln2)}.lr+.lr{margin-top:8px}.lr .tx{flex:1;min-width:0}.lr b{font-weight:600}.lr small{display:block;color:var(--t3)}
+.lr{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid var(--ln);border-radius:16px;background:rgba(255,255,255,.04);transition:background-color var(--d-base) var(--e),border-color var(--d-base) var(--e),opacity var(--d-base) var(--e),transform var(--d-base) var(--e)}.lr:hover{background:rgba(255,255,255,.06);border-color:var(--ln2)}.lr+.lr{margin-top:8px}.lr .tx{flex:1;min-width:0}.lr b{font-weight:600}.lr small{display:block;color:var(--t3)}.lr.busy{opacity:.55;pointer-events:none}
 .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);max-width:calc(100vw - 32px);padding:10px 16px;border-radius:10px;background:var(--t1);color:#0b0b0c;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s var(--e),transform .25s var(--e);z-index:90}#toast.on{opacity:1;transform:translate(-50%,0)}
-.mo{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;transition:opacity .2s var(--e)}.mo.on{opacity:1}
-.md{width:min(420px,100%);padding:24px;border:1px solid var(--ln2);border-radius:24px;background:var(--s1);box-shadow:0 24px 64px rgba(0,0,0,.5);opacity:0;transform:scale(.96) translateY(8px);transition:opacity .22s var(--e),transform .25s var(--e)}.mo.on .md{opacity:1;transform:none}
+/* OBS help */
+.hp{margin-top:12px;border:1px solid var(--ln);border-radius:20px;background:rgba(255,255,255,.04);animation:up var(--d-base) var(--e) backwards;animation-delay:calc(var(--i,0)*var(--stg))}
+.hp>button{display:flex;align-items:center;gap:12px;width:100%;padding:14px 20px;border:0;border-radius:20px;background:none;text-align:left;font-weight:600;font-size:15px}
+.hp>button .hi{display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:10px;background:rgba(223,57,57,.16);color:var(--act)}.hp>button>span:nth-child(2){flex:1}.hp>button small{display:block;font-weight:400;font-size:13px;color:var(--t3)}
+.hp>button .chv{color:var(--t3);transition:transform var(--d-base) var(--e)}.hp.shut>button .chv{transform:rotate(-180deg)}
+.hpw{display:grid;grid-template-rows:1fr;transition:grid-template-rows var(--d-slow) var(--e),visibility 0s}.hp.shut .hpw{grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows var(--d-slow) var(--e),visibility 0s var(--d-slow)}.hpi{min-height:0;overflow:hidden}
+.hp ol{list-style:none;counter-reset:s;margin:0;padding:4px 20px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.hp li{counter-increment:s;display:flex;flex-direction:column;gap:4px;padding:14px;border-radius:14px;background:rgba(255,255,255,.04);color:var(--t2);transition:opacity var(--d-slow) var(--e),transform var(--d-slow) var(--e);transition-delay:calc(var(--i)*60ms)}
+.hp li::before{content:counter(s);display:grid;place-items:center;width:24px;height:24px;margin-bottom:4px;border-radius:8px;background:var(--ac);color:#fff;font-weight:600;font-size:13px}.hp li b{color:var(--t1);font-weight:600}
+.hp.shut li{opacity:0;transform:translateY(6px);transition-delay:0s}.hp code{padding:1px 6px;border-radius:6px;background:rgba(255,255,255,.08);color:var(--t1);font:500 12px 'JetBrains Mono',ui-monospace,monospace}
+/* states */
+.sk{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.05)}.sk::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);animation:sh 1.4s var(--e) infinite}
+.sk.h1{width:min(320px,70%);height:28px;margin-bottom:24px}.sk.cd{min-height:188px;border-radius:24px}.sk.sc2{height:150px;border-radius:20px}.sk.hh{width:160px;height:24px;margin:40px 0 16px}
+.stb{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;max-width:480px;margin:min(14vh,96px) auto 0;padding:32px 24px;border:1px solid var(--ln);border-radius:24px;background:rgba(255,255,255,.04);animation:up var(--d-base) var(--e) backwards}
+.stb .ic{display:grid;place-items:center;width:44px;height:44px;margin-bottom:8px;border-radius:14px;background:rgba(223,57,57,.16);color:var(--act)}.stb h2{margin:0;font:600 20px/28px Manrope,sans-serif}.stb p{margin:0;color:var(--t2)}.stb .rw{justify-content:center}
+.nt{display:flex;align-items:center;gap:12px;margin:0 0 16px;padding:10px 12px 10px 16px;border:1px solid rgba(223,57,57,.35);border-radius:14px;background:rgba(223,57,57,.08);color:var(--t1);animation:up var(--d-base) var(--e) backwards}.nt svg{flex:none;color:var(--act)}.nt span{flex:1}.nt .bs{padding:6px 12px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);max-width:calc(100vw - 32px);padding:10px 16px;border-radius:10px;background:var(--t1);color:#0b0b0c;font-weight:500;opacity:0;pointer-events:none;transition:opacity var(--d-base) var(--e),transform var(--d-base) var(--e);z-index:90}#toast.on{opacity:1;transform:translate(-50%,0)}
+.mo{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;transition:opacity var(--d-base) var(--e)}.mo.on{opacity:1}
+.md{width:min(420px,100%);padding:24px;border:1px solid var(--ln2);border-radius:24px;background:var(--s1);box-shadow:0 24px 64px rgba(0,0,0,.5);opacity:0;transform:scale(.96) translateY(8px);transition:opacity var(--d-base) var(--e),transform var(--d-base) var(--e)}.mo.on .md{opacity:1;transform:none}
 .md h2{margin:0;font:600 18px/26px Manrope,sans-serif}.md p{margin:8px 0 0;color:var(--t2)}
-.fld{display:block;width:100%;margin-top:16px;padding:11px 14px;border:1px solid var(--ln2);border-radius:12px;background:var(--s2);color:var(--t1);font:inherit;outline:0;transition:border-color .15s var(--e)}.fld:focus{border-color:var(--act)}.fld[aria-invalid=true]{border-color:var(--ac)}.fld[readonly]{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px}
+.fld{display:block;width:100%;margin-top:16px;padding:11px 14px;border:1px solid var(--ln2);border-radius:12px;background:var(--s2);color:var(--t1);font:inherit;outline:0;transition:border-color var(--d-fast) var(--e)}.fld:focus{border-color:var(--act)}.fld[aria-invalid=true]{border-color:var(--ac)}.fld[readonly]{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px}
 .md .er{min-height:20px;margin:6px 0 0;font-size:13px;color:var(--act)}
 .ma{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
-@media(max-width:860px){#app{grid-template-columns:1fr}#sb{position:fixed;inset:0 auto 0 0;width:260px;z-index:40;transform:translateX(-100%);transition:transform .2s var(--e)}body.nv #sb{transform:none}.mh{display:flex}.g2{grid-template-columns:1fr}#pg{padding:24px 16px 48px}}
+.ns{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;background:var(--bg);text-align:center}.ns b{display:block;margin-bottom:8px;font-size:18px}.ns a{color:var(--act);text-decoration:underline}
+@media(max-width:860px){#app{grid-template-columns:1fr}#sb{position:fixed;inset:0 auto 0 0;width:min(280px,86vw);z-index:40;transform:translateX(-100%);transition:transform var(--d-base) var(--e),visibility 0s var(--d-base);visibility:hidden}body.nv #sb{transform:none;visibility:visible;transition-delay:0s}.sbt{display:flex}.mh{display:flex}.g2{grid-template-columns:1fr}#pg{padding:24px 16px 48px}.hp ol{grid-template-columns:1fr}
+#bd{display:block;position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity var(--d-base) var(--e)}body.nv #bd{opacity:1;pointer-events:auto}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<noscript><div class="ns"><div><b>Нужен JavaScript</b>Панель Stream Overlay работает только с включённым JavaScript. Включите его в настройках браузера или вернитесь <a href="index.html">на главную</a>.</div></div></noscript>
 <div id="app">
-<aside id="sb">
- <div class="sel"><button id="selB" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="selM"><span id="selA"></span><span class="tx"><b id="selN">Каналы отсутствуют</b><small id="selS">Добавьте стримера</small></span><i id="selI"></i></button><div class="pop" id="selM"></div></div>
+<aside id="sb" aria-label="Меню панели">
+ <div class="sbt"><span>Stream Overlay</span><button class="ib" id="sbx" type="button" aria-label="Закрыть меню"><i data-ic="x"></i></button></div>
+ <div class="sel"><button id="selB" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="selM"><span id="selA"></span><span class="tx"><b id="selN">Загрузка…</b><small id="selS">Секунду</small></span><i id="selI"></i></button><div class="pop" id="selM"></div></div>
  <div class="grp"><button type="button" data-g aria-expanded="true" aria-controls="g1"><span>Дашборд</span><i data-ic="down" data-s="16"></i></button><div class="gw" id="g1"><div class="gi">
-  <a href="#home" data-r="home"><i data-ic="home"></i>Главная</a><a href="studio.html" id="nStudio" data-st=""><i data-ic="grid"></i>Оверлеи</a><a href="#links" data-r="links"><i data-ic="link"></i>Ссылки для OBS</a></div></div></div>
- <div class="grp"><button type="button" data-g aria-expanded="true" aria-controls="g2"><span>Виджеты</span><i data-ic="down" data-s="16"></i></button><div class="gw" id="g2"><div class="gi">
+  <a href="#home" data-r="home"><i data-ic="home"></i>Главная</a><a href="studio.html" id="nStudio" data-st=""><i data-ic="grid"></i>Студия</a><a href="#links" data-r="links"><i data-ic="link"></i>Ссылки для OBS</a></div></div></div>
+ <div class="grp"><button type="button" data-g aria-expanded="true" aria-controls="g2"><span>Добавить в оверлей</span><i data-ic="down" data-s="16"></i></button><div class="gw" id="g2"><div class="gi">
   <a href="studio.html" data-st="text"><i data-ic="type"></i>Текст</a><a href="studio.html" data-st="timer"><i data-ic="timer"></i>Таймер</a><a href="studio.html" data-st="7tv"><i data-ic="smile"></i>7TV-эмодзи</a><a href="studio.html" data-st="web"><i data-ic="globe"></i>Браузер</a><a href="studio.html" data-st="twitch"><i data-ic="tv"></i>Чужой стрим</a></div></div></div>
- <div class="sbf"><a class="dlb" id="dl" href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe"><i data-ic="dl"></i>Скачать приложение</a>
+ <div class="sbf"><a class="dlb" id="dl" href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe" rel="noopener"><i data-ic="dl"></i>Приложение для Windows</a>
   <button class="usr" id="usrB" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="usrM"><span id="usrA"></span><b id="usrN"></b><span class="tag">Старт</span><i data-ic="updown" data-s="16"></i></button>
-  <div class="pop" id="usrM"><a href="index.html">На главную</a><button type="button" id="out">Выйти из аккаунта</button></div></div>
+  <div class="pop" id="usrM"><a href="index.html"><i data-ic="home" data-s="16"></i>На сайт</a><button type="button" id="out"><i data-ic="logout" data-s="16"></i>Выйти из аккаунта</button></div></div>
 </aside>
-<main id="mn"><div class="mh"><button id="burger" type="button" aria-expanded="false" aria-controls="sb">Меню</button><b>Stream Overlay</b></div><div id="pg"></div></main>
+<div id="bd"></div>
+<main id="mn"><div class="mh"><button id="burger" type="button" aria-expanded="false" aria-controls="sb" aria-label="Открыть меню"><i data-ic="menu"></i>Меню</button><b>Stream Overlay</b></div><div id="pg" aria-live="polite"></div></main>
 </div>
 <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 <script>
@@ -91,26 +123,50 @@ h3.sh{margin:40px 0 16px;font:600 16px/24px Manrope,sans-serif}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const SB_URL='https://ycqczfrphjhsnelivact.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljcWN6ZnJwaGpoc25lbGl2YWN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Njc5ODAsImV4cCI6MjEwODM0Mzk4MH0.9GCUHuAi_g0MZWtH4DaH2Rp5iLkdelowwl3TkaTTnB4';
-const NICK=/^[a-z0-9_]{1,25}$/,normNick=s=>String(s||'').trim().toLowerCase().replace(/^@/,'');
-const RM=matchMedia('(prefers-reduced-motion: reduce)');
+/*PURE-START*/
+const NICK=/^[a-z0-9_]{1,25}$/,MAX=10;
+const LIMIT_MSG='Достигнут лимит: максимум 10 стримеров. Удалите ненужного стримера и попробуйте снова.';
+function normNick(s){return String(s==null?'':s).trim().toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.|m\.)?twitch\.tv\//,'').replace(/[?#].*$/,'').replace(/\/.*$/,'').replace(/^@/,'')}
+function parseList(raw){let a;try{a=JSON.parse(raw||'[]')}catch(e){return{list:[],bad:true}}
+  if(!Array.isArray(a))return{list:[],bad:true};const out=[];a.forEach(x=>{if(typeof x!=='string')return;const n=x.trim().toLowerCase();if(NICK.test(n)&&!out.includes(n))out.push(n)});return{list:out,bad:false}}
+function buildList(own,chs,hid,rowNames){const set=[],add=n=>{if(n&&n!=='main'&&n!=='Основная'&&!hid.includes(n)&&!set.includes(n))set.push(n)};add(own);chs.forEach(add);rowNames.forEach(add);return set}
+function pickSel(list,sel,dashS,wk){return list.includes(sel)?sel:list.includes(dashS)?dashS:list.includes(wk)?wk:list[0]||''}
+function usedCount(list,rowNames){const s=new Set(list);rowNames.forEach(n=>{if(n&&n!=='main'&&n!=='Основная')s.add(n)});return s.size}
+function checkNew(raw,list,rowNames){const n=normNick(raw);
+  if(!n)return'Введите ник канала';
+  if(!NICK.test(n))return'Только латиница, цифры и «_», не длиннее 25 символов';
+  if(n==='main')return'Это имя зарезервировано. Введите ник Twitch-канала';
+  if(list.includes(n))return'Этот стример уже в списке';
+  if(usedCount(list,rowNames)>=MAX&&!rowNames.includes(n))return LIMIT_MSG;
+  return''}
+/*PURE-END*/
+const T={fast:150,base:250,slow:400},EASE='cubic-bezier(.2,0,0,1)';
+const RM=matchMedia('(prefers-reduced-motion: reduce)'),MQ=matchMedia('(max-width:860px)');
 const wait=(fn,ms)=>RM.matches?fn():setTimeout(fn,ms);
-let sb=null;
-const lsg=k=>{try{return localStorage.getItem(k)}catch(e){return null}},lss=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},lsr=k=>{try{localStorage.removeItem(k)}catch(e){}};
-const lsList=k=>{try{const a=JSON.parse(lsg(k)||'[]');return Array.isArray(a)?a.filter(x=>typeof x==='string'&&NICK.test(x)):[]}catch(e){return[]}};
+const tmo=(p,ms)=>new Promise((res,rej)=>{const t=setTimeout(()=>rej(new Error('timeout')),ms);Promise.resolve(p).then(v=>{clearTimeout(t);res(v)},e=>{clearTimeout(t);rej(e)})});
+let sb=null,leaving=false;
+const lsg=k=>{try{return localStorage.getItem(k)}catch(e){return null}},lss=(k,v)=>{try{localStorage.setItem(k,v);return true}catch(e){return false}},lsr=k=>{try{localStorage.removeItem(k)}catch(e){}};
+/* lists live in localStorage (shared with studio.html); if writing fails we keep them in memory for this tab and tell the user */
+const mem={};
+function lsList(k){if(k in mem)return mem[k].slice();const r=parseList(lsg(k));if(r.bad&&lsg(k)!=null)lsr(k);return r.list}
+function lsSave(k,arr){const ok=lss(k,JSON.stringify(arr));if(ok)delete mem[k];else{mem[k]=arr.slice();toast('Браузер не даёт сохранить список (хранилище заполнено или отключено). Изменение действует до перезагрузки страницы.')}return ok}
 const chsGet=()=>lsList('hs-chs'),hidGet=()=>lsList('hs-hidden');
-const IC={home:'<path d="m3 11 9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',link:'<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>',type:'<path d="M4 7V4h16v3M9 20h6M12 4v16"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',smile:'<circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8"/>',down:'<path d="m6 9 6 6 6-6"/>',updown:'<path d="m7 15 5 5 5-5M7 9l5-5 5 5"/>',plus:'<path d="M12 5v14M5 12h14"/>',dl:'<path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/>',bolt:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>',cast:'<path d="M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 12a9 9 0 0 1 8 8M2 16a5 5 0 0 1 4 4M2 20h.01"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>'};
+const IC={home:'<path d="m3 11 9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',link:'<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>',type:'<path d="M4 7V4h16v3M9 20h6M12 4v16"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',smile:'<circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8"/>',down:'<path d="m6 9 6 6 6-6"/>',updown:'<path d="m7 15 5 5 5-5M7 9l5-5 5 5"/>',plus:'<path d="M12 5v14M5 12h14"/>',dl:'<path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/>',bolt:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>',cast:'<path d="M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 12a9 9 0 0 1 8 8M2 16a5 5 0 0 1 4 4M2 20h.01"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',alert:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/>',refresh:'<path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 12A9 9 0 0 1 18.5 5.8L21 8M21 3v5h-5M3 21v-5h5"/>',monitor:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',open:'<path d="M15 3h6v6M10 14 21 3M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/>'};
 const ico=(n,s)=>'<svg viewBox="0 0 24 24" width="'+(s||18)+'" height="'+(s||18)+'" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[n]+'</svg>';
 const mk=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
-function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2600)}
-/* avatar: remembers which sources loaded / failed, so rebuilt lists don't re-request broken images */
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),m.length>70?5200:2800)}
+/* avatar: tries the sources in order, remembers which loaded / failed, falls back to the first letter */
 const avc=new Map();
-function avatar(login,url){
-  const d=mk('span','av',(login||'?')[0].toUpperCase());
-  const src=url||(login?'https://unavatar.io/twitch/'+encodeURIComponent(login):'');
-  if(src&&avc.get(src)!=='bad'){const im=new Image();im.alt='';im.decoding='async';im.referrerPolicy='no-referrer';if(avc.get(src)==='ok')d.classList.add('has');
-    im.onload=()=>{avc.set(src,'ok');d.classList.add('has')};im.onerror=()=>{avc.set(src,'bad');d.classList.remove('has');im.remove()};im.src=src;d.append(im)}
-  return d;
+function avatar(label,srcs){
+  const d=mk('span','av',(label||'?')[0].toUpperCase());
+  const list=(srcs||[]).filter(s=>s&&avc.get(s)!=='bad');
+  const next=()=>{const src=list.shift();if(!src)return;
+    const im=new Image();im.alt='';im.decoding='async';im.referrerPolicy='no-referrer';if(avc.get(src)==='ok')d.classList.add('has');
+    im.onload=()=>{avc.set(src,'ok');d.classList.add('has')};
+    im.onerror=()=>{avc.set(src,'bad');d.classList.remove('has');im.remove();next()};im.src=src;d.append(im)};
+  next();return d;
 }
+const chAv=n=>avatar(n,n?['https://unavatar.io/twitch/'+encodeURIComponent(n)]:[]);
 /* modal system */
 const modal=(()=>{
   let q=Promise.resolve(),uid=0,active=null;
@@ -131,24 +187,25 @@ const modal=(()=>{
         d.append(inp,er);
       }
       const ac=mk('div','ma'),cb=mk('button','bs',o.cancel||'Отмена'),ok=mk('button','bp'+(o.danger?' dg':''),o.confirm||'OK');
-      cb.type=ok.type='button';ac.append(cb,ok);d.append(ac);ov.append(d);
+      cb.type=ok.type='button';if(!o.noCancel)ac.append(cb);ac.append(ok);d.append(ac);ov.append(d);
       let closed=false,down=false;
       const close=v=>{
         if(closed)return;closed=true;document.removeEventListener('keydown',kd,true);ov.classList.remove('on');app.inert=false;active=null;
         (prev&&prev.isConnected&&prev!==document.body?prev:$('#selB')).focus({preventScroll:true});
-        wait(()=>ov.remove(),240);res(v);
+        wait(()=>ov.remove(),T.base+20);res(v);
       };
       const kd=e=>{
         if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close(o.none)}
         else if(e.key==='Tab'){const f=[...d.querySelectorAll(FOC)];if(!f.length)return;const a=document.activeElement,i=f.indexOf(a);
           if(i<0){e.preventDefault();f[0].focus()}else if(e.shiftKey&&i===0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}
-        else if(e.key==='Enter'&&e.target===inp){e.preventDefault();ok.click()}
+        else if(e.key==='Enter'&&e.target===inp&&!inp.readOnly){e.preventDefault();ok.click()}
       };
       document.addEventListener('keydown',kd,true);
       ov.addEventListener('mousedown',e=>{down=e.target===ov});
       ov.addEventListener('click',e=>{if(down&&e.target===ov)close(o.none)});
       cb.addEventListener('click',()=>close(o.none));
       ok.addEventListener('click',()=>o.onOk({close,inp,er,ok}));
+      clearTimeout(toast.h);$('#toast').classList.remove('on');
       active=d;document.body.append(ov);app.inert=true;
       requestAnimationFrame(()=>ov.classList.add('on'));
       if(inp){inp.focus();inp.select()}else(o.danger?cb:ok).focus();
@@ -158,149 +215,299 @@ const modal=(()=>{
   return{
     prompt:o=>run({title:o.title,text:o.text,field:{value:o.value,placeholder:o.placeholder},confirm:o.confirm||'Добавить',none:null,
       onOk:({close,inp,er})=>{const v=inp.value.trim(),m=o.validate?o.validate(v):'';if(m){er.textContent=m;inp.setAttribute('aria-invalid','true');inp.focus();return}close(v)}}),
-    confirm:o=>run({title:o.title,text:o.text,confirm:o.confirm||'Подтвердить',danger:!!o.danger,none:false,onOk:({close})=>close(true)}),
+    confirm:o=>run({title:o.title,text:o.text,confirm:o.confirm||'Подтвердить',cancel:o.cancel,danger:!!o.danger,none:false,onOk:({close})=>close(true)}),
+    alert:o=>run({title:o.title,text:o.text,confirm:o.confirm||'Понятно',noCancel:true,none:true,onOk:({close})=>close(true)}),
     copy:o=>run({title:o.title,text:o.text,field:{value:o.value,readonly:true},confirm:'Копировать',cancel:'Закрыть',none:undefined,
       onOk:({inp,er,ok})=>{inp.focus();inp.select();er.textContent='';
-        (navigator.clipboard?navigator.clipboard.writeText(inp.value):Promise.reject()).then(()=>{ok.textContent='Скопировано';toast('Ссылка скопирована')},()=>{let c=false;try{c=document.execCommand('copy')}catch(e){}
-          if(c){ok.textContent='Скопировано'}else er.textContent='Не удалось скопировать автоматически: нажмите Ctrl+C'})}}),
+        copyText(inp.value).then(c=>{if(c){ok.textContent='Скопировано';toast('Ссылка скопирована')}else er.textContent='Не удалось скопировать автоматически: нажмите Ctrl+C'})}}),
     get open(){return!!active}
   };
 })();
-const S={user:null,name:'',own:'',list:[],sel:'',rows:{}};
-const base=location.origin+location.pathname.replace(/[^/]*$/,'');
-function build(){
-  const set=[],hid=hidGet();const add=n=>{if(n&&n!=='main'&&n!=='Основная'&&!hid.includes(n)&&!set.includes(n))set.push(n)};
-  add(S.own);chsGet().forEach(add);Object.keys(S.rows).forEach(add);S.list=set;
-  if(!S.list.includes(S.sel))S.sel=lsg('hs-dash-s')&&S.list.includes(lsg('hs-dash-s'))?lsg('hs-dash-s'):(S.list.includes(lsg('hs-wk'))?lsg('hs-wk'):S.list[0]||'');
+function copyText(t){
+  const legacy=()=>{let c=false;try{c=document.execCommand('copy')}catch(e){}return c};
+  try{if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t).then(()=>true,()=>legacy())}catch(e){}
+  return Promise.resolve(legacy());
 }
-function pick(n){S.sel=n;lss('hs-dash-s',n);renderAll()}
+const S={user:null,name:'',own:'',list:[],sel:'',rows:{},rowsState:'idle',ready:false,fresh:''};
+const base=new URL('./',location.href).href;
+const rowNames=()=>Object.keys(S.rows);
+function build(){
+  S.list=buildList(S.own,chsGet(),hidGet(),rowNames());
+  if(!S.list.includes(S.sel))S.sel=pickSel(S.list,S.sel,lsg('hs-dash-s'),lsg('hs-wk'));
+}
+function pick(n){S.sel=n;lss('hs-dash-s',n);renderAll(true)}
+let adding=false;
 async function addStreamer(){
-  const v=await modal.prompt({title:'Добавить стримера',text:'Ник Twitch-канала',placeholder:'например, shroud',confirm:'Добавить',
-    validate:v=>{const n=normNick(v);return !n?'Введите ник канала':NICK.test(n)?'':'Только латиница, цифры и «_», не длиннее 25 символов'}});
-  if(v==null)return;const n=normNick(v);if(!NICK.test(n))return;
-  const l=chsGet();if(!l.includes(n)&&n!==S.own){l.push(n);lss('hs-chs',JSON.stringify(l))}
-  const h=hidGet();if(h.includes(n))lss('hs-hidden',JSON.stringify(h.filter(x=>x!==n)));
-  build();pick(n);
+  if(adding)return;adding=true;
+  try{
+    const used=usedCount(S.list,rowNames());
+    if(used>=MAX){await modal.alert({title:'Достигнут лимит стримеров',text:'В аккаунте можно держать до 10 стримеров, сейчас их '+used+'. Удалите ненужного стримера (значок корзины), чтобы добавить нового.'});return}
+    const v=await modal.prompt({title:'Добавить стримера',text:'Ник Twitch-канала, для которого вы делаете оверлей. Можно вставить ссылку на канал. Сейчас добавлено: '+used+' из '+MAX+'.',placeholder:'например, shroud',confirm:'Добавить',
+      validate:v=>checkNew(v,S.list,rowNames())});
+    if(v==null)return;const n=normNick(v);if(checkNew(n,S.list,rowNames()))return;
+    if(n!==S.own){const l=chsGet();if(!l.includes(n)){l.push(n);lsSave('hs-chs',l)}}
+    const h=hidGet();if(h.includes(n))lsSave('hs-hidden',h.filter(x=>x!==n));
+    S.fresh=n;build();pick(n);toast('Стример «'+n+'» добавлен');
+  }finally{adding=false}
 }
 const studioUrl=(s,add)=>'studio.html'+(s||add?'?'+[s?'s='+encodeURIComponent(s):'',add?'add='+add:''].filter(Boolean).join('&'):'');
-function copyLink(n){
-  const r=S.rows[n];if(!r){toast('Ссылка появится после первого открытия студии для этого стримера');return}
+async function copyLink(n){
+  const r=S.rows[n];
+  if(!r){
+    if(S.rowsState==='err'){toast('Не удалось загрузить список ссылок. Нажмите «Повторить» в жёлтой плашке сверху.');return}
+    const go=await modal.confirm({title:'Ссылки для «'+n+'» пока нет',text:'Ссылка для OBS создаётся при первом сохранении сцены этого стримера. Откройте студию, добавьте любой элемент, и ссылка появится здесь и в разделе «Ссылки для OBS».',confirm:'Открыть студию',cancel:'Позже'});
+    if(go)location.href=studioUrl(n);return;
+  }
   const u=base+'studio.html?o='+r.key;
-  (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('Ссылка для '+n+' скопирована. Никому её не показывайте'),
-    ()=>modal.copy({title:'Ссылка для OBS ('+n+')',text:'Не удалось скопировать автоматически. Скопируйте ссылку вручную и никому её не показывайте.',value:u}));
+  const ok=await copyText(u);
+  if(ok)toast('Ссылка для '+n+' скопирована. Никому её не показывайте');
+  else modal.copy({title:'Ссылка для OBS ('+n+')',text:'Не удалось скопировать автоматически. Скопируйте ссылку вручную и никому её не показывайте.',value:u});
 }
 /* delete streamer */
+const delBusy=new Set();
 async function delStreamer(n){
-  const own=n===S.own,has=!!S.rows[n];
-  const text=own
-    ?'Это ваш канал, из аккаунта его удалить нельзя, поэтому «'+n+'» будет скрыт из списка. Сцены и ссылка для OBS останутся. Вернуть канал можно через «Добавить стримера».'
-    :'Стример «'+n+'» будет удалён из списка.'+(has?' Его сцены и ссылка для OBS тоже будут удалены, старая ссылка перестанет работать.':'');
-  const ok=await modal.confirm({title:own?'Скрыть стримера?':'Удалить стримера?',text,confirm:own?'Скрыть':'Удалить',danger:true});
-  if(!ok)return;
-  const els=$$('[data-n]').filter(e=>e.dataset.n===n&&(e.classList.contains('sc')||e.classList.contains('lr')));els.forEach(e=>e.classList.add('busy'));
-  const fail=m=>{els.forEach(e=>e.classList.remove('busy'));toast(m)};
-  if(!own&&has){
-    if(!sb){fail('Не удалось удалить стримера: нет соединения');return}
-    let r;try{r=await sb.from('scenes').delete().eq('name',n).select('id')}catch(e){r={error:e}}
-    if(r.error||!(r.data&&r.data.length)){fail('Не удалось удалить сцены стримера. Запись сохранена');return}
-    delete S.rows[n];
-  }
-  if(own){const h=hidGet();if(!h.includes(n)){h.push(n);lss('hs-hidden',JSON.stringify(h))}}
-  else lss('hs-chs',JSON.stringify(chsGet().filter(x=>x!==n)));
-  if(lsg('hs-dash-s')===n)lsr('hs-dash-s');if(lsg('hs-wk')===n)lsr('hs-wk');
-  if(S.sel===n)S.sel='';
-  $$('[data-n]').filter(e=>e.dataset.n===n).forEach(e=>{e.classList.remove('busy');e.classList.add('out')});
-  wait(()=>{build();renderAll(true);toast(own?'Стример скрыт':'Стример удалён')},260);
+  if(delBusy.has(n)||!S.list.includes(n))return;delBusy.add(n);
+  try{
+    const own=n===S.own,has=!!S.rows[n];
+    if(!own&&S.rowsState!=='ok'){toast(S.rowsState==='err'?'Сначала обновите список (кнопка «Повторить»): иначе можно оставить сцены стримера на сервере.':'Подождите, список ещё загружается.');return}
+    const text=own
+      ?'Это ваш канал, из аккаунта его удалить нельзя, поэтому «'+n+'» будет скрыт из списка. Сцены и ссылка для OBS останутся. Вернуть канал можно через «Добавить стримера».'
+      :'Стример «'+n+'» будет удалён из списка.'+(has?' Его сцены и ссылка для OBS тоже будут удалены, старая ссылка в OBS перестанет работать.':'');
+    const ok=await modal.confirm({title:own?'Скрыть свой канал?':'Удалить стримера «'+n+'»?',text,confirm:own?'Скрыть':'Удалить',danger:true});
+    if(!ok||!S.list.includes(n))return;
+    const els=$$('[data-n]').filter(e=>e.dataset.n===n&&(e.classList.contains('sc')||e.classList.contains('lr')));els.forEach(e=>e.classList.add('busy'));
+    const fail=m=>{els.forEach(e=>e.classList.remove('busy'));toast(m)};
+    if(!own&&has){
+      if(!sb){fail('Не удалось удалить стримера: нет соединения. Запись сохранена.');return}
+      let r;try{r=await tmo(sb.from('scenes').delete().eq('name',n).select('id'),12000)}catch(e){r={error:e}}
+      if(r.error||!(r.data&&r.data.length)){fail('Не удалось удалить сцены стримера. Запись сохранена, попробуйте ещё раз.');return}
+      delete S.rows[n];
+    }
+    if(own){const h=hidGet();if(!h.includes(n)){h.push(n);lsSave('hs-hidden',h)}}
+    else lsSave('hs-chs',chsGet().filter(x=>x!==n));
+    if(lsg('hs-dash-s')===n)lsr('hs-dash-s');if(lsg('hs-wk')===n)lsr('hs-wk');
+    if(S.sel===n)S.sel='';
+    closePops(false);
+    $$('[data-n]').filter(e=>e.dataset.n===n).forEach(e=>{e.classList.remove('busy');e.classList.add('out')});
+    await new Promise(r=>wait(r,T.base+10));
+    build();renderAll(true);toast(own?'Канал скрыт. Вернуть его можно через «Добавить стримера»':'Стример удалён');
+    const a=document.activeElement;if(!a||a===document.body||!a.isConnected)$('#selB').focus({preventScroll:true});
+  }finally{delBusy.delete(n)}
 }
+/* popovers */
 const pops={selM:'selB',usrM:'usrB'};
+const isOpen=id=>$('#'+id).classList.contains('open');
 function setPop(id,open){const m=$('#'+id),b=$('#'+pops[id]);m.classList.toggle('open',open);b.setAttribute('aria-expanded',open)}
-function closePops(focus){let any=false;Object.keys(pops).forEach(id=>{if($('#'+id).classList.contains('open')){any=true;setPop(id,false);if(focus)$('#'+pops[id]).focus()}});return any}
+function closePops(focus){let any=false;Object.keys(pops).forEach(id=>{if(isOpen(id)){any=true;setPop(id,false);if(focus)$('#'+pops[id]).focus()}});return any}
+const popItems=id=>$$('#'+id+' button,#'+id+' a[href]').filter(e=>!e.disabled);
+function openPop(id,which){Object.keys(pops).forEach(o=>{if(o!==id)setPop(o,false)});setPop(id,true);
+  if(which){const it=popItems(id);const t=which==='last'?it[it.length-1]:(it.find(e=>e.closest('.on')&&e.classList.contains('pk'))||it[0]);if(t)t.focus()}}
+function popKeys(id,e){
+  const it=popItems(id),i=it.indexOf(document.activeElement);if(i<0)return;
+  let t=null;
+  if(e.key==='ArrowDown')t=it[(i+1)%it.length];else if(e.key==='ArrowUp')t=it[(i-1+it.length)%it.length];
+  else if(e.key==='Home')t=it[0];else if(e.key==='End')t=it[it.length-1];
+  else if(e.key==='ArrowRight'&&it[i].classList.contains('pk'))t=it[i+1]&&it[i+1].classList.contains('ib')?it[i+1]:null;
+  else if(e.key==='ArrowLeft'&&it[i].classList.contains('ib'))t=it[i-1];
+  if(t){e.preventDefault();t.focus()}
+}
 function renderSel(){
-  const b=$('#selB');b.replaceChild(avatar(S.sel),b.firstChild);b.firstChild.id='selA';
-  $('#selN').textContent=S.sel||'Каналы отсутствуют';$('#selS').textContent=S.sel?'Выбран для студии':'Добавьте стримера';
+  const b=$('#selB'),ld=S.rowsState==='loading';
+  const av=chAv(S.sel);av.id='selA';b.replaceChild(av,b.firstChild);
+  $('#selN').textContent=S.sel||(S.list.length?'Выберите стримера':'Нет стримеров');
+  $('#selS').textContent=S.sel?'Выбран для студии и ссылок':'Добавьте первого стримера';
   const f=document.createDocumentFragment();
   S.list.forEach(n=>{const w=mk('div','pi'+(n===S.sel?' on':''));w.dataset.n=n;
-    const x=mk('button','pk');x.type='button';x.dataset.act='pick';x.dataset.n=n;x.append(avatar(n),mk('span',0,n));w.append(x,delBtn(n));f.append(w)});
+    const x=mk('button','pk');x.type='button';x.dataset.act='pick';x.dataset.n=n;x.append(chAv(n),mk('span',0,n));w.append(x,delBtn(n));f.append(w)});
   const a=mk('button');a.type='button';a.dataset.act='add';a.innerHTML=ico('plus');a.append(mk('span',0,'Добавить стримера'));f.append(a);
   $('#selM').replaceChildren(f);
 }
-function delBtn(n){const b=mk('button','ib');b.type='button';b.dataset.act='del';b.dataset.n=n;b.title=b.ariaLabel='Удалить стримера';b.setAttribute('aria-label','Удалить стримера');b.innerHTML=ico('trash',16);return b}
-function actBtn(cls,txt,act,n){const b=mk('button',cls,txt);b.type='button';b.dataset.act=act;if(n)b.dataset.n=n;return b}
+function delBtn(n){const b=mk('button','ib'),own=n===S.own,l=own?'Скрыть канал '+n:'Удалить стримера '+n;b.type='button';b.dataset.act='del';b.dataset.n=n;b.title=l;b.setAttribute('aria-label',l);b.innerHTML=ico('trash',16);return b}
+function actBtn(cls,txt,act,n,ic){const b=mk('button',cls);b.type='button';b.dataset.act=act;if(n)b.dataset.n=n;if(ic)b.innerHTML=ico(ic,16);b.append(txt);return b}
 function hello(){const h=new Date().getHours();return h<5?'Доброй ночи':h<12?'Доброе утро':h<18?'Добрый день':'Добрый вечер'}
 const stag=(e,i)=>{e.style.setProperty('--i',Math.min(i,8));return e};
+const OBSK='hs-obs-help';
+function obsHelp(i){
+  const open=lsg(OBSK)!=='0',w=stag(mk('section','hp'+(open?'':' shut')),i);
+  w.innerHTML='<button type="button" data-act="obs" aria-expanded="'+open+'" aria-controls="hpw"><span class="hi">'+ico('monitor',18)+'</span><span>Как подключить к OBS<small>Три шага, около минуты</small></span>'+ico('down',20).replace('<svg','<svg class="chv"')+'</button>'
+   +'<div class="hpw" id="hpw"><div class="hpi"><ol>'
+   +'<li style="--i:0"><b>Скопируйте ссылку</b><span>Нажмите «Ссылка для OBS» у нужного стримера. Ссылка секретная: не показывайте её в эфире.</span></li>'
+   +'<li style="--i:1"><b>Добавьте источник</b><span>В OBS в блоке «Источники» нажмите «+», выберите «Браузер» (Browser Source) и вставьте ссылку в поле URL.</span></li>'
+   +'<li style="--i:2"><b>Задайте размер</b><span>Ширина <code>1920</code>, высота <code>1080</code>. Больше ничего отмечать не нужно: нажмите OK.</span></li>'
+   +'</ol></div></div>';
+  return w;
+}
+function notice(){
+  if(S.rowsState!=='err')return null;
+  const n=mk('div','nt');n.setAttribute('role','status');n.innerHTML=ico('alert',18);n.append(mk('span',0,'Не удалось загрузить ссылки для OBS. Остальное работает, но ссылки пока недоступны.'),actBtn('bs','Повторить','retry-rows',0,'refresh'));return n;
+}
+const rowTxt=n=>S.rowsState==='err'?'Не удалось проверить ссылку':S.rowsState==='loading'?'Проверяем ссылку…':S.rows[n]?'Есть ссылка для OBS':'Ссылка ещё не создана';
 function pageHome(f){
+  const nt=notice();if(nt)f.append(nt);
   const h=mk('h1');h.append(hello()+', ',mk('b',0,S.name));f.append(h);
   const g=mk('div','g2');
-  const c1=stag(mk('section','card c1'),0);c1.innerHTML='<span class="chip">Тариф Старт</span><h2>Вам доступен весь базовый функционал</h2>';
-  const up=mk('a','bp');up.href='index.html#pricing';up.innerHTML=ico('bolt',16);up.append('Повысить тариф');c1.append(up);
+  const c1=stag(mk('section','card c1'),0);c1.innerHTML='<span class="chip">Тариф «Старт»</span><h2>Вам доступны все базовые возможности студии</h2>';
+  const up=mk('a','bp');up.href='index.html#pricing';up.innerHTML=ico('bolt',16);up.append('Посмотреть тарифы');c1.append(up);
   const c2=stag(mk('section','card c2'),1);
   if(S.sel){
-    c2.append(avatar(S.sel),mk('h2',0,S.sel),mk('p',0,'Откройте студию или скопируйте ссылку для OBS'));
-    const r=mk('div','rw'),o=mk('a','bp','Открыть студию');o.href=studioUrl(S.sel);
-    const dl=actBtn('bs','Удалить стримера','del',S.sel);r.append(o,actBtn('bs','Ссылка для OBS','copy',S.sel),dl);c2.append(r);
+    c2.append(chAv(S.sel),mk('h2',0,S.sel),mk('p',0,'Откройте студию, чтобы собрать оверлей, или скопируйте ссылку для OBS.'));
+    const r=mk('div','rw'),o=mk('a','bp');o.href=studioUrl(S.sel);o.innerHTML=ico('open',16);o.append('Открыть студию');
+    const own=S.sel===S.own;r.append(o,actBtn('bs','Ссылка для OBS','copy',S.sel,'copy'),actBtn('bs',own?'Скрыть канал':'Удалить стримера','del',S.sel,'trash'));c2.append(r);
   }else{
-    const ic=mk('span','ic');ic.innerHTML=ico('cast',20);c2.append(ic,mk('h2',0,'Стример не выбран'),mk('p',0,'Выберите стримера в боковой панели, чтобы открыть студию'));
+    const ic=mk('span','ic');ic.innerHTML=ico('cast',20);c2.append(ic,mk('h2',0,S.list.length?'Стример не выбран':'Начните со стримера'),mk('p',0,S.list.length?'Выберите стримера в боковой панели, чтобы открыть студию.':'Добавьте ник Twitch-канала, для которого делаете оверлей. У каждого стримера своя ссылка для OBS.'));
+    c2.append((()=>{const r=mk('div','rw');r.append(actBtn('bp','Добавить стримера','add',0,'plus'));return r})());
   }
-  g.append(c1,c2);f.append(g,mk('h3','sh','Ваши стримеры'));
+  g.append(c1,c2);f.append(g,obsHelp(2));
+  const used=usedCount(S.list,rowNames()),hh=mk('h3','sh','Ваши стримеры'),cn=mk('span','cnt'+(S.cntPrev!=null&&S.cntPrev!==used?' bump':''),used+' из '+MAX);S.cntPrev=used;hh.append(cn);
+  f.append(hh,mk('p','sub','Каналы, для которых вы собираете оверлеи. У каждого своя сцена и своя ссылка для OBS.'));
   const sg=mk('div','sg');
-  S.list.forEach((n,i)=>{const c=stag(mk('div','sc'+(n===S.sel?' on':'')),i+2);c.dataset.n=n;const t=mk('div');t.append(mk('b',0,n),mk('small',0,S.rows[n]?'Есть ссылка для OBS':'Ссылка ещё не создана'));
-    const o=mk('a','bs','Открыть студию');o.href=studioUrl(n);c.append(avatar(n),t,o,delBtn(n));sg.append(c)});
-  const ad=stag(actBtn('sc add','','add'),S.list.length+2);ad.innerHTML=ico('plus',22);ad.append('Добавить стримера');sg.append(ad);
+  S.list.forEach((n,i)=>{const c=stag(mk('div','sc'+(n===S.sel?' on':'')+(n===S.fresh?' new':'')),i+3);c.dataset.n=n;const t=mk('div');t.append(mk('b',0,n),mk('small',0,rowTxt(n)));
+    const o=mk('a','bs');o.href=studioUrl(n);o.innerHTML=ico('open',16);o.append('Открыть студию');c.append(chAv(n),t,o,delBtn(n));sg.append(c)});
+  S.fresh='';
+  const ad=stag(actBtn('sc add','','add'),S.list.length+3);ad.innerHTML=ico('plus',22);ad.append('Добавить стримера');sg.append(ad);
   f.append(sg);
 }
 function pageLinks(f){
+  const nt=notice();if(nt)f.append(nt);
   f.append(mk('h1',0,'Ссылки для OBS'));
-  if(!S.list.length){f.append(mk('p',0,'Сначала добавьте стримера в боковой панели'));return}
+  if(!S.list.length){f.append(mk('p','sub','Сначала добавьте стримера: ник Twitch-канала, для которого нужен оверлей.'),(()=>{const r=mk('div','rw');r.append(actBtn('bp','Добавить стримера','add',0,'plus'));return r})());return}
   S.list.forEach((n,i)=>{const r=stag(mk('div','lr'),i),t=mk('div','tx');r.dataset.n=n;const has=S.rows[n];
-    t.append(mk('b',0,n),mk('small','mono',has?'…?o='+has.key.slice(0,6)+'••••••':'ссылка ещё не создана'));
-    const c=actBtn('bs','Копировать','copy',n);c.disabled=!has;
-    const o=mk('a','bs','Студия');o.href=studioUrl(n);r.append(avatar(n),t,c,o);f.append(r)});
-  const p=mk('p',0,'Ссылка создаётся, когда вы впервые откроете студию для стримера. Добавьте её в OBS как Browser Source 1920×1080.');p.style.cssText='margin-top:16px;color:var(--t3)';f.append(p);
+    t.append(mk('b',0,n),mk('small','mono',has?'…?o='+has.key.slice(0,6)+'••••••':S.rowsState==='err'?'не удалось проверить':'ссылка ещё не создана'));
+    const c=actBtn('bs','Копировать','copy',n,'copy');
+    const o=mk('a','bs','Студия');o.href=studioUrl(n);r.append(chAv(n),t,c,o);f.append(r)});
+  const p=mk('p','sub','Ссылка создаётся при первом сохранении сцены в студии. Это секретный адрес: не показывайте его в эфире.');p.style.marginTop='16px';f.append(p,obsHelp(S.list.length+1));
 }
-function setNv(o){document.body.classList.toggle('nv',o);$('#burger').setAttribute('aria-expanded',o)}
+function skeleton(){
+  const f=document.createDocumentFragment(),a=mk('div','sk h1');f.append(a);
+  const g=mk('div','g2');g.append(mk('div','sk cd'),mk('div','sk cd'));f.append(g,mk('div','sk hh'));
+  const sg=mk('div','sg');for(let i=0;i<3;i++)sg.append(mk('div','sk sc2'));f.append(sg);
+  const p=$('#pg');p.classList.add('still');p.setAttribute('aria-busy','true');p.replaceChildren(f);
+}
+function showFail(o){
+  S.ready=false;const p=$('#pg');p.classList.remove('still');p.removeAttribute('aria-busy');
+  const b=mk('div','stb'),ic=mk('span','ic');ic.innerHTML=ico('alert',22);b.setAttribute('role','alert');
+  const r=mk('div','rw');(o.actions||[]).forEach(a=>r.append(actBtn(a.cls||'bs',a.t,a.act,0,a.ic)));
+  b.append(ic,mk('h2',0,o.title),mk('p',0,o.text),r);p.replaceChildren(b);
+  $('#selN').textContent='Нет данных';$('#selS').textContent='Панель не загрузилась';
+}
+function setNv(o){
+  const mob=MQ.matches;o=!!o&&mob;const was=document.body.classList.contains('nv');
+  document.body.classList.toggle('nv',o);$('#burger').setAttribute('aria-expanded',o);
+  $('#sb').inert=mob&&!o;$('#mn').inert=mob&&o;
+  if(o&&!was)$('#sbx').focus({preventScroll:true});
+  else if(!o&&was&&mob)$('#burger').focus({preventScroll:true});
+}
+const TITLES={home:'Панель · Stream Overlay',links:'Ссылки для OBS · Stream Overlay'};
 function route(still){
-  const r=(location.hash||'#home').slice(1),p=$('#pg'),f=document.createDocumentFragment();
-  $$('[data-r]').forEach(a=>{const on=a.dataset.r===r;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-  p.classList.toggle('still',!!still);(r==='links'?pageLinks:pageHome)(f);p.replaceChildren(f);setNv(false);
-  if(!still&&!RM.matches&&p.animate)p.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:260,easing:'cubic-bezier(.2,0,0,1)'});
+  if(!S.ready)return;
+  const r=(location.hash||'#home').slice(1),k=r==='links'?'links':'home',p=$('#pg'),f=document.createDocumentFragment();
+  $$('[data-r]').forEach(a=>{const on=a.dataset.r===k;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  document.title=TITLES[k];
+  p.classList.toggle('still',!!still);p.removeAttribute('aria-busy');(k==='links'?pageLinks:pageHome)(f);p.replaceChildren(f);
+  if(document.body.classList.contains('nv'))setNv(false);
+  if(!still&&!RM.matches&&p.animate)p.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:T.base+10,easing:EASE});
 }
 function links(){$$('[data-st]').forEach(a=>{a.href=studioUrl(S.sel,a.dataset.st)})}
 function renderAll(still){renderSel();links();route(still===true)}
+async function loadRows(){
+  S.rowsState='loading';
+  try{
+    const r=await tmo(sb.from('scenes').select('id,name,overlay_key,updated_at').order('created_at'),12000);
+    if(r.error)throw r.error;
+    const rows={};(r.data||[]).forEach(x=>{rows[x.name]={id:x.id,key:x.overlay_key}});S.rows=rows;S.rowsState='ok';
+  }catch(e){S.rowsState='err'}
+  return S.rowsState==='ok';
+}
+async function retryRows(btn){
+  if(btn){btn.disabled=true;btn.lastChild.textContent='Загрузка…'}
+  await loadRows();build();renderAll(true);
+  toast(S.rowsState==='ok'?'Ссылки загружены':'Пока не получилось загрузить ссылки. Проверьте интернет и повторите.');
+}
+/* clears local auth data when a clean sign-out is impossible (offline) */
+function wipeAuth(){try{Object.keys(localStorage).filter(k=>/^sb-.*-auth-token(-code-verifier)?$/.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}lsr('hs-rt')}
+async function logout(btn){
+  if(leaving)return;leaving=true;if(btn){btn.disabled=true}
+  lsr('hs-rt');
+  try{await tmo(sb.auth.signOut(),4000)}catch(e){}
+  try{await sb.auth.signOut({scope:'local'})}catch(e){}
+  wipeAuth();location.replace('index.html');
+}
+/* redirect loop guard: app.html -> studio.html?next=app -> app.html ... stops after 2 hops per minute */
+const LOOPK='hs-loop';
+function goLogin(){
+  let a=[],okStore=true;
+  try{a=JSON.parse(sessionStorage.getItem(LOOPK)||'[]').filter(t=>Date.now()-t<60000)}catch(e){okStore=false}
+  if(okStore){try{a.push(Date.now());sessionStorage.setItem(LOOPK,JSON.stringify(a))}catch(e){okStore=false}}
+  if(!okStore||a.length>2){
+    showFail({title:'Не получается войти',text:'Вход не завершился: страницы входа и панели отправляют друг друга по кругу. Проверьте, что браузер не блокирует cookies и localStorage, и войдите заново.',
+      actions:[{cls:'bp',t:'Войти заново',act:'relogin',ic:'logout'},{t:'Повторить',act:'retry-init',ic:'refresh'}]});
+    return;
+  }
+  location.replace('studio.html?next=app');
+}
+const isNet=e=>!e||e.message==='timeout'||e.name==='AuthRetryableFetchError'||e.name==='TypeError'||/fetch|network|load failed/i.test(e.message||'')||e.status===0||e.status>=500;
+function netFail(){showFail({title:'Не удалось подключиться',text:'Сервер входа не отвечает. Проверьте интернет или попробуйте позже. Ваши данные не потеряны.',actions:[{cls:'bp',t:'Повторить',act:'retry-init',ic:'refresh'},{t:'На сайт',act:'home-site'}]})}
+let initBusy=false,authSub=false;
+async function init(){
+  if(initBusy)return;initBusy=true;
+  try{
+    if(/[?&]demo(?:[=&]|$)/.test(location.search)){location.replace('studio.html?demo=1');return}
+    skeleton();
+    if(!sb){showFail({title:'Не загрузился модуль входа',text:'Скрипт Supabase не загрузился с cdn.jsdelivr.net. Проверьте интернет, отключите блокировщик рекламы для этого сайта и повторите.',actions:[{cls:'bp',t:'Перезагрузить страницу',act:'reload',ic:'refresh'}]});return}
+    let ses=null,err=null;
+    try{const r=await tmo(sb.auth.getSession(),12000);ses=r.data&&r.data.session;err=r.error||null}catch(e){err=e}
+    if(!ses){if(err&&isNet(err)||(!err&&navigator.onLine===false))netFail();else goLogin();return}
+    try{sessionStorage.removeItem(LOOPK)}catch(e){}
+    S.user=ses.user;const m=S.user.user_metadata||{};
+    S.own=String(m.preferred_username||m.user_name||'').toLowerCase().replace(/[^a-z0-9_]/g,'').slice(0,25);
+    S.name=m.preferred_username||m.name||m.full_name||(S.user.email||'').split('@')[0]||'гость';
+    $('#usrN').textContent=S.name;
+    const ua=avatar(S.name,[m.avatar_url||m.picture,S.own&&'https://unavatar.io/twitch/'+encodeURIComponent(S.own)]);ua.id='usrA';$('#usrB').replaceChild(ua,$('#usrB').firstChild);
+    S.ready=true;S.rowsState='loading';build();
+    await loadRows();build();renderAll(true);
+    if(!authSub){authSub=true;try{sb.auth.onAuthStateChange(ev=>{if(ev==='SIGNED_OUT'&&!leaving)goLogin()})}catch(e){}}
+  }finally{initBusy=false}
+}
 function main(){
   try{sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{flowType:'pkce'}})}catch(e){}
   $$('[data-ic]').forEach(e=>{e.innerHTML=ico(e.dataset.ic,+e.dataset.s||18);e.style.display='inline-flex'});
   $('#selI').innerHTML=ico('updown',16);$('#selI').style.display='inline-flex';
   $$('[data-g]').forEach(b=>b.addEventListener('click',()=>{const s=b.parentElement.classList.toggle('shut');b.setAttribute('aria-expanded',!s)}));
-  $('#selB').addEventListener('click',e=>{e.stopPropagation();setPop('usrM',false);setPop('selM',!$('#selM').classList.contains('open'))});
-  $('#usrB').addEventListener('click',e=>{e.stopPropagation();setPop('selM',false);setPop('usrM',!$('#usrM').classList.contains('open'))});
+  $('#selB').onclick=e=>{e.stopPropagation();isOpen('selM')?setPop('selM',false):openPop('selM',0)};
+  $('#usrB').onclick=e=>{e.stopPropagation();isOpen('usrM')?setPop('usrM',false):openPop('usrM',0)};
+  Object.keys(pops).forEach(id=>{const tb=$('#'+pops[id]),m=$('#'+id);
+    tb.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();openPop(id,'first')}else if(e.key==='ArrowUp'){e.preventDefault();openPop(id,'last')}});
+    m.addEventListener('keydown',e=>popKeys(id,e));
+    m.addEventListener('focusout',e=>{const t=e.relatedTarget;if(t&&!m.contains(t)&&t!==tb)setPop(id,false)});
+    m.addEventListener('click',e=>e.stopPropagation());});
   document.addEventListener('click',()=>closePops(false));
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.open){if(closePops(true))return;if(document.body.classList.contains('nv')){setNv(false);$('#burger').focus()}}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.open){if(closePops(true))return;if(document.body.classList.contains('nv'))setNv(false)}});
   $('#burger').addEventListener('click',e=>{e.stopPropagation();setNv(!document.body.classList.contains('nv'))});
+  $('#bd').addEventListener('click',()=>setNv(false));$('#sbx').addEventListener('click',()=>setNv(false));
+  $('#sb').addEventListener('click',e=>{if(e.target.closest('a[data-r]'))setNv(false)});
+  (MQ.addEventListener?MQ.addEventListener('change',()=>setNv(false)):MQ.addListener(()=>setNv(false)));
+  setNv(false);
+  /* all page and popover clicks go through two delegated listeners, so re-rendering never stacks handlers */
   const onAct=e=>{
     const t=e.target.closest('[data-act]');if(!t)return;const n=t.dataset.n;
     switch(t.dataset.act){
-      case'pick':closePops(false);pick(n);break;
+      case'pick':closePops(false);pick(n);$('#selB').focus({preventScroll:true});break;
       case'add':closePops(false);addStreamer();break;
       case'copy':copyLink(n);break;
       case'del':e.stopPropagation();closePops(false);delStreamer(n);break;
+      case'retry-rows':retryRows(t);break;
+      case'retry-init':init();break;
+      case'reload':location.reload();break;
+      case'home-site':location.href='index.html';break;
+      case'relogin':try{sessionStorage.removeItem(LOOPK)}catch(e){}wipeAuth();location.replace('studio.html?next=app');break;
+      case'obs':{const w=t.closest('.hp'),s=w.classList.toggle('shut');t.setAttribute('aria-expanded',!s);lss(OBSK,s?'0':'1');break}
     }
   };
   $('#pg').addEventListener('click',onAct);$('#selM').addEventListener('click',onAct);
   addEventListener('hashchange',()=>route(false));
   if(window.__TAURI_INTERNALS__)$('#dl').style.display='none';
-  $('#out').addEventListener('click',async()=>{try{localStorage.removeItem('hs-rt');await sb.auth.signOut()}catch(e){}location.replace('index.html')});
+  $('#out').addEventListener('click',e=>logout(e.currentTarget));
   init();
-}
-async function init(){
-  if(!sb){location.replace('studio.html?next=app');return}
-  let ses=null;try{ses=(await sb.auth.getSession()).data.session}catch(e){}
-  if(!ses){location.replace('studio.html?next=app');return}
-  S.user=ses.user;const m=S.user.user_metadata||{};
-  S.own=String(m.preferred_username||m.user_name||'').toLowerCase().replace(/[^a-z0-9_]/g,'').slice(0,25);
-  S.name=m.preferred_username||m.name||m.full_name||(S.user.email||'').split('@')[0]||'гость';
-  $('#usrN').textContent=S.name;const ua=avatar(S.name,m.avatar_url||m.picture);$('#usrB').replaceChild(ua,$('#usrB').firstChild);
-  try{const r=await sb.from('scenes').select('id,name,overlay_key,updated_at').order('created_at');(r.data||[]).forEach(x=>{S.rows[x.name]={id:x.id,key:x.overlay_key}})}catch(e){}
-  build();renderAll();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',main);else main();
 })();
