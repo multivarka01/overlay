@@ -1,0 +1,33 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Secrets and local config
+.env
+.env.*
+*.pem
+*.key
+supabase/.branches/
+supabase/.temp/
+.supabase/
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+
+# Logs and temp
+*.log
+tmp/
+*.tmp
+
+# Local test artefacts
+test_site/
+shots/
