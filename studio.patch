@@ -1,0 +1,94 @@
+diff --git a/studio.html b/studio.html
+index 7d25f6b..a154a16 100644
+--- a/studio.html
++++ b/studio.html
+@@ -139,6 +139,7 @@ kbd{font:500 11px/16px 'JetBrains Mono',ui-monospace,monospace;padding:0 6px;bor
+ .cc .nm{position:absolute;left:0;right:0;bottom:0;padding:24px 8px 8px;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);font-size:13px;font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .cc .bd{position:absolute;z-index:1;top:8px;left:8px;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,.08);font-size:12px;font-weight:500;white-space:nowrap}
+ .cc .rm{position:absolute;z-index:1;top:8px;right:8px;padding:3px;border:0;background:rgba(20,20,26,.6)}
++.cc .rn{right:36px}
+ .cc .lk2{width:100%;margin-top:6px;padding:4px 8px;font-size:12px;background:none;color:var(--mute)}.cc .lk2:hover{color:var(--text)}
+ .cc.add .av{background:transparent!important;border:1px dashed var(--line2);color:var(--faint)}
+ .cc.off{opacity:.55}
+@@ -1012,6 +1013,7 @@ if(ov){
+       if(on)av.append(mkEl('span','bd','Фон'));
+       const x=mkEl('button','rm');x.type='button';x.innerHTML=ico('x',14);x.title=c===myLogin?'Скрыть из списка':'Удалить стримера';x.setAttribute('aria-label',(c===myLogin?'Скрыть стримера ':'Удалить стримера ')+c);
+       x.onclick=ev=>{ev.stopPropagation();removeStreamer(c)};av.append(x);
++      if(c!==myLogin){const rn=mkEl('button','rm rn');rn.type='button';rn.innerHTML=ico('edit',14);rn.title='Сменить ник стримера';rn.setAttribute('aria-label','Сменить ник стримера '+c);rn.onclick=ev=>{ev.stopPropagation();renameStreamer(c)};av.append(rn)}
+       r.title='Выбрать стримера «'+c+'»';
+       const lk=mkEl('button','lk2');lk.type='button';lk.innerHTML=ico('link',14)+'<span>Ссылка для OBS</span>';lk.onclick=ev=>{ev.stopPropagation();copyLink(c)};
+       const open=mkEl('button','lk2');open.hidden=true;
+@@ -1022,6 +1024,33 @@ if(ov){
+     a.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();addCh()}};L.append(a);
+     $('#chOff').disabled=!bgOn;
+   }
++  // смена ника стримера: переименовывается строка scenes (overlay_key и ссылка для OBS не меняются)
++  async function renameStreamer(c){
++    if(c===myLogin)return;
++    const v=await modal.prompt({title:'Сменить ник стримера',text:'Сцены и ссылка для OBS останутся прежними, поменяется только ник.',placeholder:'новый ник без @',value:c,confirm:'Сменить',validate:nickErr});
++    if(v==null)return;const n=normNick(v);if(!NICK.test(n)||n===c)return;
++    if(n===myLogin||chs.includes(n)||ROWS[n]||WSMAP[n]){toast('Стример «'+n+'» уже есть в списке');return}
++    if(SV[c]&&SV[c].busy){toast('Идёт сохранение, повторите через секунду');return}
++    const cur=wsOf()===c,had=!!ROWS[c]&&!!sess&&!DEMO;
++    if(had){
++      clearTimeout(saveT);saveT=0;if(SV[c]){clearTimeout(SV[c].t);SV[c].t=0}
++      let r;try{r=await getSB().from('scenes').update({name:n.slice(0,40)}).eq('id',ROWS[c].id).select('id,name,overlay_key,data,updated_at').single()}catch(e){r={error:e}}
++      if(r.error||!r.data){toast('Не удалось сменить ник: '+((r.error&&r.error.message)||'ошибка')+(cur?'. Правки сохранятся автоматически':''));if(cur&&lsg(kD(c))==='1')saveRemote();return}
++      ROWS[n]=rowOf(r.data);delete ROWS[c];
++    }
++    if(SV[c]){delete SV[c]}
++    [kS,kD,kM].forEach(f=>{const x=lsg(f(c));if(x!==null){lss(f(n),x);lsr(f(c))}});
++    if(READY.has(c)){READY.delete(c);READY.add(n)}
++    if(WSMAP[c]){WSMAP[n]=WSMAP[c];delete WSMAP[c]}
++    chs=chs.map(v=>v===c?n:v);if(!chs.includes(n))chs.push(n);
++    if(cur)WSK=n;
++    if(lsg('hs-dash-s')===c)lss('hs-dash-s',n);
++    const wasCur=curCh===c;if(wasCur)curCh=n;
++    saveCh();saveScenes();
++    if(wasCur&&bgOn)bgRender(n);
++    if(cur&&lsg(kD(n))==='1')saveRemote();
++    chOpts();layers();renderSt();toast('Ник изменён: «'+c+'» → «'+n+'»');
++  }
+   // удаление стримера: как в app.html — подтверждение, удаление строки scenes, свой канал только скрывается
+   async function removeStreamer(c){
+     const own=c===myLogin,has=!!ROWS[c]&&!!sess&&!DEMO;
+@@ -1139,7 +1168,7 @@ if(ov){
+     const h=$('#hint');h.textContent='Демо-режим: изменения не сохраняются и не идут в эфир. ';const a=mkEl('a',0,'Открыть свою студию');a.href='studio.html';h.append(a);toastOnce('demo','Демо-режим: изменения не сохраняются и не идут в эфир')}
+   // ---- сохранение в облако: очередь, повторы, защита от гонок ----
+   let saveT=0,seq=0;
+-  const ROWS={};let adoptFrom='';
++  const ROWS={},READY=new Set();let adoptFrom='';
+   const SV={};
+   const kS=k=>'hs-sync:'+k,kD=k=>'hs-dirty:'+k,kM=k=>'hs-lm:'+k;
+   const wsOf=()=>WSK||wkNow();
+@@ -1184,7 +1213,7 @@ if(ov){
+     ROWS[k]=rowOf(r.data);return ROWS[k];
+   }
+   async function doSave(k,data){
+-    const row=ROWS[k];if(!row||DEMO||!sess||!data)return;
++    const row=ROWS[k];if(!row||DEMO||!sess||!data||!READY.has(k))return;
+     const s=SV[k]||(SV[k]={busy:false,again:false,fails:0,t:0,rec:0});
+     if(s.busy){s.again=true;return}
+     clearTimeout(s.t);s.t=0;s.busy=true;const my=seq;renderSt();
+@@ -1228,8 +1257,9 @@ if(ov){
+     const sb=getSB();if(!sb||!sess||DEMO)return;
+     const row=await ensureRow(k,k===wsOf()?packCur():[],true);if(!row)return;
+     const last=lsg(kS(k)),dirty=lsg(kD(k))==='1',lm=+lsg(kM(k))||0;
+-    if(row.ts!==last){
+-      if(!dirty||Date.parse(row.ts)>=lm){
++    // облако — главный источник: если локальных несохранённых правок нет, всегда берём его (раньше при совпадении метки времени оставался локальный кэш, и он мог затереть сцену)
++    {
++      if(!dirty||(row.ts!==last&&Date.parse(row.ts)>=lm)){
+         const u=unpackWS(row.data),firstSync=last===null,mine=items.slice();
+         const same=JSON.stringify(clean(mine))===JSON.stringify(u.its);
+         applyRemote(row.data);lss(kS(k),row.ts);lss(kD(k),'');
+@@ -1237,7 +1267,8 @@ if(ov){
+           SC.list.push({id:uid(),name:'С этого компьютера',items:mine});saveScenes();layers();toast('Сцену с этого компьютера сохранил отдельной сценой');
+         }
+       }else saveRemote();
+-    }else if(dirty)saveRemote();
++    }
++    READY.add(k);if(dirty&&lsg(kD(k))==='1')saveRemote();
+     myKey=row.key;openCh();renderSt();
+   }
+   let pollB=false;
