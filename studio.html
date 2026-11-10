@@ -5,7 +5,7 @@
 <title>Студия оверлея</title>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src https: data: blob:; media-src https: data: blob:; connect-src https://ycqczfrphjhsnelivact.supabase.co wss://ycqczfrphjhsnelivact.supabase.co https://7tv.io; frame-src https:; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&family=JetBrains+Mono:wght@400;500&family=Bangers&family=Pacifico&family=Press+Start+2P&display=swap">
 <style>
 :root{color-scheme:dark;--bg:#0e0e10;--panel:#151518;--hi:rgba(255,255,255,.05);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.14);--text:#ededef;--mute:#9a9aa3;--faint:#74747e;--acc:#df3939;--accT:#0a0a0b;--accL:#f26b6b;--ok:#5fb37c;--warn:#e0a84a;--dot:rgba(255,255,255,.07);--ease:cubic-bezier(.2,0,0,1);--r:8px;--R:16px;--sa:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px)}
@@ -16,7 +16,7 @@ html.ov,body.ov{background:transparent!important}
 body.ov #vp,body.ov .box,body.ov #hint,body.ov #toast,body.ov dialog,body.ov .mo{display:none!important}
 
 /* ---- canvas ---- */
-#vp{position:absolute;inset:0;z-index:1;touch-action:none;cursor:grab;background-image:radial-gradient(var(--dot) 1.5px,transparent 1.5px)}
+#vp{position:absolute;inset:0;z-index:1;overflow:hidden;touch-action:none;cursor:grab;background-image:radial-gradient(var(--dot) 1.5px,transparent 1.5px)}
 #vp.pan{cursor:grabbing}
 #world{position:absolute;left:0;top:0;transform-origin:0 0}
 #zone{position:absolute;left:0;top:0;width:1920px;height:1080px;outline:2px solid rgba(223,57,57,.85);border-radius:3px;background:rgba(255,255,255,.025);pointer-events:none}
@@ -119,7 +119,8 @@ kbd{font:500 11px/16px 'JetBrains Mono',ui-monospace,monospace;padding:0 6px;bor
 .acts button{padding:8px 4px;font-size:13px}
 #fDel{color:var(--accL);background:none}#fDel:hover{background:rgba(242,107,107,.1)}
 @media(max-width:700px){
-  #panel{left:12px;right:12px;top:auto;bottom:calc(126px + var(--sa));width:auto;max-height:calc(100% - 206px);transform:translateY(14px)}
+  #panel{left:12px;right:12px;top:auto;bottom:calc(126px + var(--sa));width:auto;max-height:min(44%,calc(100% - 206px));transform:translateY(14px)}
+  #fields input,#fields select,#fields textarea{font-size:16px}
 }
 
 /* ---- menu: streamers, scenes, layers ---- */
@@ -203,7 +204,7 @@ dialog .row{display:flex;gap:6px}dialog .row button{flex:1;padding:8px 4px}
 .md dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:16px 0 0;font-size:13px;align-items:center}.md dt{white-space:nowrap}.md dd{margin:0;color:var(--mute)}
 #toast{position:absolute;left:50%;bottom:calc(84px + var(--sa));background:var(--text);color:var(--accT);padding:8px 14px;border-radius:var(--r);font-weight:500;opacity:0;transform:translate(-50%,12px);transition:opacity .22s var(--ease),transform .25s var(--ease);z-index:140;pointer-events:none;max-width:calc(100% - 24px);text-align:center}
 #toast.on{opacity:1;transform:translate(-50%,0)}
-@media(max-width:700px){#toast{bottom:calc(184px + var(--sa))}}
+@media(max-width:700px){#toast{bottom:auto;top:calc(72px + var(--sa))}}
 
 .md kbd{font-size:12px;color:var(--text)}
 /* ---- sign-in ---- */
