@@ -228,7 +228,7 @@ function copyText(t){
   try{if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t).then(()=>true,()=>legacy())}catch(e){}
   return Promise.resolve(legacy());
 }
-const S={user:null,name:'',own:'',list:[],sel:'',rows:{},rowsState:'idle',ready:false,fresh:''};
+const S={plan:'start',user:null,name:'',own:'',list:[],sel:'',rows:{},rowsState:'idle',ready:false,fresh:''};
 const base=new URL('./',location.href).href;
 const rowNames=()=>Object.keys(S.rows);
 function build(){
@@ -326,6 +326,17 @@ function delBtn(n){const b=mk('button','ib'),own=n===S.own,l=own?'Скрыть �
 function actBtn(cls,txt,act,n,ic){const b=mk('button',cls);b.type='button';b.dataset.act=act;if(n)b.dataset.n=n;if(ic)b.innerHTML=ico(ic,16);b.append(txt);return b}
 function hello(){const h=new Date().getHours();return h<5?'Доброй ночи':h<12?'Доброе утро':h<18?'Добрый день':'Добрый вечер'}
 const stag=(e,i)=>{e.style.setProperty('--i',Math.min(i,8));return e};
+const PN={start:'Старт',streamer:'Стример',studio:'Студия'},PLK='hs-plan',PLP='hs-plan-pending';
+const PH={start:'Вам доступны все базовые возможности студии',streamer:'Расширенные возможности для регулярных стримов',studio:'Максимум возможностей для больших сетапов'};
+const okPlan=p=>typeof p==='string'&&Object.prototype.hasOwnProperty.call(PN,p);
+/* plan: account (rpc get_my_plan / set_my_plan, see supabase/plans.sql) with a localStorage cache; also applies a plan picked on the landing before login */
+async function loadPlan(){
+  const k=PLK+':'+S.user.id,before=S.plan,pend=lsg(PLP);
+  try{
+    if(okPlan(pend)){const r=await sb.rpc('set_my_plan',{p:pend});if(r.error)throw r.error;S.plan=okPlan(r.data)?r.data:pend;lsr(PLP)}
+    else{const r=await sb.rpc('get_my_plan');if(r.error)throw r.error;if(okPlan(r.data))S.plan=r.data}
+  }catch(e){if(okPlan(pend)){S.plan=pend;lsr(PLP)}}
+  lss(k,S.plan);return S.plan!==before}
 const OBSK='hs-obs-help';
 function obsHelp(i){
   const open=lsg(OBSK)!=='0',w=stag(mk('section','hp'+(open?'':' shut')),i);
@@ -346,8 +357,8 @@ function pageHome(f){
   const nt=notice();if(nt)f.append(nt);
   const h=mk('h1');h.append(hello()+', ',mk('b',0,S.name));f.append(h);
   const g=mk('div','g2');
-  const c1=stag(mk('section','card c1'),0);c1.innerHTML='<span class="chip">Тариф «Старт»</span><h2>Вам доступны все базовые возможности студии</h2>';
-  const up=mk('a','bp');up.href='index.html#pricing';up.innerHTML=ico('bolt',16);up.append('Посмотреть тарифы');c1.append(up);
+  const c1=stag(mk('section','card c1'),0);c1.innerHTML='<span class="chip">Тариф «'+PN[S.plan]+'»</span><h2>'+PH[S.plan]+'</h2>';
+  const up=mk('a','bp');up.href='index.html#pricing';up.innerHTML=ico('bolt',16);up.append('Сменить тариф');c1.append(up);
   const c2=stag(mk('section','card c2'),1);
   if(S.sel){
     c2.append(chAv(S.sel),mk('h2',0,S.sel),mk('p',0,'Откройте студию, чтобы собрать оверлей, или скопируйте ссылку для OBS.'));
@@ -463,8 +474,10 @@ async function init(){
     S.name=m.preferred_username||m.name||m.full_name||(S.user.email||'').split('@')[0]||'гость';
     $('#usrN').textContent=S.name;
     const ua=avatar(S.name,[m.avatar_url||m.picture,S.own&&'https://unavatar.io/twitch/'+encodeURIComponent(S.own)]);ua.id='usrA';$('#usrB').replaceChild(ua,$('#usrB').firstChild);
+    {const c=lsg(PLK+':'+S.user.id);if(okPlan(c))S.plan=c}
     S.ready=true;S.rowsState='loading';build();
     await loadRows();build();renderAll(true);
+    loadPlan().then(ch=>{if(ch&&S.ready)renderAll()},()=>{});
     if(!authSub){authSub=true;try{sb.auth.onAuthStateChange(ev=>{if(ev==='SIGNED_OUT'&&!leaving)goLogin()})}catch(e){}}
   }finally{initBusy=false}
 }
