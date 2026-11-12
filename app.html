@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src https: data: blob:; connect-src https://ycqczfrphjhsnelivact.supabase.co; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src https: data: blob:; connect-src https://ycqczfrphjhsnelivact.supabase.co; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
@@ -51,6 +51,8 @@ a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;cursor:po
 #mn{position:relative;overflow:auto;background:radial-gradient(ellipse 70% 38% at 50% -8%,rgba(223,57,57,.22),transparent 70%),var(--bg)}
 .mh{display:none;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--ln)}.mh button{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--s1)}
 #bd{display:none}
+#stf{display:none;flex:1;min-height:0;width:100%;border:0;background:var(--bg)}
+#mn.st{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}#mn.st #pg{display:none}#mn.st #stf{display:block}
 #pg{max-width:984px;margin:0 auto;padding:32px 24px 64px}
 h1{margin:0 0 24px;font:500 20px/28px Manrope,sans-serif}h1 b{font-weight:600}h1 span{color:var(--t2)}
 h3.sh{display:flex;align-items:baseline;gap:8px;margin:40px 0 4px;font:600 16px/24px Manrope,sans-serif}.cnt{font-weight:500;font-size:13px;color:var(--t3)}.cnt.bump{animation:bump var(--d-base) var(--e)}
@@ -115,7 +117,7 @@ h3.sh{display:flex;align-items:baseline;gap:8px;margin:40px 0 4px;font:600 16px/
   <div class="pop" id="usrM"><a href="index.html"><i data-ic="home" data-s="16"></i>На сайт</a><button type="button" id="out"><i data-ic="logout" data-s="16"></i>Выйти из аккаунта</button></div></div>
 </aside>
 <div id="bd"></div>
-<main id="mn"><div class="mh"><button id="burger" type="button" aria-expanded="false" aria-controls="sb" aria-label="Открыть меню"><i data-ic="menu"></i>Меню</button><b>Stream Overlay</b></div><div id="pg" aria-live="polite"></div></main>
+<main id="mn"><div class="mh"><button id="burger" type="button" aria-expanded="false" aria-controls="sb" aria-label="Открыть меню"><i data-ic="menu"></i>Меню</button><b>Stream Overlay</b></div><div id="pg" aria-live="polite"></div><iframe id="stf" title="Студия оверлея" allow="clipboard-write; fullscreen" referrerpolicy="same-origin"></iframe></main>
 </div>
 <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 <script>
@@ -256,7 +258,7 @@ async function copyLink(n){
   if(!r){
     if(S.rowsState==='err'){toast('Не удалось загрузить список ссылок. Нажмите «Повторить» в жёлтой плашке сверху.');return}
     const go=await modal.confirm({title:'Ссылки для «'+n+'» пока нет',text:'Ссылка для OBS создаётся при первом сохранении сцены этого стримера. Откройте студию, добавьте любой элемент, и ссылка появится здесь и в разделе «Ссылки для OBS».',confirm:'Открыть студию',cancel:'Позже'});
-    if(go)location.href=studioUrl(n);return;
+    if(go)openStudio(n);return;
   }
   const u=base+'studio.html?o='+r.key;
   const ok=await copyText(u);
@@ -409,8 +411,25 @@ function setNv(o){
   else if(!o&&was&&mob)$('#burger').focus({preventScroll:true});
 }
 const TITLES={home:'Панель · Stream Overlay',links:'Ссылки для OBS · Stream Overlay'};
+let stKey='';
+const embedUrl=u=>u+(u.includes('?')?'&':'?')+'embed=1';
+function openStudio(s,add){
+  const u=studioUrl(s,add);
+  if(stKey!==u){stKey=u;$('#stf').src=embedUrl(u)}
+  if(location.hash!=='#studio')location.hash='#studio';else route(true);
+}
 function route(still){
   if(!S.ready)return;
+  const stOn=location.hash==='#studio',ns=$('#nStudio');
+  $('#mn').classList.toggle('st',stOn);
+  if(stOn){
+    if(!stKey){stKey=studioUrl(S.sel);$('#stf').src=embedUrl(stKey)}
+    $$('[data-r]').forEach(x=>{x.classList.remove('on');x.removeAttribute('aria-current')});
+    ns.classList.add('on');ns.setAttribute('aria-current','page');document.title='Студия · Stream Overlay';
+    if(document.body.classList.contains('nv'))setNv(false);
+    return;
+  }
+  ns.classList.remove('on');ns.removeAttribute('aria-current');
   const r=(location.hash||'#home').slice(1),k=r==='links'?'links':'home',p=$('#pg'),f=document.createDocumentFragment();
   $$('[data-r]').forEach(a=>{const on=a.dataset.r===k;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
   document.title=TITLES[k];
@@ -518,6 +537,16 @@ function main(){
   };
   $('#pg').addEventListener('click',onAct);$('#selM').addEventListener('click',onAct);
   addEventListener('hashchange',()=>route(false));
+  /* Студия открывается внутри панели (iframe), без перехода на другую страницу */
+  document.addEventListener('click',e=>{
+    const l=e.target.closest('a[href^="studio.html"]');if(!l||e.defaultPrevented||e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;
+    const q=new URL(l.href).searchParams;if(q.has('o')||q.has('demo')||q.has('next'))return;
+    e.preventDefault();openStudio(q.get('s')||'',q.get('add')||'');
+  });
+  addEventListener('message',e=>{
+    if(e.origin!==location.origin||e.source!==$('#stf').contentWindow)return;
+    if(e.data&&e.data.type==='so-nav')location.hash='#home';
+  });
   if(window.__TAURI_INTERNALS__)$('#dl').style.display='none';
   $('#out').addEventListener('click',e=>logout(e.currentTarget));
   init();

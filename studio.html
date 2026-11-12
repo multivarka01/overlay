@@ -316,7 +316,9 @@ const Q=new URLSearchParams(location.search);
 const OKEY=Q.get('o')||'';
 const keyed=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(OKEY);
 const ov=keyed||Q.has('overlay');
-if(!ov&&self!==top){document.documentElement.innerHTML='';throw new Error('framed')}
+const EMB=Q.get('embed')==='1'&&self!==top&&(()=>{try{return top.location.origin===location.origin}catch(e){return false}})();
+if(!ov&&!EMB&&self!==top){document.documentElement.innerHTML='';throw new Error('framed')}
+if(EMB){document.documentElement.classList.add('emb');document.addEventListener('click',e=>{const l=e.target.closest('a[href="app.html"],a[href="index.html"]');if(l){e.preventDefault();parent.postMessage({type:'so-nav'},location.origin)}},true)}
 const SB_URL='https://ycqczfrphjhsnelivact.supabase.co';
 // Client ID приложения из Supabase > Authentication > OAuth Apps (нужен для входа через браузер в лаунчере)
 const OAUTH_CLIENT_ID='3b467d3a-9ea7-4c62-8aa9-e34dc7932563';
