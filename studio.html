@@ -296,6 +296,7 @@ button{border-color:transparent;background:var(--hi)}
 #ctx .sub{position:absolute;left:calc(100% + 4px);top:-6px;min-width:210px;padding:6px;background:#111113;border-radius:12px;box-shadow:0 16px 48px rgba(0,0,0,.55);display:none;flex-direction:column;gap:2px}
 #ctx .has:hover>.sub,#ctx .has.open>.sub{display:flex}#ctx.fl .sub{left:auto;right:calc(100% + 4px)}
 @media(max-width:700px){#rail{display:none}#brand{display:none}#tl{left:8px;top:calc(8px + var(--st))}#top{left:auto;right:8px;transform:none;top:calc(8px + var(--st))}#zw{left:8px;bottom:calc(72px + var(--sa))}#tl #curWs{max-width:90px}}
+@media(min-width:701px){html.emb #rail{display:none}html.emb #brand{left:12px}html.emb #tl{left:172px}html.emb #zw{left:12px}}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous"></script>
@@ -720,7 +721,7 @@ if(ov){
     vp.style.backgroundSize=(40*view.k)+'px '+(40*view.k)+'px';vp.style.backgroundPosition=view.x+'px '+view.y+'px';const zp=$('#zPct');if(zp)zp.textContent=Math.round(view.k*100)+'%'};
   const fitView=()=>{
     if(innerWidth<=700){const k=Math.max(.1,(innerWidth-24)/1920);view={k,x:12,y:Math.max(60,(innerHeight-130-1080*k)/2+40)}}
-    else{const k=Math.max(.1,Math.min((innerWidth-170)/1920,(innerHeight-190)/1080));view={k,x:Math.max(12,(innerWidth+52-1920*k)/2),y:Math.max(60,(innerHeight-1080*k-70)/2+20)}}
+    else{const k=Math.max(.1,Math.min((innerWidth-170)/1920,(innerHeight-190)/1080));view={k,x:Math.max(12,(innerWidth+(EMB?0:52)-1920*k)/2),y:Math.max(100,(innerHeight-1080*k-70)/2+20)}}
     apply()};
   const cur=()=>items.find(i=>i.id===sel);
   const FONTS=[['Manrope','Manrope'],['Bangers','Bangers'],['Pacifico','Pacifico'],['Press Start 2P','Pixel'],['Impact','Impact'],['Georgia','Georgia'],['Consolas','Mono'],['Monocraft','Minecraft']];
@@ -1042,6 +1043,7 @@ if(ov){
   const zoomBy=f=>{const k=clampK(view.k*f),r=k/view.k,cx=innerWidth/2,cy=innerHeight/2;view.x=cx-(cx-view.x)*r;view.y=cy-(cy-view.y)*r;view.k=k;apply()};
   $('#zOut').onclick=()=>zoomBy(1/1.25);$('#zIn').onclick=()=>zoomBy(1.25);apply();
   [['rWs','#curWs'],['rLayers','#menuB'],['rLink','#link'],['rFit','#fit']].forEach(([a,b])=>{$('#'+a).onclick=()=>$(b).click()});
+  addEventListener('message',e=>{if(!EMB||e.origin!==location.origin||e.source!==parent)return;const d=e.data;if(!d||d.type!=='so-cmd')return;const m={ws:'#curWs',layers:'#menuB',link:'#link',fit:'#fit'}[d.cmd];if(m)$(m).click()});
   const ctx=$('#ctx');let ctxPos={x:0,y:0};
   const hideCtx=()=>{ctx.hidden=true};
   const openCtx=(x,y,hasEl,pos)=>{

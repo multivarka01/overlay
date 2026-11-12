@@ -103,6 +103,21 @@ h3.sh{display:flex;align-items:baseline;gap:8px;margin:40px 0 4px;font:600 16px/
 #sb{border-right:0}.sel>button,.usr,.dlb{border-radius:12px}.card{border-radius:16px}
 #mn{background:var(--bg)}#mn.st{background:var(--bg)}
 .gi a.on,.gi a[aria-current]{background:rgba(255,255,255,.07)}
+#gS{display:none}body.stv #gS{display:block}
+.sbh{display:flex;justify-content:flex-end}
+@media(max-width:860px){.sbh{display:none}}
+@media(min-width:861px){
+#app{transition:grid-template-columns var(--d-base) var(--e)}
+body.sbc #app{grid-template-columns:68px 1fr}
+body.sbc #sb{padding:12px 10px;overflow:visible;gap:6px}
+body.sbc .sbh{justify-content:center}
+body.sbc .lb,body.sbc .sel .tx,body.sbc #selI,body.sbc .grp>button,body.sbc .usr b,body.sbc .usr .tag,body.sbc .usr>i{display:none!important}
+body.sbc .gw{grid-template-rows:1fr!important;visibility:visible!important}
+body.sbc .grp{margin-top:6px;padding-top:6px;border-top:1px solid var(--ln)}
+body.sbc .gi a,body.sbc .dlb{justify-content:center;padding:10px 0}
+body.sbc .sel>button,body.sbc .usr{justify-content:center;padding:8px 0}
+body.sbc .pop{right:auto;min-width:230px}
+}
 </style>
 </head>
 <body>
@@ -110,12 +125,15 @@ h3.sh{display:flex;align-items:baseline;gap:8px;margin:40px 0 4px;font:600 16px/
 <div id="app">
 <aside id="sb" aria-label="Меню панели">
  <div class="sbt"><span>Stream Overlay</span><button class="ib" id="sbx" type="button" aria-label="Закрыть меню"><i data-ic="x"></i></button></div>
+ <div class="sbh"><button class="ib" id="sbc" type="button" aria-label="Свернуть меню" title="Свернуть меню"><i data-ic="menu"></i></button></div>
  <div class="sel"><button id="selB" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="selM"><span id="selA"></span><span class="tx"><b id="selN">Загрузка…</b><small id="selS">Секунду</small></span><i id="selI"></i></button><div class="pop" id="selM"></div></div>
  <div class="grp"><button type="button" data-g aria-expanded="true" aria-controls="g1"><span>Дашборд</span><i data-ic="down" data-s="16"></i></button><div class="gw" id="g1"><div class="gi">
-  <a href="#home" data-r="home"><i data-ic="home"></i>Главная</a><a href="studio.html" id="nStudio" data-st=""><i data-ic="grid"></i>Студия</a><a href="#links" data-r="links"><i data-ic="link"></i>Ссылки для OBS</a></div></div></div>
+  <a href="#home" data-r="home"><i data-ic="home"></i><span class="lb">Главная</span></a><a href="studio.html" id="nStudio" data-st=""><i data-ic="grid"></i><span class="lb">Студия</span></a><a href="#links" data-r="links"><i data-ic="link"></i><span class="lb">Ссылки для OBS</span></a></div></div></div>
+ <div class="grp" id="gS"><button type="button" data-g aria-expanded="true" aria-controls="g3"><span>Сцена</span><i data-ic="down" data-s="16"></i></button><div class="gw" id="g3"><div class="gi">
+  <a href="#studio" data-sc="ws"><i data-ic="monitor"></i><span class="lb">Стримеры</span></a><a href="#studio" data-sc="layers"><i data-ic="layers"></i><span class="lb">Сцены и слои</span></a><a href="#studio" data-sc="link"><i data-ic="link"></i><span class="lb">Ссылка для OBS</span></a><a href="#studio" data-sc="fit"><i data-ic="fit"></i><span class="lb">Вид</span></a></div></div></div>
  <div class="grp"><button type="button" data-g aria-expanded="true" aria-controls="g2"><span>Добавить в оверлей</span><i data-ic="down" data-s="16"></i></button><div class="gw" id="g2"><div class="gi">
-  <a href="studio.html" data-st="text"><i data-ic="type"></i>Текст</a><a href="studio.html" data-st="timer"><i data-ic="timer"></i>Таймер</a><a href="studio.html" data-st="7tv"><i data-ic="smile"></i>7TV-эмодзи</a><a href="studio.html" data-st="web"><i data-ic="globe"></i>Браузер</a><a href="studio.html" data-st="twitch"><i data-ic="tv"></i>Чужой стрим</a></div></div></div>
- <div class="sbf"><a class="dlb" id="dl" href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe" rel="noopener"><i data-ic="dl"></i>Приложение для Windows</a>
+  <a href="studio.html" data-st="text"><i data-ic="type"></i><span class="lb">Текст</span></a><a href="studio.html" data-st="timer"><i data-ic="timer"></i><span class="lb">Таймер</span></a><a href="studio.html" data-st="7tv"><i data-ic="smile"></i><span class="lb">7TV-эмодзи</span></a><a href="studio.html" data-st="web"><i data-ic="globe"></i><span class="lb">Браузер</span></a><a href="studio.html" data-st="twitch"><i data-ic="tv"></i><span class="lb">Чужой стрим</span></a></div></div></div>
+ <div class="sbf"><a class="dlb" id="dl" href="https://github.com/multivarka01/overlay/releases/latest/download/Overlay-Studio-Setup.exe" rel="noopener"><i data-ic="dl"></i><span class="lb">Приложение для Windows</span></a>
   <button class="usr" id="usrB" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="usrM"><span id="usrA"></span><b id="usrN"></b><span class="tag">Старт</span><i data-ic="updown" data-s="16"></i></button>
   <div class="pop" id="usrM"><a href="index.html"><i data-ic="home" data-s="16"></i>На сайт</a><button type="button" id="out"><i data-ic="logout" data-s="16"></i>Выйти из аккаунта</button></div></div>
 </aside>
@@ -156,7 +174,7 @@ const mem={};
 function lsList(k){if(k in mem)return mem[k].slice();const r=parseList(lsg(k));if(r.bad&&lsg(k)!=null)lsr(k);return r.list}
 function lsSave(k,arr){const ok=lss(k,JSON.stringify(arr));if(ok)delete mem[k];else{mem[k]=arr.slice();toast('Браузер не даёт сохранить список (хранилище заполнено или отключено). Изменение действует до перезагрузки страницы.')}return ok}
 const chsGet=()=>lsList('hs-chs'),hidGet=()=>lsList('hs-hidden');
-const IC={home:'<path d="m3 11 9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',link:'<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>',type:'<path d="M4 7V4h16v3M9 20h6M12 4v16"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',smile:'<circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8"/>',down:'<path d="m6 9 6 6 6-6"/>',updown:'<path d="m7 15 5 5 5-5M7 9l5-5 5 5"/>',plus:'<path d="M12 5v14M5 12h14"/>',dl:'<path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/>',bolt:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>',cast:'<path d="M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 12a9 9 0 0 1 8 8M2 16a5 5 0 0 1 4 4M2 20h.01"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',alert:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/>',refresh:'<path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 12A9 9 0 0 1 18.5 5.8L21 8M21 3v5h-5M3 21v-5h5"/>',monitor:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',open:'<path d="M15 3h6v6M10 14 21 3M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/>'};
+const IC={layers:'<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>',fit:'<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',home:'<path d="m3 11 9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',link:'<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>',type:'<path d="M4 7V4h16v3M9 20h6M12 4v16"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',smile:'<circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8"/>',down:'<path d="m6 9 6 6 6-6"/>',updown:'<path d="m7 15 5 5 5-5M7 9l5-5 5 5"/>',plus:'<path d="M12 5v14M5 12h14"/>',dl:'<path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/>',bolt:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>',cast:'<path d="M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 12a9 9 0 0 1 8 8M2 16a5 5 0 0 1 4 4M2 20h.01"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',alert:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/>',refresh:'<path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 12A9 9 0 0 1 18.5 5.8L21 8M21 3v5h-5M3 21v-5h5"/>',monitor:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',open:'<path d="M15 3h6v6M10 14 21 3M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/>'};
 const ico=(n,s)=>'<svg viewBox="0 0 24 24" width="'+(s||18)+'" height="'+(s||18)+'" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[n]+'</svg>';
 const mk=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),m.length>70?5200:2800)}
@@ -414,6 +432,8 @@ function setNv(o){
   else if(!o&&was&&mob)$('#burger').focus({preventScroll:true});
 }
 const TITLES={home:'Панель · Stream Overlay',links:'Ссылки для OBS · Stream Overlay'};
+const SBK='hs-sbc';let stAuto=false;
+function setSbc(c,keep){document.body.classList.toggle('sbc',c);const b=$('#sbc');if(b){b.title=c?'Развернуть меню':'Свернуть меню';b.setAttribute('aria-label',b.title)}if(!keep)try{localStorage.setItem(SBK,c?'1':'0')}catch(e){}}
 let stKey='';
 const embedUrl=u=>u+(u.includes('?')?'&':'?')+'embed=1';
 function openStudio(s,add){
@@ -424,7 +444,8 @@ function openStudio(s,add){
 function route(still){
   if(!S.ready)return;
   const stOn=location.hash==='#studio',ns=$('#nStudio');
-  $('#mn').classList.toggle('st',stOn);
+  $('#mn').classList.toggle('st',stOn);document.body.classList.toggle('stv',stOn);
+  if(stOn&&!stAuto){stAuto=true;try{if(localStorage.getItem(SBK)===null)setSbc(true,true)}catch(e){}}
   if(stOn){
     if(!stKey){stKey=studioUrl(S.sel);$('#stf').src=embedUrl(stKey)}
     $$('[data-r]').forEach(x=>{x.classList.remove('on');x.removeAttribute('aria-current')});
@@ -540,6 +561,9 @@ function main(){
   };
   $('#pg').addEventListener('click',onAct);$('#selM').addEventListener('click',onAct);
   addEventListener('hashchange',()=>route(false));
+  try{if(localStorage.getItem(SBK)==='1')setSbc(true,true)}catch(e){}
+  $('#sbc').addEventListener('click',e=>{e.stopPropagation();setSbc(!document.body.classList.contains('sbc'))});
+  $('#sb').addEventListener('click',e=>{const l=e.target.closest('a[data-sc]');if(!l)return;e.preventDefault();const w=$('#stf').contentWindow;if(w)w.postMessage({type:'so-cmd',cmd:l.dataset.sc},location.origin);setNv(false)});
   /* Студия открывается внутри панели (iframe), без перехода на другую страницу */
   document.addEventListener('click',e=>{
     const l=e.target.closest('a[href^="studio.html"]');if(!l||e.defaultPrevented||e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;
