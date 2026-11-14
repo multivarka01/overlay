@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: twitch-badge-bot
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3
+      - key: MINE_MODE          # badges = only badges/emotes, all = every eligible campaign
+        value: badges
+      - key: TELEGRAM_TOKEN     # from @BotFather
+        sync: false
+      - key: ALLOWED_USER_ID    # your numeric Telegram id (@userinfobot)
+        sync: false
+      - key: SUPABASE_URL       # https://xxxx.supabase.co
+        sync: false
+      - key: SUPABASE_KEY       # secret / service_role key (never the anon key)
+        sync: false
+      - key: TWITCH_TOKEN       # optional: ready-made token instead of /login
+        sync: false
